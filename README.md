@@ -3,7 +3,7 @@ Terminal app for Papryos
 
 This is the terminal app for Papyros. The UI is build with our [Material Design framework](https://github.com/papyros/qml-material), and the backend is based on the [QMLTermWidget](https://github.com/Swordfish90/qmltermwidget) used in [cool-retro-term](https://github.com/Swordfish90/cool-retro-term).
 
-Brought to you by the [Papyros development team](https://github.com/papyros/papyros-terminal/graphs/contributors).
+Brought to you by the [Papyros development team](https://github.com/papyros/terminal-app/graphs/contributors).
 
 ### Dependencies
 
