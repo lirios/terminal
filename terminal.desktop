@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Terminal
+Comment=Terminal
+Exec=papyros-terminal
+Icon=utilities-terminal
+Terminal=True
+Type=Application
+Categories=Papyros;Apps;Utilities
