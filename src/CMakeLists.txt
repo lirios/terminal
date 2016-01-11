@@ -1,8 +1,11 @@
-# Tell CMake to create the helloworld executable
-add_executable(papyros-terminal main.cpp terminal.qrc)
+file(GLOB_RECURSE SOURCES *.cpp *.h papyros-terminal.qrc)
 
-# Use the Widgets module from Qt 5.
-target_link_libraries(papyros-terminal Qt5::Qml Qt5::Quick Qt5::Widgets)
+add_executable(papyros-terminal ${SOURCES})
+target_link_libraries(papyros-terminal
+                      Qt5::Core
+                      Qt5::Qml
+                      Qt5::Quick
+                      Qt5::Widgets)
 
-install(TARGETS papyros-terminal RUNTIME DESTINATION bin)
-
+install(TARGETS papyros-terminal
+        DESTINATION ${CMAKE_INSTALL_BINDIR})

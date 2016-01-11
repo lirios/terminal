@@ -5,9 +5,18 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
+    app.setOrganizationName("Papyros");
+    app.setOrganizationDomain("papyros.io");
+    app.setApplicationName("Terminal");
+
+    #if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
+        app.setDesktopFileName("io.papyros.Terminal.desktop");
+    #endif
+
+    // Set the X11 WML_CLASS so X11 desktops can find the desktop file
+    qputenv("RESOURCE_NAME", "io.papyros.Terminal");
+
+    QQmlApplicationEngine engine(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 
     return app.exec();
 }
-
