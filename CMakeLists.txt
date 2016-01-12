@@ -2,6 +2,8 @@ project(io.papyros.Terminal CXX)
 
 cmake_minimum_required(VERSION 3.0.0 FATAL_ERROR)
 
+ENABLE_LANGUAGE(C)
+
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
