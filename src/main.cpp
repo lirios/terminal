@@ -1,5 +1,7 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
+#include "ActionHandler.h"
+#include <QQmlContext>
 
 int main(int argc, char *argv[])
 {
@@ -16,7 +18,13 @@ int main(int argc, char *argv[])
     // Set the X11 WML_CLASS so X11 desktops can find the desktop file
     qputenv("RESOURCE_NAME", "io.papyros.Terminal");
 
-    QQmlApplicationEngine engine(QUrl(QStringLiteral("qrc:/qml/main.qml")));
+    QQmlApplicationEngine engine;
+
+    ActionHandler actionHandler;
+
+    QQmlContext* ctx = engine.rootContext();
+    ctx->setContextProperty("actionHandler", &actionHandler);
+    engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 
     return app.exec();
 }

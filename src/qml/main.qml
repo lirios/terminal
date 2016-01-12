@@ -62,11 +62,15 @@ ApplicationWindow {
                 text: qsTr("Open new tab")
                 shortcut: StandardKey.AddTab
 
-                onTriggered: console.log("New tab.");
+                onTriggered: console.log("New tab");
             },
             Action {
                 iconName: "action/open_in_new"
                 text: qsTr("Open new window")
+                onTriggered: {
+                    actionHandler.newWindow();
+                    console.log("New window")
+                }
             },
             Action {
                 iconName: "content/content_paste"
