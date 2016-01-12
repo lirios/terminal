@@ -8,6 +8,7 @@ ApplicationWindow {
     width: 640
     height: 480
     visible: true
+    title: mainsession.title
 
     theme {
         primaryColor: "orange"
