@@ -67,6 +67,7 @@ ApplicationWindow {
             Action {
                 iconName: "action/open_in_new"
                 text: qsTr("Open new window")
+                shortcut: "ctrl+N"
                 onTriggered: {
                     actionHandler.newWindow();
                     console.log("New window")
@@ -108,7 +109,6 @@ ApplicationWindow {
 
     FontDialog {
         id: fontDialog
-
         font: terminal.font
         onAccepted: {
             terminal.font = fontDialog.font;
