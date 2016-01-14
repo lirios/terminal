@@ -8,6 +8,7 @@ ApplicationWindow {
     width: 640
     height: 480
     visible: true
+    id: mainWindow
     title: mainsession.title
 
     theme {
@@ -67,7 +68,7 @@ ApplicationWindow {
             Action {
                 iconName: "action/open_in_new"
                 text: qsTr("Open new window")
-                shortcut: "ctrl+N"
+                shortcut: "ctrl+Shift+N"
                 onTriggered: {
                     actionHandler.newWindow();
                     console.log("New window")
@@ -86,7 +87,7 @@ ApplicationWindow {
             Action {
                 iconName: "action/settings"
                 text: qsTr("Settings")
-                onTriggered: fontDialog.open();
+                onTriggered: settingsWindow.show();
             }
         ]
 
@@ -107,13 +108,31 @@ ApplicationWindow {
         }
     }
 
-    FontDialog {
-        id: fontDialog
-        font: terminal.font
-        onAccepted: {
-            terminal.font = fontDialog.font;
+    Component.onCompleted: terminal.forceActiveFocus();
+
+
+    ApplicationWindow {
+        width: 400
+        height: 400
+        visible: false
+        id: settingsWindow
+        title: "Settings"
+
+        theme {
+                primaryColor: "orange"
+        }
+
+        initialPage: Page {
+            title: "Settings"
+
+
+            FontDialog {
+                id: fontDialog
+                font: terminal.font
+                onAccepted: {
+                    terminal.font = fontDialog.font;
+                }
+            }
         }
     }
-
-    Component.onCompleted: terminal.forceActiveFocus();
 }
