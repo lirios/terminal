@@ -14,10 +14,13 @@ ApplicationWindow {
 
     property var defaultOpacity: 100
     property var defaultFontSize: 10
+    property var defaultPrimaryColor: Palette.colors["orange"]["500"]
+    property var defaultAccentColor: Palette.colors["blue"]["500"]
     property string defaultFontFamily: "RobotoMono"
 
     theme {
-        primaryColor: "orange"
+        primaryColor: defaultPrimaryColor
+        accentColor: defaultAccentColor
     }
 
     Action{
@@ -109,12 +112,13 @@ ApplicationWindow {
             }
             onTerminalUsesMouseChanged: console.log(terminalUsesMouse);
             onTerminalSizeChanged: console.log(terminalSize);
-            Component.onCompleted: mainsession.startShellProgram();
+            Component.onCompleted: {
+                mainsession.startShellProgram();
+                terminal.setBackgroundColor("red")
+            }
         }
     }
-
     Component.onCompleted: terminal.forceActiveFocus();
-
 
     //TODO: settings are not saved yet
     ApplicationWindow {
@@ -140,7 +144,6 @@ ApplicationWindow {
                 numericValueLabel: true
                 minimumValue: 0
                 maximumValue: 100
-                darkBackground: index == 1
                 onValueChanged: mainWindow.opacity = 0.01 * value
             }
             Label {
@@ -159,7 +162,6 @@ ApplicationWindow {
                 numericValueLabel: true
                 minimumValue: 2
                 maximumValue: 32
-                darkBackground: index == 1
                 onValueChanged: terminal.font.pointSize = value
             }
             Label {
@@ -178,11 +180,20 @@ ApplicationWindow {
                 elevation: 1
                 onClicked: fontDialog.open()
             }
-
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: fontButton.bottom
-                anchors.topMargin: 16
+                anchors.topMargin: 8
+                id: themeButton
+                text: "SET THEME COLORS"
+                elevation: 1
+                onClicked: colorPicker.open()
+            }
+
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: themeButton.bottom
+                anchors.topMargin: 24
                 id: resetButton
                 text: "RESET ALL TO DEFAULT"
                 elevation: 1
@@ -191,9 +202,65 @@ ApplicationWindow {
                     fontButton.text = "FONT: " + terminal.font.family
                     opacitySlider.value = defaultOpacity
                     fontSizeSlider.value = defaultFontSize
+                    theme.primaryColor = defaultPrimaryColor
+                    theme.accentColor = defaultAccentColor
                 }
             }
         }
+
+        //TODO: either create simple interface for changing terminal colors or support switching terminal color schemes
+        Dialog {
+            id: colorPicker
+            title: "Pick color"
+
+            positiveButtonText: "Done"
+
+            MenuField {
+                id: selection
+                model: ["Primary color", "Accent color"]
+                width: Units.dp(160)
+            }
+
+            Grid {
+                columns: 7
+                spacing: Units.dp(8)
+
+                Repeater {
+                    model: [
+                        "red", "pink", "purple", "deepPurple", "indigo",
+                        "blue", "lightBlue", "cyan", "teal", "green",
+                        "lightGreen", "lime", "yellow", "amber", "orange",
+                        "deepOrange", "grey", "blueGrey", "brown", "black",
+                        "white"
+                    ]
+
+                    Rectangle {
+                        width: Units.dp(30)
+                        height: Units.dp(30)
+                        radius: Units.dp(2)
+                        color: Palette.colors[modelData]["500"]
+                        border.width: modelData === "white" ? Units.dp(2) : 0
+                        border.color: Theme.alpha("#000", 0.26)
+
+                        Ink {
+                            anchors.fill: parent
+
+                            onPressed: {
+                                switch(selection.selectedIndex) {
+                                    case 0:
+                                        theme.primaryColor = parent.color
+                                        break;
+                                    case 1:
+                                        theme.accentColor = parent.color
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         FontDialog {
             id: fontDialog
             font: terminal.font
