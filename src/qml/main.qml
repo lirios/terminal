@@ -3,6 +3,7 @@ import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
 import QMLTermWidget 1.0
 import Material 0.1
+import QtQuick.Layouts 1.1
 
 ApplicationWindow {
     width: 640
@@ -10,6 +11,10 @@ ApplicationWindow {
     visible: true
     id: mainWindow
     title: mainsession.title
+
+    property var defaultOpacity: 100
+    property var defaultFontSize: 10
+    property string defaultFontFamily: "RobotoMono"
 
     theme {
         primaryColor: "orange"
@@ -111,9 +116,10 @@ ApplicationWindow {
     Component.onCompleted: terminal.forceActiveFocus();
 
 
+    //TODO: settings are not saved yet
     ApplicationWindow {
-        width: 400
-        height: 400
+        width: 300
+        height: 350
         visible: false
         id: settingsWindow
         title: "Settings"
@@ -124,14 +130,75 @@ ApplicationWindow {
 
         initialPage: Page {
             title: "Settings"
+            //TODO: this should change background opacity, not entire window opacity
+            Slider {
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: parent.top
+                id: opacitySlider
+                value: 100
+                stepSize: 1
+                numericValueLabel: true
+                minimumValue: 0
+                maximumValue: 100
+                darkBackground: index == 1
+                onValueChanged: mainWindow.opacity = 0.01 * value
+            }
+            Label {
+                id: opacityLabel
+                text: "Opacity"
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: opacitySlider.bottom
+            }
 
+            Slider {
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: opacityLabel.bottom
+                id: fontSizeSlider
+                value: 10
+                stepSize: 1
+                numericValueLabel: true
+                minimumValue: 2
+                maximumValue: 32
+                darkBackground: index == 1
+                onValueChanged: terminal.font.pointSize = value
+            }
+            Label {
+                id: fontSizeLabel
+                text: "Font size"
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: fontSizeSlider.bottom
+            }
+            //TODO: create custom font dialog (optionally it should only display monospaced fonts)
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: fontSizeLabel.bottom
+                anchors.topMargin: 24
+                id: fontButton
+                text: "FONT: " + terminal.font.family
+                elevation: 1
+                onClicked: fontDialog.open()
+            }
 
-            FontDialog {
-                id: fontDialog
-                font: terminal.font
-                onAccepted: {
-                    terminal.font = fontDialog.font;
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: fontButton.bottom
+                anchors.topMargin: 16
+                id: resetButton
+                text: "RESET ALL TO DEFAULT"
+                elevation: 1
+                onClicked: {
+                    terminal.font = defaultFontFamily
+                    fontButton.text = "FONT: " + terminal.font.family
+                    opacitySlider.value = defaultOpacity
+                    fontSizeSlider.value = defaultFontSize
                 }
+            }
+        }
+        FontDialog {
+            id: fontDialog
+            font: terminal.font
+            onAccepted: {
+                terminal.font = fontDialog.font;
             }
         }
     }
