@@ -52,10 +52,11 @@ ApplicationWindow {
         onTriggered: terminal.pasteClipboard();
     }
 
-    Action {
-        shortcut: "Ctrl+F"
-        onTriggered: searchButton.visible = !searchButton.visible
-    }
+    // TODO: Implement search
+    // Action {
+    //     shortcut: "Ctrl+F"
+    //     onTriggered: searchButton.visible = !searchButton.visible
+    // }
 
     Action {
         shortcut: StandardKey.FullScreen
@@ -83,6 +84,13 @@ ApplicationWindow {
         title: "Terminal"
 
         actions: [
+            // TODO: Only show when a physical keyboard is not available
+            // Action {
+            //     iconName: "content/content_paste"
+            //     text: qsTr("Paste")
+            //     shortcut: StandardKey.Paste
+            //     onTriggered: terminal.pasteClipboard();
+            // },
             // TODO: Renable when tabs support is added
             // Action {
             //     iconName: "content/add"
@@ -94,22 +102,17 @@ ApplicationWindow {
             Action {
                 iconName: "action/open_in_new"
                 text: qsTr("Open new window")
-                shortcut: "ctrl+Shift+N"
+                shortcut: "Ctrl+Shift+N"
                 onTriggered: {
                     actionHandler.newWindow();
                     console.log("New window")
                 }
             },
-            Action {
-                iconName: "content/content_paste"
-                text: qsTr("Paste")
-                shortcut: StandardKey.Paste
-                onTriggered: terminal.pasteClipboard();
-            },
-            Action {
-                iconName: "action/search"
-                text: qsTr("Search")
-            },
+            // TODO: Implement search
+            // Action {
+            //     iconName: "action/search"
+            //     text: qsTr("Search")
+            // },
             Action {
                 iconName: "action/settings"
                 text: qsTr("Settings")
@@ -122,8 +125,8 @@ ApplicationWindow {
 
             anchors.centerIn: parent
 
-            width: parent.width * Screen.devicePixelRatio
-            height: parent.height * Screen.devicePixelRatio
+            width: parent.width * Screen.devicePixelRatio + 2
+            height: parent.height * Screen.devicePixelRatio + 2
             scale: 1/Screen.devicePixelRatio
 
             font.family: settings.fontFamily
