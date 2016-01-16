@@ -4,6 +4,7 @@ import QtQuick.Dialogs 1.2
 import QMLTermWidget 1.0
 import Material 0.1
 import QtQuick.Layouts 1.1
+import Qt.labs.settings 1.0
 
 ApplicationWindow {
     width: 640
@@ -18,9 +19,18 @@ ApplicationWindow {
     property var defaultAccentColor: Palette.colors["blue"]["500"]
     property string defaultFontFamily: "RobotoMono"
 
+    Settings {
+        id: settings
+        property alias opacity: mainWindow.opacity
+        property var primaryColor: defaultPrimaryColor
+        property var accentColor: defaultAccentColor
+        property var fontFamily: defaultFontFamily
+        property var fontSize: defaultFontSize
+    }
+
     theme {
-        primaryColor: defaultPrimaryColor
-        accentColor: defaultAccentColor
+        primaryColor: settings.primaryColor
+        accentColor: settings.accentColor
     }
 
     Action{
@@ -102,19 +112,17 @@ ApplicationWindow {
         QMLTermWidget {
             id: terminal
             anchors.fill: parent
-            font.family: "Roboto Mono"
-            font.pointSize: 10
+            font.family: settings.fontFamily
+            font.pointSize: settings.fontSize
             colorScheme: "cool-retro-term"
             session: QMLTermSession{
                 id: mainsession
                 initialWorkingDirectory: "$HOME"
                 onFinished: Qt.quit()
             }
-            onTerminalUsesMouseChanged: console.log(terminalUsesMouse);
-            onTerminalSizeChanged: console.log(terminalSize);
             Component.onCompleted: {
                 mainsession.startShellProgram();
-                terminal.setBackgroundColor("red")
+                opacitySlider.value = 100 * mainWindow.opacity
             }
         }
     }
@@ -139,10 +147,9 @@ ApplicationWindow {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: parent.top
                 id: opacitySlider
-                value: 100
                 stepSize: 1
                 numericValueLabel: true
-                minimumValue: 0
+                minimumValue: 10
                 maximumValue: 100
                 onValueChanged: mainWindow.opacity = 0.01 * value
             }
@@ -157,12 +164,12 @@ ApplicationWindow {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: opacityLabel.bottom
                 id: fontSizeSlider
-                value: 10
                 stepSize: 1
+                value: settings.fontSize
                 numericValueLabel: true
                 minimumValue: 2
                 maximumValue: 32
-                onValueChanged: terminal.font.pointSize = value
+                onValueChanged: settings.fontSize = value
             }
             Label {
                 id: fontSizeLabel
@@ -176,7 +183,7 @@ ApplicationWindow {
                 anchors.top: fontSizeLabel.bottom
                 anchors.topMargin: 24
                 id: fontButton
-                text: "FONT: " + terminal.font.family
+                text: "FONT FAMILY: " + settings.fontFamily
                 elevation: 1
                 onClicked: fontDialog.open()
             }
@@ -198,12 +205,11 @@ ApplicationWindow {
                 text: "RESET ALL TO DEFAULT"
                 elevation: 1
                 onClicked: {
-                    terminal.font = defaultFontFamily
-                    fontButton.text = "FONT: " + terminal.font.family
+                    settings.fontFamily = defaultFontFamily
                     opacitySlider.value = defaultOpacity
                     fontSizeSlider.value = defaultFontSize
-                    theme.primaryColor = defaultPrimaryColor
-                    theme.accentColor = defaultAccentColor
+                    settings.primaryColor = defaultPrimaryColor
+                    settings.accentColor = defaultAccentColor
                 }
             }
         }
@@ -248,10 +254,10 @@ ApplicationWindow {
                             onPressed: {
                                 switch(selection.selectedIndex) {
                                     case 0:
-                                        theme.primaryColor = parent.color
+                                        settings.primaryColor = parent.color
                                         break;
                                     case 1:
-                                        theme.accentColor = parent.color
+                                        settings.accentColor = parent.color
                                         break;
                                 }
                             }
@@ -265,7 +271,7 @@ ApplicationWindow {
             id: fontDialog
             font: terminal.font
             onAccepted: {
-                terminal.font = fontDialog.font;
+                settings.fontFamily = fontDialog.font.family;
             }
         }
     }
