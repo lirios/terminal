@@ -129,9 +129,14 @@ ApplicationWindow {
         QMLTermWidget {
             id: terminal
 
-            anchors.fill: parent
+            anchors.centerIn: parent
+
+            width: parent.width * Screen.devicePixelRatio
+            height: parent.height * Screen.devicePixelRatio
+            scale: 1/Screen.devicePixelRatio
+
             font.family: settings.fontFamily
-            font.pointSize: settings.fontSize
+            font.pointSize: settings.fontSize * Screen.devicePixelRatio
             colorScheme: "cool-retro-term"
 
             session: QMLTermSession {
