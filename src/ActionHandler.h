@@ -1,14 +1,29 @@
-//
-// Created by zigapk on 12.1.2016.
-//
+/*
+ * Papyros Terminal - The terminal app for Papyros following Material Design
+ * Copyright (C) 2016 Žiga Patačko Koderman <ziga.patacko@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 
-#ifndef IO_PAPYROS_TERMINAL_RECEIVER_H
-#define IO_PAPYROS_TERMINAL_RECEIVER_H
+#ifndef ACTION_HANDLER_H
+#define ACTION_HANDLER_H
 
 #include <QtCore/qplugin.h>
 #include <QObject>
 
-class ActionHandler : public QObject {
+class ActionHandler : public QObject
+{
     Q_OBJECT
 public:
     explicit ActionHandler(QObject *parent = 0);
@@ -16,5 +31,4 @@ public slots:
     void newWindow();
 };
 
-
-#endif //IO_PAPYROS_TERMINAL_RECEIVER_H
+#endif // ACTION_HANDLER_H
