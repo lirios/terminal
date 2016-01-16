@@ -38,6 +38,8 @@ find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
              Quick
              Widgets)
 
+find_package(Papyros)
+
 # Install the desktop and appdata files
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/${PROJECT_NAME}.desktop
         DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)

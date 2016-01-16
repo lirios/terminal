@@ -22,14 +22,9 @@ import QtQuick.Window 2.2
 import QMLTermWidget 1.0
 import Material 0.1
 import QtQuick.Layouts 1.1
-import Qt.labs.settings 1.0
 
 ApplicationWindow {
     id: mainWindow
-
-    property int defaultOpacity: 100
-    property int defaultFontSize: 11
-    property string defaultFontFamily: "RobotoMono"
 
     title: mainsession.title
     visible: true
@@ -43,11 +38,6 @@ ApplicationWindow {
 
     Settings {
         id: settings
-
-        property string fontFamily: defaultFontFamily
-        property int fontSize: defaultFontSize
-        property int opacity: defaultOpacity
-
         // TODO: This is the way to do it, but the method is not invokable from QML
         // onOpacityChanged: terminal.setOpacity(opacity)
     }
@@ -81,25 +71,26 @@ ApplicationWindow {
 
     Action {
         shortcut: StandardKey.ZoomIn
-        onTriggered: terminal.font.pointSize++
+        onTriggered: settings.fontSize++
     }
 
     Action {
         shortcut: StandardKey.ZoomOut
-        onTriggered: terminal.font.pointSize--
+        onTriggered: settings.fontSize--
     }
 
     initialPage: Page {
         title: "Terminal"
 
         actions: [
-            Action {
-                iconName: "content/add"
-                text: qsTr("Open new tab")
-                shortcut: StandardKey.AddTab
-
-                onTriggered: console.log("New tab");
-            },
+            // TODO: Renable when tabs support is added
+            // Action {
+            //     iconName: "content/add"
+            //     text: qsTr("Open new tab")
+            //     shortcut: StandardKey.AddTab
+            //
+            //     onTriggered: console.log("New tab");
+            // },
             Action {
                 iconName: "action/open_in_new"
                 text: qsTr("Open new window")
@@ -142,6 +133,7 @@ ApplicationWindow {
             session: QMLTermSession {
                 id: mainsession
                 initialWorkingDirectory: "$HOME"
+                shellProgram: settings.shellProgram
                 onFinished: Qt.quit()
             }
 

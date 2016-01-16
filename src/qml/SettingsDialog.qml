@@ -27,7 +27,13 @@ import Material.ListItems 0.1 as ListItem
 Dialog {
     title: "Settings"
 
-    height: parent.height * 0.7
+    height: Math.min(parent.height * 0.7, Units.dp(400))
+
+    onAccepted: {
+        settings.fontSize = fontSizeSlider.value
+        settings.fontFamily = fontListItem.subText
+        settings.shellProgram = shellProgramTextField.text
+    }
 
     Column {
         id: settingsList
@@ -54,6 +60,7 @@ Dialog {
 
         ListItem.Subtitled {
             text: "Font size"
+            valueText: fontSizeSlider.value
 
             content: Slider {
                 id: fontSizeSlider
@@ -65,15 +72,26 @@ Dialog {
                 value: settings.fontSize
                 minimumValue: 2
                 maximumValue: 32
-
-                onValueChanged: settings.fontSize = value
             }
         }
 
         ListItem.Subtitled {
+            id: fontListItem
             text: "Font family"
             subText: settings.fontFamily
             onClicked: fontDialog.open()
+        }
+
+        ListItem.Subtitled {
+            content: TextField {
+                id: shellProgramTextField
+
+                width: parent.width
+                anchors.verticalCenter: parent.verticalCenter
+                floatingLabel: true
+                placeholderText: "Shell program"
+                text: settings.shellProgram
+            }
         }
     }
 
@@ -81,7 +99,7 @@ Dialog {
         id: fontDialog
         font: terminal.font
         onAccepted: {
-            settings.fontFamily = fontDialog.font.family;
+            fontListItem.subText = fontDialog.font.family
         }
     }
 }
