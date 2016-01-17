@@ -96,6 +96,7 @@ Dialog {
         }
     }
 
+    //TODO: only monospaced fonts should be displayed
     Dialog {
             id: fontDialog
             title: "Select Font"
