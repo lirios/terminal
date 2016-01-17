@@ -26,6 +26,7 @@ class ActionHandler : public QObject
 {
     Q_OBJECT
 public:
+    std::string binaryOrigin = "";
     explicit ActionHandler(QObject *parent = 0);
 public slots:
     void newWindow();

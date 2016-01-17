@@ -25,5 +25,5 @@ ActionHandler::ActionHandler(QObject *parent) : QObject(parent)
 
 void ActionHandler::newWindow()
 {
-    system("papyros-terminal &");
+    system((binaryOrigin + " &").c_str());
 }

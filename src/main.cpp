@@ -49,6 +49,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     ActionHandler actionHandler;
+    actionHandler.binaryOrigin = argv[0];
 
     QQmlContext *ctx = engine.rootContext();
     ctx->setContextProperty("actionHandler", &actionHandler);
