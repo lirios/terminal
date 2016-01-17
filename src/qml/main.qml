@@ -20,7 +20,7 @@
 import QtQuick 2.4
 import QtQuick.Window 2.2
 import QMLTermWidget 1.0
-import Material 0.1
+import Material 0.2
 import QtQuick.Layouts 1.1
 import Papyros.Core 0.1
 

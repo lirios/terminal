@@ -20,7 +20,7 @@
 import QtQuick 2.2
 import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
-import Material 0.1
+import Material 0.2
 import Material.Extras 0.1
 import Material.ListItems 0.1 as ListItem
 
