@@ -16,18 +16,23 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Papyros.Core 0.1
+#ifndef CLIPBOARD_H
+#define CLIPBOARD_H
 
-KQuickConfig {
-    id: settings
+#include <QObject>
+#include <QClipboard>
 
-    file: "papyros-terminal"
-    group: "general"
-    defaults: {
-        "shellProgram": "/usr/bin/bash",
-        "fontFamily": "Roboto Mono for Powerline",
-        "fontSize": 11,
-        "opacity": 100,
-        "hideSudoWarning": "false"
-    }
-}
+class Clipboard : public QObject
+{
+    Q_OBJECT
+
+public:
+    explicit Clipboard(QObject *parent = 0);
+
+    Q_INVOKABLE QString text() const;
+
+private:
+    QClipboard *m_clipboard = nullptr;
+};
+
+#endif // ACTION_HANDLER_H

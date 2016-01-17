@@ -22,6 +22,7 @@ import QtQuick.Window 2.2
 import QMLTermWidget 1.0
 import Material 0.1
 import QtQuick.Layouts 1.1
+import Papyros.Core 0.1
 
 ApplicationWindow {
     id: mainWindow
@@ -32,6 +33,14 @@ ApplicationWindow {
     theme {
         primaryColor: Palette.colors.blueGrey["800"]
         primaryDarkColor: Palette.colors.blueGrey["900"]
+    }
+
+    function pasteClipboard() {
+        if (clipboard.text().indexOf("sudo") == 0 && settings.hideSudoWarning != "true") {
+            sudoWarningDialog.show()
+        } else {
+            terminal.pasteClipboard()
+        }
     }
 
     Component.onCompleted: terminal.forceActiveFocus();
@@ -49,7 +58,7 @@ ApplicationWindow {
 
     Action {
         shortcut: "Ctrl+Shift+V"
-        onTriggered: terminal.pasteClipboard();
+        onTriggered: pasteClipboard()
     }
 
     // TODO: Implement search
@@ -89,7 +98,7 @@ ApplicationWindow {
             //     iconName: "content/content_paste"
             //     text: qsTr("Paste")
             //     shortcut: StandardKey.Paste
-            //     onTriggered: terminal.pasteClipboard();
+            //     onTriggered: pasteClipboard()
             // },
             // TODO: Renable when tabs support is added
             // Action {
@@ -144,6 +153,56 @@ ApplicationWindow {
                 mainsession.startShellProgram();
             }
         }
+    }
+
+    Clipboard {
+        id: clipboard
+    }
+
+    Dialog {
+        id: sudoWarningDialog
+
+        title: "This command is asking for administrative access to your computer"
+        text: "Copying commands from the internet can be dangerous. Be sure you understand what this command does before running it:"
+
+        positiveButtonText: "Paste Anyway"
+        negativeButtonText: "Don't Paste"
+
+        positiveButton.textColor: Palette.colors["red"]["500"]
+
+        width: Units.dp(410)
+
+        Item {
+            width: parent.width
+            height: textLabel.height
+
+            Rectangle {
+                id: bar
+                width: Units.dp(3)
+                height: parent.height
+                radius: width/2
+                color: textLabel.color
+            }
+
+            Label {
+                id: textLabel
+
+                anchors {
+                    left: bar.right
+                    right: parent.right
+                    leftMargin: Units.dp(8)
+                }
+
+                wrapMode: Text.Wrap
+                font.family: settings.fontFamily
+                font.pixelSize: Units.dp(16)
+                color: Theme.light.subTextColor
+            }
+        }
+
+        onAccepted: terminal.pasteClipboard()
+
+        onOpened: textLabel.text = clipboard.text().trim()
     }
 
     SettingsDialog {

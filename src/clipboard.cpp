@@ -16,18 +16,16 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Papyros.Core 0.1
+#include "clipboard.h"
 
-KQuickConfig {
-    id: settings
+#include <QApplication>
 
-    file: "papyros-terminal"
-    group: "general"
-    defaults: {
-        "shellProgram": "/usr/bin/bash",
-        "fontFamily": "Roboto Mono for Powerline",
-        "fontSize": 11,
-        "opacity": 100,
-        "hideSudoWarning": "false"
-    }
+Clipboard::Clipboard(QObject *parent) : QObject(parent), m_clipboard(QApplication::clipboard())
+{
+    // Nothing needed here
+}
+
+QString Clipboard::text() const
+{
+    return m_clipboard->text();
 }

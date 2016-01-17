@@ -23,6 +23,7 @@
 #include <Papyros/KQuickConfig>
 
 #include "ActionHandler.h"
+#include "clipboard.h"
 
 int main(int argc, char *argv[])
 {
@@ -41,6 +42,9 @@ int main(int argc, char *argv[])
 
     // TODO: Remove after we add a QML module directly to Papyros.Core
     qmlRegisterType<KQuickConfig>("Papyros.Core", 0, 1, "KQuickConfig");
+
+    // TODO: Move this to Papyros.Core
+    qmlRegisterType<Clipboard>("Papyros.Core", 0, 1, "Clipboard");
 
     QQmlApplicationEngine engine;
 
