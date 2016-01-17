@@ -23,6 +23,7 @@ import QtQuick.Dialogs 1.2
 import Material 0.2
 import Material.Extras 0.1
 import Material.ListItems 0.1 as ListItem
+import QtQuick.Controls 1.3 as QuickControls
 
 Dialog {
     title: "Settings"
@@ -95,11 +96,27 @@ Dialog {
         }
     }
 
-    FontDialog {
-        id: fontDialog
-        font: terminal.font
-        onAccepted: {
-            fontListItem.subText = fontDialog.font.family
+    Dialog {
+            id: fontDialog
+            title: "Select Font"
+            hasActions: false
+            height: settingsDialog.height - 32
+            width: settingsDialog.width - 32
+
+            ListView {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                height: fontDialog.height
+
+                model: Qt.fontFamilies()
+                delegate: ListItem.Standard {
+                    width: ListView.view.width
+                    text: modelData
+                    onClicked: {
+                        fontListItem.subText = text;
+                        fontDialog.close();
+                    }
+                }
+            }
         }
-    }
 }
