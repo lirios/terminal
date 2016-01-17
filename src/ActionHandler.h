@@ -19,17 +19,19 @@
 #ifndef ACTION_HANDLER_H
 #define ACTION_HANDLER_H
 
-#include <QtCore/qplugin.h>
 #include <QObject>
 
 class ActionHandler : public QObject
 {
     Q_OBJECT
 public:
-    std::string binaryOrigin = "";
-    explicit ActionHandler(QObject *parent = 0);
+    explicit ActionHandler(QString action, QObject *parent = 0);
+
 public slots:
-    void newWindow();
+    bool newWindow();
+
+private:
+    QString m_action;
 };
 
 #endif // ACTION_HANDLER_H

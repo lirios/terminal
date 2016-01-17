@@ -18,12 +18,14 @@
 
 #include "ActionHandler.h"
 
-ActionHandler::ActionHandler(QObject *parent) : QObject(parent)
+#include <QProcess>
+
+ActionHandler::ActionHandler(QString action, QObject *parent) : QObject(parent), m_action(action)
 {
     // Nothing needed here
 }
 
-void ActionHandler::newWindow()
+bool ActionHandler::newWindow()
 {
-    system((binaryOrigin + " &").c_str());
+    return QProcess::startDetached(m_action);
 }
