@@ -105,6 +105,7 @@ Dialog {
             width: settingsDialog.width - 32
 
             ListView {
+                id: fontListView
                 anchors.left: parent.left
                 anchors.right: parent.right
                 height: fontDialog.height
@@ -113,6 +114,7 @@ Dialog {
                 delegate: ListItem.Standard {
                     width: ListView.view.width
                     text: modelData
+                    selected: fontListItem.subText == text
                     onClicked: {
                         fontListItem.subText = text;
                         fontDialog.close();
