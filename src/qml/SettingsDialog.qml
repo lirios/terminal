@@ -98,28 +98,30 @@ Dialog {
 
     //TODO: only monospaced fonts should be displayed
     Dialog {
-            id: fontDialog
-            title: "Select Font"
-            hasActions: false
-            height: settingsDialog.height - 32
-            width: settingsDialog.width - 32
+        id: fontDialog
+        title: "Select Font"
+        hasActions: false
+        height: settingsDialog.height - 32
+        width: settingsDialog.width - 32
 
-            ListView {
-                id: fontListView
-                anchors.left: parent.left
-                anchors.right: parent.right
-                height: fontDialog.height
+        ListView {
+            id: fontListView
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: fontDialog.height
 
-                model: Qt.fontFamilies()
-                delegate: ListItem.Standard {
-                    width: ListView.view.width
-                    text: modelData
-                    selected: fontListItem.subText == text
-                    onClicked: {
-                        fontListItem.subText = text;
-                        fontDialog.close();
-                    }
+            model: Qt.fontFamilies()
+            delegate: ListItem.Standard {
+                id: fontListItem
+                width: ListView.view.width
+                text: modelData
+                selected: fontListItem.subText == text
+
+                onClicked: {
+                    fontListItem.subText = text;
+                    fontDialog.close();
                 }
             }
         }
+    }
 }

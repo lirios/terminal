@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Terminal
 Comment=Use the command line
-Keywords=shell;prompt;command;commandline;cmd;
+Keywords=shell;prompt;command;commandline;cmd;terminal
 Exec=papyros-terminal
 Icon=utilities-terminal
 Terminal=false
