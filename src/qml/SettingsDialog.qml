@@ -96,26 +96,38 @@ Dialog {
         }
     }
 
-    //TODO: only monospaced fonts should be displayed
     Dialog {
         id: fontDialog
         title: "Select Font"
         hasActions: false
-        height: settingsDialog.height - 32
-        width: settingsDialog.width - 32
+        height: settingsDialog.height - Units.dp(32)
+        width: settingsDialog.width - Units.dp(32)
 
         ListView {
             id: fontListView
             anchors.left: parent.left
             anchors.right: parent.right
+            anchors.margins: Units.dp(-24)
             height: fontDialog.height
 
             model: Qt.fontFamilies()
             delegate: ListItem.Standard {
-                id: fontListItem
-                width: ListView.view.width
+                id: listItem
                 text: modelData
                 selected: fontListItem.subText == text
+
+                // TODO: Is there a better way to do this
+                visible: text.toLowerCase().indexOf('mono') != -1
+                height: visible ? implicitHeight : 0
+
+                secondaryItem: [
+                    Icon {
+                        anchors.centerIn: parent
+                        name: "navigation/check"
+                        color: Theme.primaryColor
+                        visible: listItem.selected
+                    }
+                ]
 
                 onClicked: {
                     fontListItem.subText = text;
