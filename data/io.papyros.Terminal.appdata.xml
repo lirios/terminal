@@ -19,7 +19,23 @@
    Validate with `appstream-util validate *.appdata.xml`
   -->
   <releases>
-    <!-- TODO: Add a release here -->
+    <release version="0.1" timestamp="1453168063">
+      <description>
+        First release of the app. Features include:
+
+        <ul>
+          <li>Basic terminal features</li>
+          <li>Warning on pasting commands with sudo</li>
+          <li>Settings dialog with the following settings:
+            <ul>
+              <li>Shell</li>
+              <li>Font family and size</li>
+            </ul>
+          </li>
+          <li>Open new terminal window</li>
+        </ul>
+      </description>
+​    </release>
   </releases>
   <kudos>
     <!-- TODO: Figure out kudos for Papyros -->

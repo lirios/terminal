@@ -13,16 +13,21 @@ Brought to you by the [Papyros development team](https://github.com/papyros/term
  * [QML Material](https://github.com/papyros/qml-material)
  * [libpapyros](https://github.com/papyros/libpapyros)
  * [QMLTermWidget](https://github.com/Swordfish90/qmltermwidget)
+ * [Extra CMake Modules](https://projects.kde.org/projects/kdesupport/extra-cmake-modules)
  * Roboto Mono for Powerline font
 
 ### Installation
 
 From the root of the repository, run:
 
-    $ mkdir build; cd build
-    $ cmake -DCMAKE_INSTALL_PREFIX=/usr ..
-    $ make
-    $ sudo make install
+    mkdir build; cd build
+    cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+    make
+    sudo make install
+
+And then run the terminal app:
+
+    papyros-terminal
 
 ### Licensing
 
