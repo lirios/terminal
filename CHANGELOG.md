@@ -1,7 +1,7 @@
 Papyros Terminal CHANGELOG
 ==========================
 
-### Version 0.1.0 (January 17, 2016)
+### Version 0.1.0 (January 18, 2016)
 
 First release of the app.
 
