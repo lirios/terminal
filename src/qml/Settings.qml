@@ -16,7 +16,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Papyros.Core 0.1
+import Papyros.Core 0.2
 
 KQuickConfig {
     id: settings

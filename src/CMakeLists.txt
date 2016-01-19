@@ -5,8 +5,7 @@ target_link_libraries(papyros-terminal
                       Qt5::Core
                       Qt5::Qml
                       Qt5::Quick
-                      Qt5::Widgets
-                      Papyros::Papyros)
+                      Qt5::Widgets)
 
 install(TARGETS papyros-terminal
         DESTINATION ${CMAKE_INSTALL_BINDIR})
