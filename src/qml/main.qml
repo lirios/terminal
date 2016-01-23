@@ -2,6 +2,7 @@
  * Papyros Terminal - The terminal app for Papyros following Material Design
  * Copyright (C) 2016 Ricardo Vieira <ricardo.vieira@tecnico.ulisboa.pt>
  *               2016 Žiga Patačko Koderman <ziga.patacko@gmail.com>
+ *               2016 Michael Spencer <sonrisesoftware@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +22,7 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 import QMLTermWidget 1.0
 import Material 0.2
+import Material.ListItems 0.1 as ListItem
 import QtQuick.Layouts 1.1
 import Papyros.Core 0.2
 
@@ -44,12 +46,6 @@ ApplicationWindow {
     }
 
     Component.onCompleted: terminal.forceActiveFocus();
-
-    Settings {
-        id: settings
-        // TODO: This is the way to do it, but the method is not invokable from QML
-        // onOpacityChanged: terminal.setOpacity(opacity)
-    }
 
     Action {
         shortcut: "Ctrl+Shift+C"
@@ -117,6 +113,13 @@ ApplicationWindow {
                     console.log("New window")
                 }
             },
+            Action {
+                visible: wallet.enabled
+                enabled: wallet.status == KQuickWallet.Open
+                iconName: "communication/vpn_key"
+                text: qsTr("Passwords")
+                onTriggered: passwordsDialog.show()
+            },
             // TODO: Implement search
             // Action {
             //     iconName: "action/search"
@@ -149,6 +152,10 @@ ApplicationWindow {
                 onFinished: Qt.quit()
             }
 
+            function insertText(text) {
+                simulateKeyPress(0, Qt.NoModifier, true, 0, text);
+            }
+
             Component.onCompleted: {
                 mainsession.startShellProgram();
             }
@@ -157,6 +164,22 @@ ApplicationWindow {
 
     Clipboard {
         id: clipboard
+    }
+
+    Settings {
+        id: settings
+        // TODO: This is the way to do it, but the method is not invokable from QML
+        // onOpacityChanged: terminal.setOpacity(opacity)
+    }
+
+    KQuickWallet {
+        id: wallet
+
+        folder: "Terminal Passwords"
+    }
+
+    PasswordsDialog {
+        id: passwordsDialog
     }
 
     Dialog {
