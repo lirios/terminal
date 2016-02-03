@@ -22,6 +22,7 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 import QMLTermWidget 1.0
 import Material 0.2
+import Material.Extras 0.1
 import Material.ListItems 0.1 as ListItem
 import QtQuick.Layouts 1.1
 import Papyros.Core 0.2
@@ -29,27 +30,40 @@ import Papyros.Core 0.2
 ApplicationWindow {
     id: mainWindow
 
-    title: mainsession.title
+    property TerminalTab activeTab: tabbedPage.selectedTab
+
+    title: activeTab ? activeTab.title : "Terminal"
     visible: true
 
     theme {
         primaryColor: Palette.colors.blueGrey["800"]
         primaryDarkColor: Palette.colors.blueGrey["900"]
+        tabHighlightColor: "white"
     }
 
     function pasteClipboard() {
         if (clipboard.text().indexOf("sudo") == 0 && settings.hideSudoWarning != "true") {
             sudoWarningDialog.show()
         } else {
-            terminal.pasteClipboard()
+            activeTab.item.terminal.pasteClipboard()
         }
     }
 
-    Component.onCompleted: terminal.forceActiveFocus();
+    function addTab() {
+        var tab = terminalTabComponent.createObject(tabbedPage.tabs)
+        tabbedPage.selectedTabIndex = tabbedPage.tabs.count - 1
+    }
+
+    onActiveTabChanged: {
+        if (activeTab)
+            activeTab.focus()
+    }
+
+    Component.onCompleted: activeTab.focus()
 
     Action {
         shortcut: "Ctrl+Shift+C"
-        onTriggered: terminal.copyClipboard();
+        onTriggered: activeTab.item.terminal.copyClipboard();
     }
 
     Action {
@@ -85,8 +99,12 @@ ApplicationWindow {
         onTriggered: settings.fontSize--
     }
 
-    initialPage: Page {
+    initialPage: TabbedPage {
+        id: tabbedPage
         title: "Terminal"
+
+        actionBar.tabBar.visible: tabs.count > 1
+        actionBar.integratedTabBar: true
 
         actions: [
             // TODO: Only show when a physical keyboard is not available
@@ -96,14 +114,13 @@ ApplicationWindow {
             //     shortcut: StandardKey.Paste
             //     onTriggered: pasteClipboard()
             // },
-            // TODO: Renable when tabs support is added
-            // Action {
-            //     iconName: "content/add"
-            //     text: qsTr("Open new tab")
-            //     shortcut: StandardKey.AddTab
-            //
-            //     onTriggered: console.log("New tab");
-            // },
+            Action {
+                iconName: "content/add"
+                text: qsTr("Open new tab")
+                shortcut: StandardKey.AddTab
+
+                onTriggered: addTab()
+            },
             Action {
                 iconName: "action/open_in_new"
                 text: qsTr("Open new window")
@@ -132,32 +149,13 @@ ApplicationWindow {
             }
         ]
 
-        QMLTermWidget {
-            id: terminal
+        Component.onCompleted: addTab()
 
-            anchors.centerIn: parent
-
-            width: parent.width * Screen.devicePixelRatio + 2
-            height: parent.height * Screen.devicePixelRatio + 2
-            scale: 1/Screen.devicePixelRatio
-
-            font.family: settings.fontFamily
-            font.pointSize: settings.fontSize * Screen.devicePixelRatio
-            colorScheme: "cool-retro-term"
-
-            session: QMLTermSession {
-                id: mainsession
-                initialWorkingDirectory: "$HOME"
-                shellProgram: settings.shellProgram
-                onFinished: Qt.quit()
-            }
-
-            function insertText(text) {
-                simulateKeyPress(0, Qt.NoModifier, true, 0, text);
-            }
-
-            Component.onCompleted: {
-                mainsession.startShellProgram();
+        Connections {
+            target: tabbedPage.tabs
+            onCountChanged: {
+                if (tabbedPage.tabs.count == 0)
+                    Qt.quit()
             }
         }
     }
@@ -223,12 +221,18 @@ ApplicationWindow {
             }
         }
 
-        onAccepted: terminal.pasteClipboard()
+        onAccepted: activeTab.item.terminal.pasteClipboard()
 
         onOpened: textLabel.text = clipboard.text().trim()
     }
 
     SettingsDialog {
         id: settingsDialog
+    }
+
+    Component {
+        id: terminalTabComponent
+
+        TerminalTab {}
     }
 }
