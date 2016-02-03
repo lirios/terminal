@@ -28,7 +28,24 @@ import QtQuick.Layouts 1.1
 Tab {
     id: tab
 
-    title: item && item.session.title ? item.session.title : "..."
+    title: {
+        var title = item && item.session.title ? item.session.title : "..."
+
+        var titleParts = title.split(/\s+/)
+
+        console.log(titleParts)
+
+        if (titleParts.length == 2 && titleParts[1].indexOf('/home/') == 0) {
+            var command = titleParts[0]
+            var path = titleParts[1]
+            var lastIndex = path.lastIndexOf('/')
+            var dirName = path.substring(lastIndex + 1)
+
+            return dirName + " : " + command
+        } else {
+            return title
+        }
+    }
 
     canRemove: true
 
