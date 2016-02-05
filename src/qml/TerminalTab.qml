@@ -87,6 +87,21 @@ Tab {
             Component.onCompleted: {
                 mainsession.startShellProgram();
             }
+
+            QMLTermScrollbar {
+                id: scrollbar
+                terminal: terminal
+                anchors.margins: Units.dp(2) * Screen.devicePixelRatio
+                width: Units.dp(5) * Screen.devicePixelRatio
+                Rectangle {
+                    anchors.fill: parent
+                    anchors.topMargin: 1
+                    anchors.bottomMargin: 1
+                    color: "white"
+                    radius: width /2
+                    opacity: 0.7
+                }
+            }
         }
     }
 }
