@@ -2,9 +2,12 @@
     <qresource prefix="/">
         <file>qml/main.qml</file>
         <file>qml/AddPasswordDialog.qml</file>
+        <file>qml/CommandItem.qml</file>
+        <file>qml/ConfirmCloseDialog.qml</file>
         <file>qml/PasswordsDialog.qml</file>
         <file>qml/Settings.qml</file>
         <file>qml/SettingsDialog.qml</file>
+        <file>qml/SudoWarningDialog.qml</file>
         <file>qml/TerminalTab.qml</file>
     </qresource>
 </RCC>

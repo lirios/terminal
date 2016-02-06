@@ -28,6 +28,8 @@ import Papyros.Terminal 1.0
 Tab {
     id: tab
 
+    property bool __skipConfirmClose
+
     title: {
         var title = item && item.session.title ? item.session.title : "..."
 
@@ -49,6 +51,13 @@ Tab {
 
     canRemove: true
 
+    onClosing: {
+        if (__skipConfirmClose)
+            return
+
+        item.confirmClose(close)
+    }
+
     function focus() {
         if (item)
             item.terminal.forceActiveFocus()
@@ -59,6 +68,14 @@ Tab {
 
         property alias session: mainsession
         property alias terminal: terminal
+
+        function confirmClose(close) {
+            if (session.hasActiveProcess) {
+                close.accepted = false
+                confirmCloseDialog.processes = [session.foregroundProcessName]
+                confirmCloseDialog.show()
+            }
+        }
 
         QMLTermWidget {
             id: terminal
@@ -101,6 +118,17 @@ Tab {
                     radius: width /2
                     opacity: 0.7
                 }
+            }
+        }
+
+        ConfirmCloseDialog {
+            id: confirmCloseDialog
+
+            singleTab: true
+
+            onAccepted: {
+                tab.__skipConfirmClose = true
+                tab.close()
             }
         }
     }

@@ -30,6 +30,7 @@ ApplicationWindow {
     id: mainWindow
 
     property TerminalTab activeTab: tabbedPage.selectedTab
+    property bool __skipConfirmClose
 
     title: activeTab ? activeTab.title : "Terminal"
     visible: true
@@ -56,6 +57,27 @@ ApplicationWindow {
     onActiveTabChanged: {
         if (activeTab)
             activeTab.focus()
+    }
+
+    onClosing: {
+        if (__skipConfirmClose)
+            return
+
+        var activeProcesses = []
+
+        for (var i = 0; i < tabbedPage.tabs.count; i++) {
+            var tab = tabbedPage.tabs.getTab(i)
+
+            if (tab.item.session.hasActiveProcess) {
+                activeProcesses.push(tab.item.session.foregroundProcessName)
+            }
+        }
+
+        if (activeProcesses.length > 0) {
+            close.accepted = false
+            confirmCloseDialog.processes = activeProcesses
+            confirmCloseDialog.show()
+        }
     }
 
     Component.onCompleted: activeTab.focus()
@@ -175,58 +197,25 @@ ApplicationWindow {
         folder: "Terminal Passwords"
     }
 
+    ConfirmCloseDialog {
+        id: confirmCloseDialog
+
+        onAccepted: {
+            __skipConfirmClose = true
+            mainWindow.close()
+        }
+    }
+
     PasswordsDialog {
         id: passwordsDialog
     }
 
-    Dialog {
-        id: sudoWarningDialog
-
-        title: "This command is asking for administrative access to your computer"
-        text: "Copying commands from the internet can be dangerous. Be sure you understand what this command does before running it:"
-
-        positiveButtonText: "Paste Anyway"
-        negativeButtonText: "Don't Paste"
-
-        positiveButton.textColor: Palette.colors["red"]["500"]
-
-        width: Units.dp(410)
-
-        Item {
-            width: parent.width
-            height: textLabel.height
-
-            Rectangle {
-                id: bar
-                width: Units.dp(3)
-                height: parent.height
-                radius: width/2
-                color: textLabel.color
-            }
-
-            Label {
-                id: textLabel
-
-                anchors {
-                    left: bar.right
-                    right: parent.right
-                    leftMargin: Units.dp(8)
-                }
-
-                wrapMode: Text.Wrap
-                font.family: settings.fontFamily
-                font.pixelSize: Units.dp(16)
-                color: Theme.light.subTextColor
-            }
-        }
-
-        onAccepted: activeTab.item.terminal.pasteClipboard()
-
-        onOpened: textLabel.text = clipboard.text().trim()
-    }
-
     SettingsDialog {
         id: settingsDialog
+    }
+
+    SudoWarningDialog {
+        id: sudoWarningDialog
     }
 
     Component {
