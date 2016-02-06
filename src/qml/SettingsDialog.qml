@@ -29,6 +29,7 @@ Dialog {
     title: "Settings"
 
     height: Math.min(parent.height * 0.7, Units.dp(400))
+    width: Units.dp(300)
 
     onAccepted: {
         settings.fontSize = fontSizeSlider.value
@@ -39,8 +40,10 @@ Dialog {
 
     Column {
         id: settingsList
+
         anchors.left: parent.left
         anchors.right: parent.right
+        anchors.margins: Units.dp(-24)
 
         // TODO: The opacity setting doesn't work, so hide it
         // ListItem.Subtitled {
@@ -63,6 +66,7 @@ Dialog {
         ListItem.Subtitled {
             text: "Font size"
             valueText: fontSizeSlider.value
+            margins: Units.dp(24)
 
             content: Slider {
                 id: fontSizeSlider
@@ -79,14 +83,20 @@ Dialog {
 
         ListItem.Subtitled {
             id: fontListItem
+
             text: "Font family"
             subText: settings.fontFamily
+            margins: Units.dp(24)
+
             onClicked: fontDialog.open()
         }
 
         ListItem.Standard {
             text: "Smart copy/paste"
+            margins: Units.dp(24)
+
             onClicked: smartCopyPasteSwitch.checked = !smartCopyPasteSwitch.checked
+
             secondaryItem: Switch {
                 id: smartCopyPasteSwitch
                 anchors.centerIn: parent
@@ -95,6 +105,8 @@ Dialog {
         }
 
         ListItem.Subtitled {
+            margins: Units.dp(24)
+
             content: TextField {
                 id: shellProgramTextField
 
