@@ -83,12 +83,13 @@ ApplicationWindow {
     Component.onCompleted: activeTab.focus()
 
     Action {
-        shortcut: "Ctrl+Shift+C"
-        onTriggered: activeTab.item.terminal.copyClipboard();
+        shortcut: settings.smartCopyPaste == "true" ? StandardKey.Copy : "Ctrl+Shift+C"
+        enabled: activeTab.item.terminal.hasSelection || settings.smartCopyPaste == "false"
+        onTriggered: activeTab.item.terminal.copyClipboard()
     }
 
     Action {
-        shortcut: "Ctrl+Shift+V"
+        shortcut: settings.smartCopyPaste == "true" ? StandardKey.Paste : "Ctrl+Shift+V"
         onTriggered: pasteClipboard()
     }
 

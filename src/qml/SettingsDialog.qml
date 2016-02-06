@@ -34,6 +34,7 @@ Dialog {
         settings.fontSize = fontSizeSlider.value
         settings.fontFamily = fontListItem.subText
         settings.shellProgram = shellProgramTextField.text
+        settings.smartCopyPaste = smartCopyPasteSwitch.checked ? "true" : "false"
     }
 
     Column {
@@ -81,6 +82,16 @@ Dialog {
             text: "Font family"
             subText: settings.fontFamily
             onClicked: fontDialog.open()
+        }
+
+        ListItem.Standard {
+            text: "Smart copy/paste"
+            onClicked: smartCopyPasteSwitch.checked = !smartCopyPasteSwitch.checked
+            secondaryItem: Switch {
+                id: smartCopyPasteSwitch
+                anchors.centerIn: parent
+                checked: settings.smartCopyPaste == "true"
+            }
         }
 
         ListItem.Subtitled {

@@ -28,6 +28,7 @@ KQuickConfig {
         "fontFamily": "Roboto Mono for Powerline",
         "fontSize": 11,
         "opacity": 100,
-        "hideSudoWarning": "false"
+        "hideSudoWarning": "false",
+        "smartCopyPaste": "true"
     }
 }

@@ -105,6 +105,16 @@ Tab {
                 mainsession.startShellProgram();
             }
 
+            Keys.onEscapePressed: {
+                if (hasSelection)
+                    terminal.clearSelection()
+            }
+
+            Connections {
+                target: settings
+                onOpacityChanged: terminal.setOpacity(settings.opacity/100)
+            }
+
             QMLTermScrollbar {
                 id: scrollbar
                 terminal: terminal
