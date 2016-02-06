@@ -20,10 +20,10 @@
 
 import QtQuick 2.4
 import QtQuick.Window 2.2
-import QMLTermWidget 1.0
 import Material 0.2
 import Material.ListItems 0.1 as ListItem
 import QtQuick.Layouts 1.1
+import Papyros.Terminal 1.0
 
 Tab {
     id: tab

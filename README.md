@@ -12,7 +12,7 @@ Brought to you by the [Papyros development team](https://github.com/papyros/term
  * Qt 5.3 or higher
  * [QML Material](https://github.com/papyros/qml-material)
  * [libpapyros](https://github.com/papyros/libpapyros)
- * [QMLTermWidget](https://github.com/Swordfish90/qmltermwidget)
+ * [Our fork of QMLTermWidget](https://github.com/papyros/qmltermwidget)
  * [Extra CMake Modules](https://projects.kde.org/projects/kdesupport/extra-cmake-modules)
  * Roboto Mono for Powerline font
 
