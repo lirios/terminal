@@ -106,6 +106,8 @@ Tab {
             Keys.onEscapePressed: {
                 if (hasSelection)
                     terminal.clearSelection()
+                else
+                    event.accepted = false
             }
 
             Connections {
