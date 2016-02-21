@@ -3,7 +3,7 @@ Terminal app for Papryos
 
 [![Join the chat at https://gitter.im/papyros/core-apps](https://badges.gitter.im/papyros/core-apps.svg)](https://gitter.im/papyros/core-apps?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-This is the terminal app for Papyros. The UI is build with our [Material Design framework](https://github.com/papyros/qml-material), and the backend is based on the [QMLTermWidget](https://github.com/Swordfish90/qmltermwidget) used in [cool-retro-term](https://github.com/Swordfish90/cool-retro-term).
+This is the terminal app for Papyros. The UI is built with our [Material Design framework](https://github.com/papyros/qml-material), and the backend is based on [QMLTermWidget](https://github.com/Swordfish90/qmltermwidget) used in [cool-retro-term](https://github.com/Swordfish90/cool-retro-term).
 
 Brought to you by the [Papyros development team](https://github.com/papyros/terminal-app/graphs/contributors).
 
