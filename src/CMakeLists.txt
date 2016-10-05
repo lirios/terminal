@@ -1,4 +1,4 @@
-file(GLOB_RECURSE SOURCES *.cpp *.h papyros-terminal.qrc)
+file(GLOB_RECURSE SOURCES *.cpp *.h terminal.qrc)
 
 add_executable(papyros-terminal ${SOURCES} ActionHandler.cpp ActionHandler.h)
 target_link_libraries(papyros-terminal

@@ -1,34 +1,52 @@
-Terminal app for Papryos
-========================
+Terminal
+========
 
-[![Join the chat at https://gitter.im/papyros/core-apps](https://badges.gitter.im/papyros/core-apps.svg)](https://gitter.im/papyros/core-apps?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![ZenHub.io](https://img.shields.io/badge/supercharged%20by-zenhub.io-blue.svg)](https://zenhub.io)
 
-This is the terminal app for Papyros. The UI is built with our [Material Design framework](https://github.com/papyros/qml-material), and the backend is based on [QMLTermWidget](https://github.com/Swordfish90/qmltermwidget) used in [cool-retro-term](https://github.com/Swordfish90/cool-retro-term).
+[![License](https://img.shields.io/badge/license-GPLv3.0-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+[![GitHub release](https://img.shields.io/github/release/lirios/terminal.svg)](https://github.com/lirios/terminal)
+[![Build Status](https://travis-ci.org/lirios/terminal.svg?branch=develop)](https://travis-ci.org/lirios/terminal)
+[![GitHub issues](https://img.shields.io/github/issues/lirios/terminal.svg)](https://github.com/lirios/terminal/issues)
+[![Maintained](https://img.shields.io/maintenance/yes/2016.svg)](https://github.com/lirios/terminal/commits/develop)
 
-Brought to you by the [Papyros development team](https://github.com/papyros/terminal-app/graphs/contributors).
+Terminal for Liri OS.
 
-### Dependencies
+## Dependencies
 
- * Qt 5.3 or higher
- * [QML Material](https://github.com/papyros/qml-material)
- * [libpapyros](https://github.com/papyros/libpapyros)
+Qt >= 5.7.0 with at least the following modules is required:
+
+ * [qtbase](http://code.qt.io/cgit/qt/qtbase.git)
+ * [qtdeclarative](http://code.qt.io/cgit/qt/qtdeclarative.git)
+ * [qtquickcontrols2](http://code.qt.io/cgit/qt/qtquickcontrols2.git)
+ * [qttools](http://code.qt.io/cgit/qt/qttools.git/)
+
+The following modules and their dependencies are required:
+
+ * [ECM >= 1.7.0](http://quickgit.kde.org/?p=extra-cmake-modules.git)
+ * [fluid](https://github.com/lirios/fluid)
+ * [vibe](https://github.com/lirios/vibe)
  * [Our fork of QMLTermWidget](https://github.com/papyros/qmltermwidget)
- * [Extra CMake Modules](https://projects.kde.org/projects/kdesupport/extra-cmake-modules)
- * Roboto Mono for Powerline font
 
-### Installation
+## Installation
 
 From the root of the repository, run:
 
-    mkdir build; cd build
-    cmake -DCMAKE_INSTALL_PREFIX=/usr ..
-    make
-    sudo make install
+```sh
+mkdir build; cd build
+cmake .. -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+make
+make install # use sudo if necessary
+```
 
-And then run the terminal app:
+On the `cmake` line, you can specify additional configuration parameters:
 
-    papyros-terminal
+ * `-DCMAKE_INSTALL_PREFIX=/path/to/install` (for example, `/opt/liri` or `/usr`)
+ * `-DCMAKE_BUILD_TYPE=<build_type>`, where `<build_type>` is one of:
+   * **Debug:** debug build
+   * **Release:** release build
+   * **RelWithDebInfo:** release build with debugging information
 
-### Licensing
+## Licensing
 
-Papyros terminal is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+Licensed under the terms of the GNU General Public License version 3 or,
+at your option, any later version.

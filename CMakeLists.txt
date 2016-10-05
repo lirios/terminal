@@ -1,51 +1,66 @@
-project(io.papyros.Terminal CXX)
+project(Terminal)
 
 cmake_minimum_required(VERSION 3.0.0 FATAL_ERROR)
-
-ENABLE_LANGUAGE(C)
-
-# Find includes in corresponding build directories
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
+cmake_policy(VERSION 3.4.1)
 
 # Instruct CMake to run moc and rrc automatically when needed
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-# Extra CMake files
-find_package(ECM 0.0.11 REQUIRED NO_MODULE)
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
+# Apple-specific configuration
+set(APPLE_SUPPRESS_X11_WARNING ON)
 
-include(KDEInstallDirs)
-include(KDECMakeSettings)
-include(KDECompilerSettings)
-include(FeatureSummary)
+# Set version
+set(PROJECT_VERSION "0.1.0")
+set(PROJECT_VERSION_MAJOR 0)
+set(PROJECT_SOVERSION 0)
 
-# Build flags
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -fvisibility-inlines-hidden -Werror -Wall -Wextra -Wno-unused-parameter -pedantic -std=c++11")
-
-# Disable debug output for release builds
-if(CMAKE_BUILD_TYPE MATCHES "^[Rr]elease$")
-    add_definitions(-DQT_NO_DEBUG_OUTPUT)
+if(NOT USE_SUPERBUILD)
+    # Set up packaging
+    set(CPACK_PACKAGE_NAME "liri-terminal")
+    set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
+    set(CPACK_GENERATOR "TGZ")
+    set(CPACK_SET_DESTDIR FALSE)
+    set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}")
+    set(CPACK_SOURCE_IGNORE_FILES "/build/;/.git;/*.user;/.tx/;~$;${CPACK_SOURCE_IGNORE_FILES}")
+    include(CPack)
+    add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)
 endif()
 
-# Minimum version requirements
-set(QT_MIN_VERSION "5.4.0")
+# ECM
+find_package(ECM 1.7.0 REQUIRED NO_MODULE)
+list(APPEND CMAKE_MODULE_PATH
+    "${ECM_MODULE_PATH}"
+    "${ECM_KDE_MODULE_DIR}"
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake"
+)
+
+# Macros
+include(FeatureSummary)
+include(KDEInstallDirs)
+include(KDECompilerSettings)
+include(KDECMakeSettings)
+
+# Build flags
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -fvisibility-inlines-hidden -Werror -Wall -Wextra -Wformat -Wswitch-default -Wunused-parameter -pedantic -std=c++11")
+
+# qCDebug() uses zero variadic arguments, so we need to disable this warning
+# as it would become an error with -Werror
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-gnu-zero-variadic-macro-arguments")
+endif()
 
 # Find Qt5
-find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
-             Core
-             Qml
-             Quick
-             Widgets)
+set(REQUIRED_QT_VERSION "5.7.0")
+find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED COMPONENTS
+             Core Qml Quick Widgets)
 
-find_package(Papyros 0.2.0 REQUIRED)
+# Find Vibe
+set(REQUIRED_VIBE_VERSION "0.7.0")
+find_package(Vibe ${REQUIRED_HAWAII_VERSION} REQUIRED)
 
-# Install the desktop and appdata files
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/${PROJECT_NAME}.desktop
-        DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/data/${PROJECT_NAME}.appdata.xml
-        DESTINATION ${CMAKE_INSTALL_METAINFODIR})
-
+# Subdirectories
+add_subdirectory(data)
 add_subdirectory(src)
 
 # Display feature summary
