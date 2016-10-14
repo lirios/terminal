@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2016 Michael Spencer <sonrisesoftware@gmail.com> -->
 <component type="desktop">
-  <id>io.papyros.Terminal.desktop</id>
+  <id>io.liri.Terminal.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0+</project_license>
   <name>Terminal</name>
@@ -38,8 +38,8 @@
 ​    </release>
   </releases>
   <kudos>
-    <!-- TODO: Figure out kudos for Papyros -->
+    <!-- TODO: Figure out kudos for Liri -->
   </kudos>
-  <url type="homepage">http://papyros.io</url>
-  <update_contact>sonrisesoftware@gmail.com</update_contact>
+  <url type="homepage">http://liri.io</url>
+  <update_contact>info@liri.io</update_contact>
 </component>

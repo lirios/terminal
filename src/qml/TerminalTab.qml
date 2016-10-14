@@ -1,5 +1,6 @@
 /*
- * Papyros Terminal - The terminal app for Papyros following Material Design
+ * This file is part of Terminal.
+ *
  * Copyright (C) 2016 Ricardo Vieira <ricardo.vieira@tecnico.ulisboa.pt>
  *               2016 Žiga Patačko Koderman <ziga.patacko@gmail.com>
  *               2016 Michael Spencer <sonrisesoftware@gmail.com>
@@ -23,7 +24,7 @@ import QtQuick.Window 2.2
 import Material 0.2
 import Material.ListItems 0.1 as ListItem
 import QtQuick.Layouts 1.1
-import Papyros.Terminal 1.0
+import Liri.Terminal 1.0
 
 Tab {
     id: tab

@@ -1,5 +1,6 @@
 /*
- * Papyros Terminal - The terminal app for Papyros following Material Design
+ * This file is part of Terminal.
+ *
  * Copyright (C) 2016 Michael Spencer <sonrisesoftware@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify

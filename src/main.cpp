@@ -1,5 +1,6 @@
 /*
- * Papyros Terminal - The terminal app for Papyros following Material Design
+ * This file is part of Terminal.
+ *
  * Copyright (C) 2016 Ricardo Vieira <ricardo.vieira@tecnico.ulisboa.pt>
  *               2016 Žiga Patačko Koderman <ziga.patacko@gmail.com>
  *
@@ -27,16 +28,16 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    app.setOrganizationName("Papyros");
-    app.setOrganizationDomain("papyros.io");
-    app.setApplicationName("Terminal");
+    app.setOrganizationName(QLatin1String("Liri"));
+    app.setOrganizationDomain(QLatin1String("liri.io"));
+    app.setApplicationName(QLatin1String("Terminal"));
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
-    app.setDesktopFileName("io.papyros.Terminal.desktop");
+    app.setDesktopFileName("io.liri.Terminal.desktop");
 #endif
 
     // Set the X11 WML_CLASS so X11 desktops can find the desktop file
-    qputenv("RESOURCE_NAME", "io.papyros.Terminal");
+    qputenv("RESOURCE_NAME", "io.liri.Terminal");
 
     QQmlApplicationEngine engine;
 

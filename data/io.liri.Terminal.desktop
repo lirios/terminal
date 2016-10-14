@@ -2,9 +2,9 @@
 Name=Terminal
 Comment=Use the command line
 Keywords=shell;prompt;command;commandline;cmd;terminal
-Exec=papyros-terminal
+Exec=liri-terminal
 Icon=utilities-terminal
 Terminal=false
 StartupNotify=true
 Type=Application
-Categories=QT;QML;System;TerminalEmulator;Papyros
+Categories=X-Liri;Qt;System;TerminalEmulator;

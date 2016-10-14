@@ -1,5 +1,6 @@
 /*
- * Papyros Terminal - The terminal app for Papyros following Material Design
+ * This file is part of Terminal.
+ *
  * Copyright (C) 2016 Ricardo Vieira <ricardo.vieira@tecnico.ulisboa.pt>
  *               2016 Žiga Patačko Koderman <ziga.patacko@gmail.com>
  *               2016 Michael Spencer <sonrisesoftware@gmail.com>
