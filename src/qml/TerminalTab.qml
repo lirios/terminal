@@ -21,8 +21,8 @@
 
 import QtQuick 2.4
 import QtQuick.Window 2.2
-import Material 0.2
-import Material.ListItems 0.1 as ListItem
+import QtQuick.Controls 2.0
+import Fluid.Controls 1.0
 import QtQuick.Layouts 1.1
 import Liri.Terminal 1.0
 
@@ -31,8 +31,14 @@ Tab {
 
     property bool __skipConfirmClose
 
+    property alias terminal: terminal
+    property alias session: terminal.session
+
+    width: parent.width
+    height: parent.height
+
     title: {
-        var title = item && item.session.title ? item.session.title : "..."
+        var title = session.title ? session.title : "..."
 
         var titleParts = title.split(/\s+/)
 
@@ -50,97 +56,91 @@ Tab {
 
     canRemove: true
 
+    /*
     onClosing: {
         if (__skipConfirmClose)
             return
 
-        item.confirmClose(close)
+        confirmClose(close)
     }
+    */
 
     function focus() {
-        if (item)
-            item.terminal.forceActiveFocus()
+        terminal.forceActiveFocus()
     }
 
-    Item {
-        anchors.fill: parent
+    function confirmClose(close) {
+        if (session.hasActiveProcess) {
+            close.accepted = false
+            confirmCloseDialog.processes = [session.foregroundProcessName]
+            confirmCloseDialog.show()
+        }
+    }
 
-        property alias session: mainsession
-        property alias terminal: terminal
+    QMLTermWidget {
+        id: terminal
 
-        function confirmClose(close) {
-            if (session.hasActiveProcess) {
-                close.accepted = false
-                confirmCloseDialog.processes = [session.foregroundProcessName]
-                confirmCloseDialog.show()
-            }
+        anchors.centerIn: parent
+
+        width: tab.width * Screen.devicePixelRatio + 2
+        height: tab.height * Screen.devicePixelRatio + 2
+        scale: 1/Screen.devicePixelRatio
+
+        // font.family: settings.fontFamily
+        // font.pointSize: settings.fontSize * Screen.devicePixelRatio
+        colorScheme: "cool-retro-term"
+
+        session: QMLTermSession {
+            id: mainsession
+            initialWorkingDirectory: "$HOME"
+            shellProgram: "/usr/bin/fish"//settings.shellProgram
+            onFinished: tabbedPage.removeTab(tab.SwipeView.index)
         }
 
-        QMLTermWidget {
-            id: terminal
-
-            anchors.centerIn: parent
-
-            width: tabbedPage.width * Screen.devicePixelRatio + 2
-            height: tabbedPage.height * Screen.devicePixelRatio + 2
-            scale: 1/Screen.devicePixelRatio
-
-            font.family: settings.fontFamily
-            font.pointSize: settings.fontSize * Screen.devicePixelRatio
-            colorScheme: "cool-retro-term"
-
-            session: QMLTermSession {
-                id: mainsession
-                initialWorkingDirectory: "$HOME"
-                shellProgram: settings.shellProgram
-                onFinished: tabbedPage.tabs.removeTab(index)
-            }
-
-            function insertText(text) {
-                simulateKeyPress(0, Qt.NoModifier, true, 0, text);
-            }
-
-            Component.onCompleted: {
-                mainsession.startShellProgram();
-            }
-
-            Keys.onEscapePressed: {
-                if (hasSelection)
-                    terminal.clearSelection()
-                else
-                    event.accepted = false
-            }
-
-            Connections {
-                target: settings
-                onOpacityChanged: terminal.setOpacity(settings.opacity/100)
-            }
-
-            QMLTermScrollbar {
-                id: scrollbar
-                terminal: terminal
-                anchors.margins: Units.dp(2) * Screen.devicePixelRatio
-                width: Units.dp(5) * Screen.devicePixelRatio
-                Rectangle {
-                    anchors.fill: parent
-                    anchors.topMargin: 1
-                    anchors.bottomMargin: 1
-                    color: "white"
-                    radius: width /2
-                    opacity: 0.7
-                }
-            }
+        function insertText(text) {
+            simulateKeyPress(0, Qt.NoModifier, true, 0, text);
         }
 
-        ConfirmCloseDialog {
-            id: confirmCloseDialog
+        Component.onCompleted: {
+            mainsession.startShellProgram();
+        }
 
-            singleTab: true
+        Keys.onEscapePressed: {
+            if (hasSelection)
+                terminal.clearSelection()
+            else
+                event.accepted = false
+        }
 
-            onAccepted: {
-                tab.__skipConfirmClose = true
-                tab.close()
+        // Connections {
+        //     target: settings
+        //     onOpacityChanged: terminal.setOpacity(settings.opacity/100)
+        // }
+
+        QMLTermScrollbar {
+            id: scrollbar
+            terminal: terminal
+            anchors.margins: 2 * Screen.devicePixelRatio
+            width: 5 * Screen.devicePixelRatio
+            Rectangle {
+                anchors.fill: parent
+                anchors.topMargin: 1
+                anchors.bottomMargin: 1
+                color: "white"
+                radius: width /2
+                opacity: 0.7
             }
         }
     }
+
+    // ConfirmCloseDialog {
+    //     id: confirmCloseDialog
+    //
+    //     singleTab: true
+    //
+    //     onAccepted: {
+    //         tab.__skipConfirmClose = true
+    //         tab.close()
+    //     }
+    // }
 }

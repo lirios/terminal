@@ -21,23 +21,26 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QQuickStyle>
 
 #include "ActionHandler.h"
 
 int main(int argc, char *argv[])
 {
+    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
     QApplication app(argc, argv);
 
     app.setOrganizationName(QLatin1String("Liri"));
     app.setOrganizationDomain(QLatin1String("liri.io"));
     app.setApplicationName(QLatin1String("Terminal"));
-
-#if QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
     app.setDesktopFileName("io.liri.Terminal.desktop");
-#endif
 
     // Set the X11 WML_CLASS so X11 desktops can find the desktop file
     qputenv("RESOURCE_NAME", "io.liri.Terminal");
+
+    if (QQuickStyle::name().isEmpty())
+        QQuickStyle::setStyle("Material");
 
     QQmlApplicationEngine engine;
 

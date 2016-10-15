@@ -22,6 +22,7 @@
 import QtQuick 2.4
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.0
+import QtQuick.Controls.Material 2.0
 import QtQuick.Layouts 1.1
 import Fluid.Core 1.0
 import Fluid.Controls 1.0
@@ -36,19 +37,22 @@ FluidWindow {
     title: activeTab ? activeTab.title : "Terminal"
     visible: true
 
-    Material.primaryColor: Material.color(Material.BlueGrey, Material.Shade800)
+    Material.primary: Material.color(Material.BlueGrey, Material.Shade800)
+    decorationColor: Material.color(Material.BlueGrey, Material.Shade900)
 
     function pasteClipboard() {
         if (clipboard.text().indexOf("sudo") == 0 && settings.hideSudoWarning != "true") {
             sudoWarningDialog.show()
         } else {
-            activeTab.item.terminal.pasteClipboard()
+            activeTab.terminal.pasteClipboard()
         }
     }
 
-    function addTab() {
-        var tab = terminalTabComponent.createObject(tabbedPage.tabs)
-        tabbedPage.selectedTabIndex = tabbedPage.tabs.count - 1
+    function addNewTab() {
+        console.log("Adding tab...")
+        var tab = terminalTabComponent.createObject(tabbedPage)
+        tabbedPage.addTab(tab)
+        tabbedPage.currentIndex = tabbedPage.count - 1
     }
 
     onActiveTabChanged: {
@@ -65,8 +69,8 @@ FluidWindow {
         for (var i = 0; i < tabbedPage.tabs.count; i++) {
             var tab = tabbedPage.tabs.getTab(i)
 
-            if (tab.item.session.hasActiveProcess) {
-                activeProcesses.push(tab.item.session.foregroundProcessName)
+            if (tab.session.hasActiveProcess) {
+                activeProcesses.push(tab.session.foregroundProcessName)
             }
         }
 
@@ -81,8 +85,8 @@ FluidWindow {
 
     Action {
         shortcut: settings.smartCopyPaste == "true" ? StandardKey.Copy : "Ctrl+Shift+C"
-        enabled: activeTab.item.terminal.hasSelection || settings.smartCopyPaste == "false"
-        onTriggered: activeTab.item.terminal.copyClipboard()
+        enabled: activeTab.terminal.hasSelection || settings.smartCopyPaste == "false"
+        onTriggered: activeTab.terminal.copyClipboard()
     }
 
     Action {
@@ -122,9 +126,9 @@ FluidWindow {
         id: tabbedPage
         title: "Terminal"
 
-        actionBar.tabBar.visible: tabs.count > 1
-        actionBar.integratedTabBar: true
-
+    //     actionBar.tabBar.visible: tabs.count > 1
+    //     actionBar.integratedTabBar: true
+    //
         actions: [
             // TODO: Only show when a physical keyboard is not available
             // Action {
@@ -138,7 +142,7 @@ FluidWindow {
                 text: qsTr("Open new tab")
                 shortcut: StandardKey.AddTab
 
-                onTriggered: addTab()
+                onTriggered: addNewTab()
             },
             Action {
                 iconName: "action/open_in_new"
@@ -168,14 +172,13 @@ FluidWindow {
             }
         ]
 
-        Component.onCompleted: addTab()
+        TerminalTab {}
 
-        Connections {
-            target: tabbedPage.tabs
-            onCountChanged: {
-                if (tabbedPage.tabs.count == 0)
-                    Qt.quit()
-            }
+        onSelectedTabChanged: selectedTab.focus()
+
+        onCountChanged: {
+            if (count == 0)
+                Qt.quit()
         }
     }
 
@@ -183,11 +186,11 @@ FluidWindow {
         id: clipboard
     }
 
-    Settings {
-        id: settings
-        // TODO: This is the way to do it, but the method is not invokable from QML
-        // onOpacityChanged: terminal.setOpacity(opacity)
-    }
+    // Settings {
+    //     id: settings
+    //     // TODO: This is the way to do it, but the method is not invokable from QML
+    //     // onOpacityChanged: terminal.setOpacity(opacity)
+    // }
 
     KQuickWallet {
         id: wallet
@@ -195,26 +198,26 @@ FluidWindow {
         folder: "Terminal Passwords"
     }
 
-    ConfirmCloseDialog {
-        id: confirmCloseDialog
-
-        onAccepted: {
-            __skipConfirmClose = true
-            mainWindow.close()
-        }
-    }
-
-    PasswordsDialog {
-        id: passwordsDialog
-    }
-
-    SettingsDialog {
-        id: settingsDialog
-    }
-
-    SudoWarningDialog {
-        id: sudoWarningDialog
-    }
+    // ConfirmCloseDialog {
+    //     id: confirmCloseDialog
+    //
+    //     onAccepted: {
+    //         __skipConfirmClose = true
+    //         mainWindow.close()
+    //     }
+    // }
+    //
+    // PasswordsDialog {
+    //     id: passwordsDialog
+    // }
+    //
+    // SettingsDialog {
+    //     id: settingsDialog
+    // }
+    //
+    // SudoWarningDialog {
+    //     id: sudoWarningDialog
+    // }
 
     Component {
         id: terminalTabComponent

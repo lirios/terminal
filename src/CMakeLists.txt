@@ -5,7 +5,8 @@ target_link_libraries(liri-terminal
                       Qt5::Core
                       Qt5::Qml
                       Qt5::Quick
-                      Qt5::Widgets)
+                      Qt5::Widgets
+                      Qt5::QuickControls2)
 
 install(TARGETS liri-terminal
         DESTINATION ${BIN_INSTALL_DIR})
