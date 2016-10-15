@@ -18,7 +18,8 @@
  */
 
 import QtQuick 2.4
-import Material 0.2
+import QtQuick.Controls.Material 2.0
+import Fluid.Controls 1.0
 
 Dialog {
     id: sudoWarningDialog
@@ -29,9 +30,9 @@ Dialog {
     positiveButtonText: "Paste Anyway"
     negativeButtonText: "Don't Paste"
 
-    positiveButton.textColor: Palette.colors["red"]["500"]
+    positiveButton.textColor: Material.color(Material.Red, Material.Shade500)
 
-    width: Units.dp(410)
+    width: 410
 
     CommandItem {
         id: commandItem

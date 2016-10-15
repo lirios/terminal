@@ -29,8 +29,8 @@ import QtQuick.Controls 1.3 as QuickControls
 Dialog {
     title: "Settings"
 
-    height: Math.min(parent.height * 0.7, Units.dp(400))
-    width: Units.dp(300)
+    height: Math.min(parent.height * 0.7, 400)
+    width: 30
 
     onAccepted: {
         settings.fontSize = fontSizeSlider.value
@@ -44,7 +44,7 @@ Dialog {
 
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.margins: Units.dp(-24)
+        anchors.margins: -24
 
         // TODO: The opacity setting doesn't work, so hide it
         // ListItem.Subtitled {
@@ -64,6 +64,7 @@ Dialog {
         //     }
         // }
 
+// TODO
         ListItem.Subtitled {
             text: "Font size"
             valueText: fontSizeSlider.value

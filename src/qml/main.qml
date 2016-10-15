@@ -21,13 +21,13 @@
 
 import QtQuick 2.4
 import QtQuick.Window 2.2
-import Material 0.2
-import Material.Extras 0.1
-import Material.ListItems 0.1 as ListItem
+import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.1
-import Papyros.Core 0.2
+import Fluid.Core 1.0
+import Fluid.Controls 1.0
+import Vibe.Wallet 1.0
 
-ApplicationWindow {
+FluidWindow {
     id: mainWindow
 
     property TerminalTab activeTab: tabbedPage.selectedTab
@@ -36,11 +36,7 @@ ApplicationWindow {
     title: activeTab ? activeTab.title : "Terminal"
     visible: true
 
-    theme {
-        primaryColor: Palette.colors.blueGrey["800"]
-        primaryDarkColor: Palette.colors.blueGrey["900"]
-        tabHighlightColor: "white"
-    }
+    Material.primaryColor: Material.color(Material.BlueGrey, Material.Shade800)
 
     function pasteClipboard() {
         if (clipboard.text().indexOf("sudo") == 0 && settings.hideSudoWarning != "true") {

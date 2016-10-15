@@ -18,8 +18,7 @@
  */
 
 import QtQuick 2.4
-import Material 0.2
-import Papyros.Core 0.2
+import Fluid.Controls 1.0
 
 Dialog {
     id: addPasswordDialog
@@ -37,7 +36,10 @@ Dialog {
         passwordsDialog.show()
     }
 
-    Item { height: Units.dp(8); width: parent.width }
+    Item {
+        width: parent.width
+        height: 8
+    }
 
     TextField {
         id: titleField
@@ -46,7 +48,10 @@ Dialog {
         placeholderText: "Title"
     }
 
-    Item { height: Units.dp(8); width: parent.width }
+    Item {
+        width: parent.width
+        height: 8
+    }
 
     TextField {
         id: passwordField

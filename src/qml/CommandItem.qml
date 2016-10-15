@@ -18,7 +18,6 @@
  */
 
 import QtQuick 2.4
-import Material 0.2
 
 Item {
     property alias text: textLabel.text
@@ -28,7 +27,7 @@ Item {
 
     Rectangle {
         id: bar
-        width: Units.dp(3)
+        width: 3
         height: parent.height
         radius: width/2
         color: textLabel.color
@@ -40,12 +39,13 @@ Item {
         anchors {
             left: bar.right
             right: parent.right
-            leftMargin: Units.dp(8)
+            leftMargin: 8
         }
 
         wrapMode: Text.Wrap
         font.family: settings.fontFamily
-        font.pixelSize: Units.dp(16)
-        color: Theme.light.subTextColor
+        font.pixelSize: 16
+        color: "red" // Theme.light.subTextColor
+// TODO
     }
 }

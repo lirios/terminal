@@ -18,7 +18,7 @@
  */
 
 import QtQuick 2.4
-import Material 0.2
+import Fluid.Controls 1.0
 
 Dialog {
     id: confirmCloseDialog
@@ -34,7 +34,7 @@ Dialog {
                     : qsTr("There is a process running in this window. If you quit Terminal, the process will end.")
     positiveButtonText: qsTr("Close")
 
-    width: Units.dp(400)
+    width: 400
 
     Repeater {
         model: processes

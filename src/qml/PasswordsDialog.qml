@@ -18,9 +18,7 @@
  */
 
 import QtQuick 2.4
-import Material 0.2
-import Material.ListItems 0.1 as ListItem
-import Papyros.Core 0.2
+import Fluid.Controls 1.0
 
 Dialog {
     id: passwordsDialog
@@ -39,12 +37,13 @@ Dialog {
         id: passwordsListView
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.margins: Units.dp(-24)
+        anchors.margins: -24
 
-        height: Units.dp(250)
+        height: 250
 
-        delegate: ListItem.BaseListItem {
-            height: Units.dp(48)
+// TODO
+        delegate: ListItem {
+            height: 48
 
             onClicked: {
                 passwordsDialog.close()
@@ -75,7 +74,7 @@ Dialog {
             Icon {
                 name: "communication/vpn_key"
                 anchors.horizontalCenter: parent.horizontalCenter
-                size: Units.dp(48)
+                size: 48
             }
             Label {
                 horizontalAlignment: Text.AlignHCenter
@@ -83,7 +82,7 @@ Dialog {
                 style: "subheading"
                 text: "Add your passwords here for easy access when using sudo, SSH, or other commands that require passwords."
                 wrapMode: Text.Wrap
-                width: passwordsListView.width - Units.dp(16 * 2)
+                width: passwordsListView.width - (16 * 2)
             }
         }
     }
