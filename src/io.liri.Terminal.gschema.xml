@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ This file is part of Liri.
+
+ Copyright (C) 2016 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+
+ This program is free software; you can redistribute it and/or modify it
+ under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
+-->
+<schemalist gettext-domain="liri">
+  <schema id="io.liri.Terminal" path="/io/liri/Terminal/">
+    <key name="shell-program" type="s">
+      <default>'/bin/bash'</default>
+      <summary>Shell Program</summary>
+      <description>
+        Shell program to run when a new window is created.
+      </description>
+    </key>
+    <key name="font-family" type="s">
+      <default>'Roboto Mono for Powerline'</default>
+      <summary>Font Family</summary>
+      <description>
+        Font family for the terminal view.
+      </description>
+    </key>
+    <key name="font-size" type="i">
+      <default>11</default>
+      <summary>Font Size</summary>
+      <description>
+        Font size for the terminal view.
+      </description>
+    </key>
+    <key name="opacity" type="i">
+      <default>100</default>
+      <summary>Opacity</summary>
+      <description>
+        Terminal view opacity.
+      </description>
+    </key>
+    <key name="hide-sudo-warning" type="b">
+      <default>false</default>
+      <summary>Hide Sudo Warning</summary>
+      <description>
+        Hide warning when pasting potentially unsafe commands.
+      </description>
+    </key>
+    <key name="smart-copy-paste" type="b">
+      <default>false</default>
+      <summary>Smart Copy Paste</summary>
+      <description>
+      </description>
+    </key>
+  </schema>
+</schemalist>

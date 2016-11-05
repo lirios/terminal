@@ -17,19 +17,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Papyros.Core 0.2
+import Vibe.Settings 1.0
 
-KQuickConfig {
+Settings {
     id: settings
 
-    file: "papyros-terminal"
-    group: "general"
-    defaults: {
-        "shellProgram": "/usr/bin/bash",
-        "fontFamily": "Roboto Mono for Powerline",
-        "fontSize": 11,
-        "opacity": 100,
-        "hideSudoWarning": "false",
-        "smartCopyPaste": "true"
-    }
+    schema.id: "io.liri.Terminal"
+    schema.path: "/io/liri/Terminal/"
 }

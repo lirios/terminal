@@ -9,3 +9,5 @@ target_link_libraries(liri-terminal
 
 install(TARGETS liri-terminal
         DESTINATION ${BIN_INSTALL_DIR})
+install(FILES io.liri.Terminal.gschema.xml
+        DESTINATION ${GSETTINGS_SCHEMA_DIR})
