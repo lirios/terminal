@@ -1,4 +1,4 @@
-file(GLOB_RECURSE SOURCES *.cpp *.h terminal.qrc)
+file(GLOB_RECURSE SOURCES *.cpp *.h terminal.qrc "qml/*.qml")
 
 add_executable(liri-terminal ${SOURCES})
 target_link_libraries(liri-terminal
