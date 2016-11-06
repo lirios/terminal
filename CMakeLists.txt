@@ -72,8 +72,8 @@ endif()
 message(STATUS "GSettings schemas directory: ${GSETTINGS_SCHEMA_DIR}")
 
 # Subdirectories
+add_subdirectory(app)
 add_subdirectory(data)
-add_subdirectory(src)
 
 # Display feature summary
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
