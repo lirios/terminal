@@ -86,14 +86,14 @@ Tab {
         height: tab.height * Screen.devicePixelRatio + 2
         scale: 1/Screen.devicePixelRatio
 
-        // font.family: settings.fontFamily
-        // font.pointSize: settings.fontSize * Screen.devicePixelRatio
+        font.family: settings.fontFamily
+        font.pointSize: settings.fontSize * Screen.devicePixelRatio
         colorScheme: "cool-retro-term"
 
         session: QMLTermSession {
             id: mainsession
             initialWorkingDirectory: "$HOME"
-            shellProgram: "/usr/bin/fish"//settings.shellProgram
+            shellProgram: settings.shellProgram
             onFinished: tabbedPage.removeTab(tab.SwipeView.index)
         }
 
@@ -112,10 +112,10 @@ Tab {
                 event.accepted = false
         }
 
-        // Connections {
-        //     target: settings
-        //     onOpacityChanged: terminal.setOpacity(settings.opacity/100)
-        // }
+        Connections {
+            target: settings
+            onOpacityChanged: terminal.setOpacity(settings.opacity/100)
+        }
 
         QMLTermScrollbar {
             id: scrollbar

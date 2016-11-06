@@ -186,11 +186,11 @@ FluidWindow {
         id: clipboard
     }
 
-    // Settings {
-    //     id: settings
-    //     // TODO: This is the way to do it, but the method is not invokable from QML
-    //     // onOpacityChanged: terminal.setOpacity(opacity)
-    // }
+    Settings {
+        id: settings
+        // TODO: This is the way to do it, but the method is not invokable from QML
+        // onOpacityChanged: terminal.setOpacity(opacity)
+    }
 
     KQuickWallet {
         id: wallet
