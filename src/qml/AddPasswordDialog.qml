@@ -18,13 +18,14 @@
  */
 
 import QtQuick 2.4
-import Fluid.Controls 1.0
+import QtQuick.Controls 2.0
+import Fluid.Controls 1.0 as Controls
 
-Dialog {
+Controls.Dialog {
     id: addPasswordDialog
 
-    title: "Add Password"
-    positiveButtonText: "Save"
+    title: qsTr("Add Password")
+    positiveButtonText: qsTr("Save")
 
     onOpened: {
         titleField.text = ""
@@ -43,9 +44,9 @@ Dialog {
 
     TextField {
         id: titleField
-        floatingLabel: true
+        //floatingLabel: true
         width: parent.width
-        placeholderText: "Title"
+        placeholderText: qsTr("Title")
     }
 
     Item {
@@ -55,9 +56,9 @@ Dialog {
 
     TextField {
         id: passwordField
-        floatingLabel: true
+        //floatingLabel: true
         width: parent.width
-        placeholderText: "Password"
+        placeholderText: qsTr("Password")
         echoMode: TextInput.Password
     }
 }

@@ -159,10 +159,10 @@ FluidWindow {
             },
             Action {
                 visible: wallet.enabled
-                enabled: wallet.status == KQuickWallet.Open
+                enabled: wallet.status === KQuickWallet.Open
                 iconName: "communication/vpn_key"
                 text: qsTr("Passwords")
-                onTriggered: passwordsDialog.show()
+                onTriggered: passwordsDialog.open()
             },
             // TODO: Implement search
             // Action {
@@ -202,18 +202,18 @@ FluidWindow {
         folder: "Terminal Passwords"
     }
 
-    // ConfirmCloseDialog {
-    //     id: confirmCloseDialog
-    //
-    //     onAccepted: {
-    //         __skipConfirmClose = true
-    //         mainWindow.close()
-    //     }
-    // }
-    //
-    // PasswordsDialog {
-    //     id: passwordsDialog
-    // }
+    ConfirmCloseDialog {
+        id: confirmCloseDialog
+
+        onAccepted: {
+            __skipConfirmClose = true
+            mainWindow.close()
+        }
+    }
+
+    PasswordsDialog {
+        id: passwordsDialog
+    }
 
     SettingsDialog {
         id: settingsDialog

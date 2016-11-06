@@ -19,20 +19,20 @@
 
 import QtQuick 2.4
 import QtQuick.Controls 2.0
-import Fluid.Controls 1.0
+import Fluid.Controls 1.0 as Controls
 
-Dialog {
+Controls.Dialog {
     id: passwordsDialog
-    title: "Passwords"
+    title: qsTr("Passwords")
 
     width: minimumWidth
 
-    positiveButtonText: "Add Password"
-    negativeButtonText: "Close"
+    positiveButtonText: qsTr("Add Password")
+    negativeButtonText: qsTr("Close")
 
     onOpened: passwordsListView.model = wallet.entryList()
 
-    onAccepted: addPasswordDialog.show()
+    onAccepted: addPasswordDialog.open()
 
     ListView {
         id: passwordsListView
@@ -42,8 +42,7 @@ Dialog {
 
         height: 250
 
-// TODO
-        delegate: ListItem {
+        delegate: Controls.ListItem {
             height: 48
 
             onClicked: {
@@ -51,16 +50,15 @@ Dialog {
                 terminal.insertText(wallet.readPassword(modelData) + '\n')
             }
 
-            Label {
+            Controls.SubheadingLabel {
                 anchors {
                     left: parent.left
                     right: parent.right
                     verticalCenter: parent.verticalCenter
-                    margins: Units.dp(24)
+                    margins: 24
                 }
 
                 elide: Text.ElideRight
-                style: "subheading"
                 text: modelData
             }
         }
@@ -68,20 +66,19 @@ Dialog {
         Column {
             anchors.centerIn: parent
 
-            spacing: Units.dp(8)
+            spacing: 8
             opacity: 0.5
             visible: passwordsListView.count == 0
 
-            Icon {
+            Controls.Icon {
                 name: "communication/vpn_key"
                 anchors.horizontalCenter: parent.horizontalCenter
                 size: 48
             }
-            Label {
+            Controls.SubheadingLabel {
                 horizontalAlignment: Text.AlignHCenter
                 anchors.horizontalCenter: parent.horizontalCenter
-                style: "subheading"
-                text: "Add your passwords here for easy access when using sudo, SSH, or other commands that require passwords."
+                text: qsTr("Add your passwords here for easy access when using sudo, SSH, or other commands that require passwords.")
                 wrapMode: Text.Wrap
                 width: passwordsListView.width - (16 * 2)
             }
