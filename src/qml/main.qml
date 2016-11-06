@@ -35,6 +35,8 @@ FluidWindow {
     property bool __skipConfirmClose
 
     title: activeTab ? activeTab.title : "Terminal"
+    minimumWidth: 800
+    minimumHeight: 600
     visible: true
 
     Material.primary: Material.color(Material.BlueGrey, Material.Shade800)
