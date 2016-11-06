@@ -172,7 +172,7 @@ FluidWindow {
             Action {
                 iconName: "action/settings"
                 text: qsTr("Settings")
-                onTriggered: settingsDialog.show();
+                onTriggered: settingsDialog.open();
             }
         ]
 
@@ -214,11 +214,11 @@ FluidWindow {
     // PasswordsDialog {
     //     id: passwordsDialog
     // }
-    //
-    // SettingsDialog {
-    //     id: settingsDialog
-    // }
-    //
+
+    SettingsDialog {
+        id: settingsDialog
+    }
+
     // SudoWarningDialog {
     //     id: sudoWarningDialog
     // }

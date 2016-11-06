@@ -1,8 +1,9 @@
 /*
  * This file is part of Terminal.
  *
+ * Copyright (C) Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
  * Copyright (C) 2016 Žiga Patačko Koderman <ziga.patacko@gmail.com>
- *               2016 Michael Spencer <sonrisesoftware@gmail.com>
+ * Copyright (C) 2016 Michael Spencer <sonrisesoftware@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,13 +22,11 @@
 import QtQuick 2.2
 import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
-import Material 0.2
-import Material.Extras 0.1
-import Material.ListItems 0.1 as ListItem
-import QtQuick.Controls 1.3 as QuickControls
+import QtQuick.Controls 2.0
+import Fluid.Controls 1.0 as Controls
 
-Dialog {
-    title: "Settings"
+Controls.Dialog {
+    title: qsTr("Settings")
 
     height: Math.min(parent.height * 0.7, 400)
     width: 30
@@ -36,7 +35,7 @@ Dialog {
         settings.fontSize = fontSizeSlider.value
         settings.fontFamily = fontListItem.subText
         settings.shellProgram = shellProgramTextField.text
-        settings.smartCopyPaste = smartCopyPasteSwitch.checked ? "true" : "false"
+        settings.smartCopyPaste = smartCopyPasteSwitch.checked
     }
 
     Column {
@@ -64,13 +63,11 @@ Dialog {
         //     }
         // }
 
-// TODO
-        ListItem.Subtitled {
-            text: "Font size"
+        Controls.ListItem {
+            text: qsTr("Font size")
             valueText: fontSizeSlider.value
-            margins: Units.dp(24)
 
-            content: Slider {
+            secondaryItem: Slider {
                 id: fontSizeSlider
 
                 width: parent.width
@@ -78,79 +75,74 @@ Dialog {
 
                 stepSize: 1
                 value: settings.fontSize
-                minimumValue: 2
-                maximumValue: 32
+                from: 2
+                to: 32
             }
         }
 
-        ListItem.Subtitled {
+        Controls.ListItem {
             id: fontListItem
 
-            text: "Font family"
+            text: qsTr("Font family")
             subText: settings.fontFamily
-            margins: Units.dp(24)
 
             onClicked: fontDialog.open()
         }
 
-        ListItem.Standard {
-            text: "Smart copy/paste"
-            margins: Units.dp(24)
+        Controls.ListItem {
+            text: qsTr("Smart copy/paste")
 
             onClicked: smartCopyPasteSwitch.checked = !smartCopyPasteSwitch.checked
 
-            secondaryItem: Switch {
+            rightItem: Switch {
                 id: smartCopyPasteSwitch
                 anchors.centerIn: parent
-                checked: settings.smartCopyPaste == "true"
+                checked: settings.smartCopyPaste
             }
         }
 
-        ListItem.Subtitled {
-            margins: Units.dp(24)
-
-            content: TextField {
+        Controls.ListItem {
+            rightItem: TextField {
                 id: shellProgramTextField
 
                 width: parent.width
                 anchors.verticalCenter: parent.verticalCenter
-                floatingLabel: true
-                placeholderText: "Shell program"
+                //floatingLabel: true
+                placeholderText: qsTr("Shell program")
                 text: settings.shellProgram
             }
         }
     }
 
-    Dialog {
+    Controls.Dialog {
         id: fontDialog
-        title: "Select Font"
-        hasActions: false
-        height: settingsDialog.height - Units.dp(32)
-        width: settingsDialog.width - Units.dp(32)
+        title: qsTr("Select Font")
+        //hasActions: false
+        height: settingsDialog.height - 32
+        width: settingsDialog.width - 32
 
         ListView {
             id: fontListView
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.margins: Units.dp(-24)
+            anchors.margins: -24
             height: fontDialog.height
 
             model: Qt.fontFamilies()
-            delegate: ListItem.Standard {
+            delegate: Controls.ListItem {
                 id: listItem
                 text: modelData
-                selected: fontListItem.subText == text
+                highlighted: fontListItem.subText === text
 
                 // TODO: Is there a better way to do this
-                visible: text.toLowerCase().indexOf('mono') != -1
+                visible: text.toLowerCase().indexOf('mono') !== -1
                 height: visible ? implicitHeight : 0
 
                 secondaryItem: [
-                    Icon {
+                    Controls.Icon {
                         anchors.centerIn: parent
                         name: "navigation/check"
-                        color: Theme.primaryColor
-                        visible: listItem.selected
+                        visible: listItem.highlighted
                     }
                 ]
 
