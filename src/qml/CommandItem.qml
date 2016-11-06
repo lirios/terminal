@@ -19,6 +19,7 @@
 
 import QtQuick 2.4
 import QtQuick.Controls 2.0
+import QtQuick.Controls.Material 2.0
 
 Item {
     property alias text: textLabel.text
@@ -46,7 +47,6 @@ Item {
         wrapMode: Text.Wrap
         font.family: settings.fontFamily
         font.pixelSize: 16
-        color: "red" // Theme.light.subTextColor
-// TODO
+        color: Material.hintTextColor
     }
 }

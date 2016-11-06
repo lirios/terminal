@@ -45,8 +45,8 @@ FluidWindow {
     decorationColor: Material.color(Material.BlueGrey, Material.Shade900)
 
     function pasteClipboard() {
-        if (clipboard.text().indexOf("sudo") == 0 && settings.hideSudoWarning != "true") {
-            sudoWarningDialog.show()
+        if (clipboard.text.indexOf("sudo") === 0 && !settings.hideSudoWarning) {
+            sudoWarningDialog.open()
         } else {
             activeTab.terminal.pasteClipboard()
         }
@@ -219,9 +219,9 @@ FluidWindow {
         id: settingsDialog
     }
 
-    // SudoWarningDialog {
-    //     id: sudoWarningDialog
-    // }
+    SudoWarningDialog {
+        id: sudoWarningDialog
+    }
 
     Component {
         id: terminalTabComponent

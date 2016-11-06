@@ -19,18 +19,18 @@
 
 import QtQuick 2.4
 import QtQuick.Controls.Material 2.0
-import Fluid.Controls 1.0
+import Fluid.Controls 1.0 as Controls
 
-Dialog {
+Controls.Dialog {
     id: sudoWarningDialog
 
-    title: "This command is asking for administrative access to your computer"
-    text: "Copying commands from the internet can be dangerous. Be sure you understand what this command does before running it:"
+    title: qsTr("This command is asking for administrative access to your computer")
+    text: qsTr("Copying commands from the internet can be dangerous. Be sure you understand what this command does before running it:")
 
-    positiveButtonText: "Paste Anyway"
-    negativeButtonText: "Don't Paste"
+    positiveButtonText: qsTr("Paste Anyway")
+    negativeButtonText: qsTr("Don't Paste")
 
-    positiveButton.textColor: Material.color(Material.Red, Material.Shade500)
+    //positiveButton.textColor: Material.color(Material.Red, Material.Shade500)
 
     width: 410
 
@@ -40,5 +40,5 @@ Dialog {
 
     onAccepted: activeTab.item.terminal.pasteClipboard()
 
-    onOpened: commandItem.text = clipboard.text().trim()
+    onOpened: commandItem.text = clipboard.text.trim()
 }
