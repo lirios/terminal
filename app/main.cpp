@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     app.setOrganizationName(QLatin1String("Liri"));
     app.setOrganizationDomain(QLatin1String("liri.io"));
     app.setApplicationName(QLatin1String("Terminal"));
-    app.setDesktopFileName("io.liri.Terminal.desktop");
+    app.setDesktopFileName(QLatin1String("io.liri.Terminal.desktop"));
 
     // Set the X11 WML_CLASS so X11 desktops can find the desktop file
     qputenv("RESOURCE_NAME", "io.liri.Terminal");
