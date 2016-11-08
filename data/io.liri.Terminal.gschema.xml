@@ -19,7 +19,7 @@
       </description>
     </key>
     <key name="font-family" type="s">
-      <default>'Roboto Mono for Powerline'</default>
+      <default>'monospace'</default>
       <summary>Font Family</summary>
       <description>
         Font family for the terminal view.
