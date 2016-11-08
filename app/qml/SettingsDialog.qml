@@ -20,8 +20,6 @@
  */
 
 import QtQuick 2.2
-import QtQuick.Window 2.2
-import QtQuick.Dialogs 1.2
 import QtQuick.Controls 2.0
 import Fluid.Controls 1.0 as Controls
 
