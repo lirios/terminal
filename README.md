@@ -25,7 +25,7 @@ The following modules and their dependencies are required:
  * [ECM >= 1.7.0](http://quickgit.kde.org/?p=extra-cmake-modules.git)
  * [fluid](https://github.com/lirios/fluid)
  * [vibe](https://github.com/lirios/vibe)
- * [Our fork of QMLTermWidget](https://github.com/papyros/qmltermwidget)
+ * [qmltermwidget](https://github.com/lirios/qmltermwidget)
 
 ## Installation
 
