@@ -20,14 +20,15 @@
  */
 
 import QtQuick 2.2
+import QtQuick.Layouts 1.0
 import QtQuick.Controls 2.0
 import Fluid.Controls 1.0 as Controls
 
 Controls.Dialog {
     title: qsTr("Settings")
 
+    width: Math.min(parent.width * 0.7, 600)
     height: Math.min(parent.height * 0.7, 400)
-    width: 30
 
     onAccepted: {
         settings.fontSize = fontSizeSlider.value
@@ -36,12 +37,14 @@ Controls.Dialog {
         settings.smartCopyPaste = smartCopyPasteSwitch.checked
     }
 
-    Column {
+    ColumnLayout {
         id: settingsList
 
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.margins: -24
+        width: parent.width
+
+        Item {
+            height: Controls.Units.largeSpacing
+        }
 
         // TODO: The opacity setting doesn't work, so hide it
         // ListItem.Subtitled {
@@ -79,12 +82,14 @@ Controls.Dialog {
         }
 
         Controls.ListItem {
-            id: fontListItem
-
             text: qsTr("Font family")
-            subText: settings.fontFamily
 
-            onClicked: fontDialog.open()
+            rightItem: ComboBox {
+                anchors.centerIn: parent
+                model: fontFamilies
+                textRole: "text"
+                currentIndex: find(settings.fontFamily)
+            }
         }
 
         Controls.ListItem {
@@ -108,46 +113,6 @@ Controls.Dialog {
                 //floatingLabel: true
                 placeholderText: qsTr("Shell program")
                 text: settings.shellProgram
-            }
-        }
-    }
-
-    Controls.Dialog {
-        id: fontDialog
-        title: qsTr("Select Font")
-        //hasActions: false
-        height: settingsDialog.height - 32
-        width: settingsDialog.width - 32
-
-        ListView {
-            id: fontListView
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.margins: -24
-            height: fontDialog.height
-
-            model: Qt.fontFamilies()
-            delegate: Controls.ListItem {
-                id: listItem
-                text: modelData
-                highlighted: fontListItem.subText === text
-
-                // TODO: Is there a better way to do this
-                visible: text.toLowerCase().indexOf('mono') !== -1
-                height: visible ? implicitHeight : 0
-
-                secondaryItem: [
-                    Controls.Icon {
-                        anchors.centerIn: parent
-                        name: "navigation/check"
-                        visible: listItem.highlighted
-                    }
-                ]
-
-                onClicked: {
-                    fontListItem.subText = text;
-                    fontDialog.close();
-                }
             }
         }
     }
