@@ -89,13 +89,13 @@ FluidWindow {
     Component.onCompleted: activeTab.focus()
 
     Action {
-        shortcut: settings.smartCopyPaste == "true" ? StandardKey.Copy : "Ctrl+Shift+C"
+        shortcut: settings.smartCopyPaste ? StandardKey.Copy : "Ctrl+Shift+C"
         enabled: activeTab.terminal.hasSelection || settings.smartCopyPaste == "false"
         onTriggered: activeTab.terminal.copyClipboard()
     }
 
     Action {
-        shortcut: settings.smartCopyPaste == "true" ? StandardKey.Paste : "Ctrl+Shift+V"
+        shortcut: settings.smartCopyPaste ? StandardKey.Paste : "Ctrl+Shift+V"
         onTriggered: pasteClipboard()
     }
 
