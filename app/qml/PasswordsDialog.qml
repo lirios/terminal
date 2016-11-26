@@ -43,23 +43,11 @@ Controls.Dialog {
         height: 250
 
         delegate: Controls.ListItem {
-            height: 48
+            text: modelData
 
             onClicked: {
                 passwordsDialog.close()
-                terminal.insertText(wallet.readPassword(modelData) + '\n')
-            }
-
-            Controls.SubheadingLabel {
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    verticalCenter: parent.verticalCenter
-                    margins: 24
-                }
-
-                elide: Text.ElideRight
-                text: modelData
+                activeTab.terminal.insertText(wallet.readPassword(modelData) + '\n')
             }
         }
 

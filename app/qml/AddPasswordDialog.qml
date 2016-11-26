@@ -19,6 +19,7 @@
 
 import QtQuick 2.4
 import QtQuick.Controls 2.0
+import QtQuick.Layouts 1.0
 import Fluid.Controls 1.0 as Controls
 
 Controls.Dialog {
@@ -34,31 +35,28 @@ Controls.Dialog {
 
     onAccepted: {
         wallet.writePassword(titleField.text, passwordField.text)
-        passwordsDialog.show()
+        passwordsDialog.open()
     }
 
-    Item {
+    ColumnLayout {
         width: parent.width
-        height: 8
-    }
 
-    TextField {
-        id: titleField
-        //floatingLabel: true
-        width: parent.width
-        placeholderText: qsTr("Title")
-    }
+        TextField {
+            id: titleField
+            //floatingLabel: true
+            placeholderText: qsTr("Title")
+            focus: true
 
-    Item {
-        width: parent.width
-        height: 8
-    }
+            Layout.fillWidth: true
+        }
 
-    TextField {
-        id: passwordField
-        //floatingLabel: true
-        width: parent.width
-        placeholderText: qsTr("Password")
-        echoMode: TextInput.Password
+        TextField {
+            id: passwordField
+            //floatingLabel: true
+            placeholderText: qsTr("Password")
+            echoMode: TextInput.Password
+
+            Layout.fillWidth: true
+        }
     }
 }
