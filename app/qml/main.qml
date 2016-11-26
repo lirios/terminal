@@ -90,7 +90,7 @@ FluidWindow {
 
     Action {
         shortcut: settings.smartCopyPaste ? StandardKey.Copy : "Ctrl+Shift+C"
-        enabled: activeTab.terminal.hasSelection || settings.smartCopyPaste == "false"
+        enabled: activeTab.terminal.hasSelection || !settings.smartCopyPaste
         onTriggered: activeTab.terminal.copyClipboard()
     }
 
