@@ -105,11 +105,12 @@ Controls.Dialog {
         }
 
         Controls.ListItem {
-            rightItem: TextField {
+            secondaryItem: TextField {
                 id: shellProgramTextField
 
                 width: parent.width
                 anchors.verticalCenter: parent.verticalCenter
+
                 //floatingLabel: true
                 placeholderText: qsTr("Shell program")
                 text: settings.shellProgram
