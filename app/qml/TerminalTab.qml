@@ -29,7 +29,7 @@ import Liri.Terminal 1.0
 Tab {
     id: tab
 
-    property bool __skipConfirmClose
+    property bool __skipConfirmClose: false
 
     property alias terminal: terminal
     property alias session: terminal.session

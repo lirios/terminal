@@ -32,7 +32,7 @@ FluidWindow {
     id: mainWindow
 
     property TerminalTab activeTab: tabbedPage.selectedTab
-    property bool __skipConfirmClose
+    property bool __skipConfirmClose: false
 
     title: activeTab ? activeTab.title : "Terminal"
     minimumWidth: 250
