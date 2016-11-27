@@ -129,7 +129,7 @@ FluidWindow {
 
     initialPage: TabbedPage {
         id: tabbedPage
-        title: "Terminal"
+        title: qsTr("Terminal")
 
     //     actionBar.tabBar.visible: tabs.count > 1
     //     actionBar.integratedTabBar: true
