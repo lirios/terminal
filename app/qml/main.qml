@@ -57,7 +57,7 @@ FluidWindow {
         console.log("Adding tab...")
         var tab = terminalTabComponent.createObject(tabbedPage)
         tabbedPage.addTab(tab)
-        tabbedPage.currentIndex = tabbedPage.count - 1
+        tab.focus()
     }
 
     onActiveTabChanged: {
