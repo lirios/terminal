@@ -497,6 +497,8 @@ private:
                     case GROUP_PROCESS_FIELD:
                         foregroundPidString.append(c);
                         break;
+                    default:
+                        break;
                     }
                 }
 

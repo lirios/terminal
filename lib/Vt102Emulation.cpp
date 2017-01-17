@@ -1146,6 +1146,8 @@ void Vt102Emulation::setMode(int m)
     case MODE_AppScreen : _screen[1]->clearSelection();
                           setScreen(1);
     break;
+    default:
+      break;
   }
   if (m < MODES_SCREEN || m == MODE_NewLine)
   {
@@ -1174,6 +1176,8 @@ void Vt102Emulation::resetMode(int m)
         _screen[0]->clearSelection();
         setScreen(0);
     break;
+    default:
+      break;
   }
   if (m < MODES_SCREEN || m == MODE_NewLine)
   {

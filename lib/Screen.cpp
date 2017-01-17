@@ -245,6 +245,7 @@ void Screen::setMode(int m)
     switch(m)
     {
         case MODE_Origin : cuX = 0; cuY = _topMargin; break; //FIXME: home
+        default: break;
     }
 }
 
@@ -254,6 +255,7 @@ void Screen::resetMode(int m)
     switch(m)
     {
         case MODE_Origin : cuX = 0; cuY = 0; break; //FIXME: home
+        default: break;
     }
 }
 

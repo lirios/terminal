@@ -256,13 +256,18 @@ inline bool operator != (const CharacterColor& a, const CharacterColor& b)
 inline const QColor color256(quint8 u, const ColorEntry* base)
 {
   //   0.. 16: system colors
-  if (u <   8) return base[u+2            ].color; u -= 8;
-  if (u <   8) return base[u+2+BASE_COLORS].color; u -= 8;
+  if (u < 8)
+    return base[u+2].color;
+  u -= 8;
+  if (u < 8)
+    return base[u+2+BASE_COLORS].color;
+  u -= 8;
 
   //  16..231: 6x6x6 rgb color cube
-  if (u < 216) return QColor(((u/36)%6) ? (40*((u/36)%6)+55) : 0,
-                             ((u/ 6)%6) ? (40*((u/ 6)%6)+55) : 0,
-                             ((u/ 1)%6) ? (40*((u/ 1)%6)+55) : 0); u -= 216;
+  if (u < 216)
+    return QColor(((u/36)%6) ? (40*((u/36)%6)+55) : 0,
+                  ((u/ 6)%6) ? (40*((u/ 6)%6)+55) : 0,
+                  ((u/ 1)%6) ? (40*((u/ 1)%6)+55) : 0); u -= 216;
   
   // 232..255: gray, leaving out black and white
   int gray = u*10+8; return QColor(gray,gray,gray);
@@ -277,6 +282,7 @@ inline QColor CharacterColor::color(const ColorEntry* base) const
     case COLOR_SPACE_256: return color256(_u,base);
     case COLOR_SPACE_RGB: return QColor(_u,_v,_w);
     case COLOR_SPACE_UNDEFINED: return QColor();
+    default: break;
   }
 
   Q_ASSERT(false); // invalid color space

@@ -2696,6 +2696,8 @@ void TerminalDisplay::keyPressEvent( QKeyEvent* event )
                 break;
             case NoMoveScreenWindow:
                 break;
+            default:
+                break;
             }
         }
         else
@@ -2808,6 +2810,8 @@ bool TerminalDisplay::handleShortcutOverrideEvent(QKeyEvent* keyEvent)
       case Qt::Key_Escape:
         keyEvent->accept();
         return true;
+      default:
+        break;
     }
     return false;
 }
@@ -2917,6 +2921,8 @@ void TerminalDisplay::calcGeometry()
      _leftMargin = DEFAULT_LEFT_MARGIN;
      _contentWidth = contentsRect().width()  - 2 * DEFAULT_LEFT_MARGIN - _scrollBar->width();
      _scrollBar->move(contentsRect().topRight() - QPoint(_scrollBar->width()-1,0));
+     break;
+    default:
      break;
   }
 
