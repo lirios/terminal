@@ -1,6 +1,7 @@
 /*
  * This file is part of Terminal.
  *
+ * Copyright (C) 2017 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
  * Copyright (C) 2016 Michael Spencer <sonrisesoftware@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -18,19 +19,33 @@
  */
 
 import QtQuick 2.4
-import QtQuick.Controls.Material 2.0
-import Fluid.Controls 1.0 as Controls
+import QtQuick.Controls 2.1
+import QtQuick.Controls.Material 2.1
+import Fluid.Controls 1.0 as FluidControls
 
-Controls.Dialog {
+FluidControls.AlertDialog {
     id: sudoWarningDialog
 
-    title: qsTr("This command is asking for administrative access to your computer")
-    text: qsTr("Copying commands from the internet can be dangerous. Be sure you understand what this command does before running it:")
+    title: qsTr("Paste this command?")
+    text: qsTr("This command is asking for administrative access to your computer.\n" +
+               "Copying commands from the internet can be dangerous.\nBe sure you understand what this command does before running it:")
 
-    positiveButtonText: qsTr("Paste Anyway")
-    negativeButtonText: qsTr("Don't Paste")
+    footer: DialogButtonBox {
+        Button {
+            text: qsTr("Paste Anyway")
+            flat: true
 
-    //positiveButton.textColor: Material.color(Material.Red, Material.Shade500)
+            Material.foreground: Material.color(Material.Red, Material.Shade500)
+            DialogButtonBox.buttonRole: DialogButtonBox.AcceptRole
+        }
+
+        Button {
+            text: qsTr("Don't Paste")
+            flat: true
+
+            DialogButtonBox.buttonRole: DialogButtonBox.AcceptRole
+        }
+    }
 
     width: 410
 

@@ -1,6 +1,7 @@
 /*
  * This file is part of Terminal.
  *
+ * Copyright (C) 2017 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
  * Copyright (C) 2016 Michael Spencer <sonrisesoftware@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -18,15 +19,21 @@
  */
 
 import QtQuick 2.4
-import QtQuick.Controls 2.0
+import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.0
-import Fluid.Controls 1.0 as Controls
 
-Controls.Dialog {
+Dialog {
     id: addPasswordDialog
 
     title: qsTr("Add Password")
-    positiveButtonText: qsTr("Save")
+
+    x: (parent.width - width) / 2
+    y: (parent.height - height) / 2
+    width: 400
+
+    modal: true
+
+    standardButtons: Dialog.Save | Dialog.Cancel
 
     onOpened: {
         titleField.text = ""

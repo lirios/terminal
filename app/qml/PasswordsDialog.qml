@@ -1,6 +1,7 @@
 /*
  * This file is part of Terminal.
  *
+ * Copyright (C) 2017 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
  * Copyright (C) 2016 Michael Spencer <sonrisesoftware@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -18,62 +19,65 @@
  */
 
 import QtQuick 2.4
-import QtQuick.Controls 2.0
-import Fluid.Controls 1.0 as Controls
+import QtQuick.Controls 2.1
+import QtQuick.Layouts 1.0
+import Fluid.Controls 1.0 as FluidControls
 
-Controls.Dialog {
+Dialog {
     id: passwordsDialog
     title: qsTr("Passwords")
 
-    width: minimumWidth
+    x: (parent.width - width) / 2
+    y: (parent.height - height) / 2
 
-    positiveButtonText: qsTr("Add Password")
-    negativeButtonText: qsTr("Close")
+    width: 400
+    height: 400
+
+    modal: true
 
     onOpened: passwordsListView.model = wallet.entryList()
 
-    onAccepted: addPasswordDialog.open()
+    ColumnLayout {
+        anchors.fill: parent
+        spacing: FluidControls.Units.smallSpacing
 
-    ListView {
-        id: passwordsListView
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.margins: -24
+        FluidControls.DialogLabel {
+            text: qsTr("Add your passwords here for easy access when using sudo, SSH, or other commands that require passwords.")
+            wrapMode: Text.Wrap
 
-        height: 250
+            Layout.fillWidth: true
+        }
 
-        delegate: Controls.ListItem {
-            text: modelData
-
+        Button {
+            text: qsTr("Add Password")
+            flat: true
             onClicked: {
-                passwordsDialog.close()
-                activeTab.terminal.insertText(wallet.readPassword(modelData) + '\n')
+                addPasswordDialog.open();
+                accepted();
             }
         }
 
-        Column {
-            anchors.centerIn: parent
+        ListView {
+            id: passwordsListView
 
-            spacing: 8
-            opacity: 0.5
-            visible: passwordsListView.count == 0
+            delegate: FluidControls.ListItem {
+                text: modelData || qsTr("n.a.")
 
-            Controls.Icon {
-                name: "communication/vpn_key"
-                anchors.horizontalCenter: parent.horizontalCenter
-                size: 48
+                onClicked: {
+                    passwordsDialog.close();
+                    activeTab.terminal.insertText(wallet.readPassword(modelData) + '\n');
+                }
             }
-            Controls.SubheadingLabel {
-                horizontalAlignment: Text.AlignHCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("Add your passwords here for easy access when using sudo, SSH, or other commands that require passwords.")
-                wrapMode: Text.Wrap
-                width: passwordsListView.width - (16 * 2)
-            }
+
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+
+            ScrollBar.vertical: ScrollBar {}
         }
     }
 
     AddPasswordDialog {
         id: addPasswordDialog
+        parent: parent.parent
     }
 }

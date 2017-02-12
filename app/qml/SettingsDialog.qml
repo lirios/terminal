@@ -1,7 +1,7 @@
 /*
  * This file is part of Terminal.
  *
- * Copyright (C) Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+ * Copyright (C) 2017 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
  * Copyright (C) 2016 Žiga Patačko Koderman <ziga.patacko@gmail.com>
  * Copyright (C) 2016 Michael Spencer <sonrisesoftware@gmail.com>
  *
@@ -21,11 +21,16 @@
 
 import QtQuick 2.2
 import QtQuick.Layouts 1.0
-import QtQuick.Controls 2.0
-import Fluid.Controls 1.0 as Controls
+import QtQuick.Controls 2.1
+import Fluid.Controls 1.0 as FluidControls
 
-Controls.Dialog {
+Dialog {
     title: qsTr("Settings")
+
+    x: (parent.width - width) / 2
+    y: (parent.height - height) / 2
+
+    modal: true
 
     width: Math.min(parent.width * 0.7, 600)
     height: Math.min(parent.height * 0.7, 400)
@@ -43,7 +48,7 @@ Controls.Dialog {
         width: parent.width
 
         Item {
-            height: Controls.Units.largeSpacing
+            height: FluidControls.Units.largeSpacing
         }
 
         // TODO: The opacity setting doesn't work, so hide it
@@ -64,7 +69,7 @@ Controls.Dialog {
         //     }
         // }
 
-        Controls.ListItem {
+        FluidControls.ListItem {
             text: qsTr("Font size")
             valueText: fontSizeSlider.value
 
@@ -81,7 +86,7 @@ Controls.Dialog {
             }
         }
 
-        Controls.ListItem {
+        FluidControls.ListItem {
             text: qsTr("Font family")
 
             rightItem: ComboBox {
@@ -92,7 +97,7 @@ Controls.Dialog {
             }
         }
 
-        Controls.ListItem {
+        FluidControls.ListItem {
             text: qsTr("Smart copy/paste")
 
             onClicked: smartCopyPasteSwitch.checked = !smartCopyPasteSwitch.checked
@@ -104,7 +109,7 @@ Controls.Dialog {
             }
         }
 
-        Controls.ListItem {
+        FluidControls.ListItem {
             secondaryItem: TextField {
                 id: shellProgramTextField
 

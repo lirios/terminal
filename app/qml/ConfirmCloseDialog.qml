@@ -1,6 +1,7 @@
 /*
  * This file is part of Terminal.
  *
+ * Copyright (C) 2017 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
  * Copyright (C) 2016 Michael Spencer <sonrisesoftware@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -18,9 +19,10 @@
  */
 
 import QtQuick 2.4
-import Fluid.Controls 1.0
+import QtQuick.Controls 2.1
+import Fluid.Controls 1.0 as FluidControls
 
-Dialog {
+FluidControls.AlertDialog {
     id: confirmCloseDialog
 
     property var processes: []
@@ -32,9 +34,10 @@ Dialog {
             : processes.length > 1
                     ? qsTr("There are %1 processes running in this window. If you quit Terminal, the processes will end.").arg(processes.length)
                     : qsTr("There is a process running in this window. If you quit Terminal, the process will end.")
-    positiveButtonText: qsTr("Close")
 
     width: 400
+
+    standardButtons: Dialog.Yes | Dialog.No
 
     Repeater {
         model: processes
