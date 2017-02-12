@@ -56,7 +56,7 @@ find_package(Qt5 ${REQUIRED_QT_VERSION} CONFIG REQUIRED COMPONENTS
              Core Qml Quick Widgets QuickControls2)
 
 # Find Vibe
-set(REQUIRED_VIBE_VERSION "0.7.0")
+set(REQUIRED_VIBE_VERSION "0.9.0")
 find_package(Vibe ${REQUIRED_HAWAII_VERSION} REQUIRED)
 
 # Find pkg-config
