@@ -26,6 +26,7 @@ import QtQuick.Controls.Material 2.0
 import QtQuick.Layouts 1.1
 import Fluid.Core 1.0
 import Fluid.Controls 1.0
+import QtGSettings 1.0
 import Vibe.Wallet 1.0
 
 FluidWindow {
@@ -191,7 +192,7 @@ FluidWindow {
         id: clipboard
     }
 
-    Settings {
+    GSettings {
         id: settings
         // TODO: This is the way to do it, but the method is not invokable from QML
         // onOpacityChanged: terminal.setOpacity(opacity)

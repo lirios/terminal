@@ -24,6 +24,7 @@ The following modules and their dependencies are required:
 
  * [ECM >= 1.7.0](http://quickgit.kde.org/?p=extra-cmake-modules.git)
  * [fluid](https://github.com/lirios/fluid)
+ * [qtgsettings](https://github.com/lirios/qtgsettings)
  * [vibe](https://github.com/lirios/vibe)
 
 ## Installation
