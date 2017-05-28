@@ -22,7 +22,6 @@ Qt >= 5.8.0 with at least the following modules is required:
 
 The following modules and their dependencies are required:
 
- * [ECM >= 1.7.0](http://quickgit.kde.org/?p=extra-cmake-modules.git)
  * [fluid](https://github.com/lirios/fluid)
  * [qtgsettings](https://github.com/lirios/qtgsettings)
  * [vibe](https://github.com/lirios/vibe)
@@ -30,21 +29,6 @@ The following modules and their dependencies are required:
 ## Installation
 
 From the root of the repository, run:
-
-```sh
-mkdir build; cd build
-cmake .. -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
-make
-make install # use sudo if necessary
-```
-
-On the `cmake` line, you can specify additional configuration parameters:
-
- * `-DCMAKE_INSTALL_PREFIX=/path/to/install` (for example, `/opt/liri` or `/usr`)
- * `-DCMAKE_BUILD_TYPE=<build_type>`, where `<build_type>` is one of:
-   * **Debug:** debug build
-   * **Release:** release build
-   * **RelWithDebInfo:** release build with debugging information
 
 ## Licensing
 
