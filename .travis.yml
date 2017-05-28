@@ -1,0 +1,43 @@
+language: c
+
+compiler:
+  - clang
+  - gcc
+
+sudo: required
+
+services:
+  - docker
+
+env:
+  global:
+    # FTP_USER
+    - secure: "vD+LaiBgWQglBbX9LX1OL5BY0jIhCDmaqrUCEPthJ0omv1aKtnqJxZ1qb37hWSN3QQ6k7Fpx59G8QNWcwJ4IqIQ5vgvTOuW7Q1T79VXtRBnLgcfvJonsbn+XZCmOqvBp7fKHyvipo6lxq9jWBQ3483MFBO/m9yQ1JkOrV6b8jTD/5R/s7TfxxXtdq4S2qRPqnyQwPo7bAzS826BYQNKyKjhGUAOGqL+/eUvnSPWCMGQ9LIvTP4nvzz3mcfiOu/HWr4u2Kt9isU0GV8c625kyOOCtqlgWnG04ABXPFFDm2DSucDXlqHmqYBSLVEMULXN66KRBVVZGCXG7McZRFz026w7O2fdfCoVNspUBhpHQnsC4kZ4vHNQajF5Om7zyqvCVowJAK8eEpnr4yKIt3Kv4nIZDwy/ES1TKRYqtNcLBI/ZwiantLATD8e4CdbLSw1aSpkyrfDlRd3kUYWVaVZF6LtM8gXcOkpl0AWsOHDlQ2qL5eUmw358CPmIyQpENRTOqNPjFFbv2X8cVLvwMCsn9QpddlniT0txLMk7gsjbVeJMZ69YwUm5n54Tp6sKbQHaK0ccxzCGLq/V6ABb5tOrIyTtsocyUNcHzDuCPC+eSFGU2uIqC4NfwzHXsx9TEh5lU5axFuEcAMdC4WBrF5nR7MwQKpYibuWWsoPRI8t9F9yY="
+    # FTP_PASSWORD
+    - secure: "Y4/l29FfEc0wxb8zlsntRRpcxmnCmI11wbd3tc+iAMyhd81qSDc4yKUWOdn38pardXNeG+lgOT7Q1qQlZjdtRviUeyB7Nltt/ivK43hD0eq/QjwsSZE6NbJrxoc2nk6HnD412CY317uMH28PCCAI8bpFxFRDS+yEO9BtGiEgTZ41WA67rv6g4nsEP4rGH3RoiddPBBFhZbXtKeksXJZFdNAxO2SCJf+Si39wHbBOn1JFwbziG/KeAt0yvlhpgcWIadDInsqZEqgbP7AOhsi/je2YkbgWMHm80HnMNKR/k8PBaRcitjgVinSpQjgV47MB2JU3DT9Zvx+8DtkmP6+Oo2iHq52Fvx2WD0nwq2SCqA8Xc3jJCSaY/X5ePiS0v0fYrpa//yaa1G8yzOo3cVy0s8unxhPDGpjmSkoYOnu7MTHmfPJyWQ+ae7Yn4l5TTwYAw8nT4LBBcaV6NxHdLvgUwGowCLiNNFOLHvRF5OMM7Ww6VXyKv5PPRS3L28hFebQs/dfsaHUp6LDaus03v7Sv0rXj2/e1CY8SRpc9HNWFth3NMZVtqkOtM7/ragTrBNl2Yl8+VxjveZ+GhfxABJC4GpoCjb9ugU5MmhYqGUrZTTIzgnbrAWi7efiDTKBl6ZH+BDX4cBkYCsjmkBzI5K8zSLL4itXu+E1uAGg1Nhm/lnk="
+    # FTP_URL
+    - secure: "B7M14GKmpx35ib34uO9isGjwzQXdlUnpPXokBsr8woCpyM7NOUCbYYoANMxnSNVDYNrCIxSepTQK+F00EfupBCP5sYxlcXEWIn0aT+bLMhNUWqaaLae+XJO+E8vKWZA/RLfmZo70CHcL/j8NXGvrIzd+sJoeAvv9yL+dDOJVra91FcZeUxyTKyM3CZvR0EDt//ULezueTyQYk6Aki7ZbvxFD8DzRD+h9XerRYmc9yE/Et+9o3PLJP+kPIFSGBnsokXB8erSoD1LxcFZuw0MhJ72Up5jCYvIntpHjEpGWkT0SPnIvEwCMMpxuCDo+7Eweqaeh+0bEU7VUcr17ifqVEKjXMXzm0XfMRHVyyDM487Z0QFgiaOY8Of0N+aQLRzSBru1g+/SJ/AzyGYeM8DcWOxTwVZjVpPNV3kEmuZvctnx5+f9wMRxXtQ+YhK0wwSRlkNE5UzjVdmcoJeVDBlvzuvb6+glzvv4Zg9QZ0CoLW+Qym7Cwm8Kh9TNLxEQnMVmwPlXHEpEknLWxJQ+hmh2UJtQ2Z/SGsvN3N3EFEM4IHuBTg4X9hOMH/i03nSq5lEbRmvjBKEVI+mDQJ7yAAyhww7KfwvHJ4PMW7kmrW9YLwqurj3sjm9HnmClCI5hj0YHFrBZFsJ6fdfCfcgyZYr7pCG8/sWwAeVIJe1YoQPIbSXE="
+
+arch:
+  artifacts:
+    - fluid-artifacts.tar.gz
+    - qtgsettings-artifacts.tar.gz
+  packages:
+    - qbs
+    - qt5-quickcontrols2
+    - glib2
+    - xorg-server-xvfb
+    #- clazy-git
+  script:
+    #- export CLAZY_CHECKS="level1"
+    - qbs-setup-toolchains --detect
+    - qbs-setup-qt /usr/bin/qmake-qt5 qt5
+    - qbs config profiles.qt5.baseProfile ${CC}
+    - eval `dbus-launch --sh-syntax` && xvfb-run -a -s "-screen 0 800x600x24" qbs build -d build -j $(nproc) profile:qt5
+
+script:
+  - "curl -s https://raw.githubusercontent.com/lirios/repotools/develop/travis/docker-travis.sh | bash"
+
+notifications:
+  email: false
+  slack: lirios:fdUqVmPzqPskEL1UBhqapZ0w
