@@ -28,7 +28,38 @@ The following modules and their dependencies are required:
 
 ## Installation
 
+Qbs is a new build system that is much easier to use compared to qmake or CMake.
+
+If you want to learn more, please read the [Qbs manual](http://doc.qt.io/qbs/index.html),
+especially the [setup guide](http://doc.qt.io/qbs/configuring.html) and how to install artifacts
+from the [installation guide](http://doc.qt.io/qbs/installing-files.html).
+
 From the root of the repository, run:
+
+```sh
+qbs setup-toolchains --type gcc /usr/bin/g++ gcc
+qbs setup-qt /usr/bin/qmake-qt5 qt5
+qbs config profiles.qt5.baseProfile gcc
+qbs -d build -j $(nproc) profile:qt5 # use sudo if necessary
+```
+
+On the last `qbs` line, you can specify additional configuration parameters at the end:
+
+ * `qbs.installRoot:/path/to/install` (for example `/`)
+ * `qbs.installPrefix:path/to/install` (for example `opt/liri` or `usr`)
+
+The installation path is given by concatenating `qbs.installRoot` and `qbs.installPrefix`.
+
+The following are only needed if `qbs.installRoot` is a system-wide path such as `/`
+and the default value doesn't suit your needs. All are relative to the installation path:
+
+ * `lirideployment.libDir:path/to/lib` where libraries are installed (default: `lib`)
+ * `lirideployment.qmlDir:path/to/qml` where QML plugins are installed (default: `lib/qml`)
+
+See `qbs/shared/modules/lirideployment/lirideployment.qbs` for more deployment-related parameters.
+
+If you specify `qbs.installRoot` you might need to prefix the entire line with `sudo`,
+depending on whether you have permissions to write there or not.
 
 ## Licensing
 
