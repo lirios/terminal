@@ -29,7 +29,7 @@ import Fluid.Controls 1.0
 import QtGSettings 1.0
 import Vibe.Wallet 1.0
 
-FluidWindow {
+ApplicationWindow {
     id: mainWindow
 
     property TerminalTab activeTab: tabbedPage.selectedTab
