@@ -22,6 +22,7 @@ Qt >= 5.8.0 with at least the following modules is required:
 
 The following modules and their dependencies are required:
 
+ * [qbs-shared](https://github.com/lirios/qbs-shared.git)
  * [fluid](https://github.com/lirios/fluid)
  * [qtgsettings](https://github.com/lirios/qtgsettings)
  * [vibe](https://github.com/lirios/vibe)
@@ -56,7 +57,8 @@ and the default value doesn't suit your needs. All are relative to the installat
  * `lirideployment.libDir:path/to/lib` where libraries are installed (default: `lib`)
  * `lirideployment.qmlDir:path/to/qml` where QML plugins are installed (default: `lib/qml`)
 
-See `qbs/shared/modules/lirideployment/lirideployment.qbs` for more deployment-related parameters.
+See [lirideployment.qbs](https://github.com/lirios/qbs-shared/blob/develop/modules/lirideployment/lirideployment.qbs)
+for more deployment-related parameters.
 
 If you specify `qbs.installRoot` you might need to prefix the entire line with `sudo`,
 depending on whether you have permissions to write there or not.
