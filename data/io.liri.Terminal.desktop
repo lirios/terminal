@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=Terminal
+Name=Liri Terminal
 Comment=Use the command line
 Keywords=shell;prompt;command;commandline;cmd;terminal
 Exec=liri-terminal
