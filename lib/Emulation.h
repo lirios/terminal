@@ -120,7 +120,7 @@ enum
  * how long the emulation has been active/idle for and also respond to
  * a 'bell' event in different ways.
  */
-class KONSOLEPRIVATE_EXPORT Emulation : public QObject
+class Q_DECL_EXPORT Emulation : public QObject
 { 
 Q_OBJECT
 

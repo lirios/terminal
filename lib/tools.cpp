@@ -68,6 +68,10 @@ QString get_color_schemes_dir()
     //qDebug() << d.path();
     if (d.exists())
         rval = QCoreApplication::applicationDirPath() + "/color-schemes/";
+    if (rval.isEmpty()) {
+        d.setPath(":/color-schemes/");
+        rval = ":/color-schemes/";
+    }
 #ifdef Q_WS_MAC
     d.setPath(QCoreApplication::applicationDirPath() + "/../Resources/color-schemes/");
     if (d.exists())
