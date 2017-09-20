@@ -27,7 +27,7 @@ import QtQuick.Layouts 1.1
 import Fluid.Core 1.0
 import Fluid.Controls 1.0
 import QtGSettings 1.0
-import Vibe.Wallet 1.0
+//import Vibe.Wallet 1.0
 
 ApplicationWindow {
     id: mainWindow
@@ -159,6 +159,7 @@ ApplicationWindow {
                     console.log("New window")
                 }
             },
+            /* Wallet disabled until KWallet integration problems are resolved
             Action {
                 visible: wallet.enabled
                 enabled: wallet.status === KQuickWallet.Open
@@ -166,6 +167,7 @@ ApplicationWindow {
                 text: qsTr("Passwords")
                 onTriggered: passwordsDialog.open()
             },
+            */
             // TODO: Implement search
             // Action {
             //     iconName: "action/search"
@@ -198,11 +200,13 @@ ApplicationWindow {
         // onOpacityChanged: terminal.setOpacity(opacity)
     }
 
+    /* Disabled due to issues with kwallet
     KQuickWallet {
         id: wallet
 
         folder: "Terminal Passwords"
     }
+    */
 
     ConfirmCloseDialog {
         id: confirmCloseDialog
@@ -213,9 +217,11 @@ ApplicationWindow {
         }
     }
 
+    /* Disabled due to issues with kwallet
     PasswordsDialog {
         id: passwordsDialog
     }
+    */
 
     SettingsDialog {
         id: settingsDialog
