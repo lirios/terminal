@@ -452,8 +452,10 @@ void KPty::close()
         if (!geteuid()) {
             struct stat st;
             if (!stat(d->ttyName.data(), &st)) {
-                chown(d->ttyName.data(), 0, st.st_gid == getgid() ? 0 : -1);
-                chmod(d->ttyName.data(), S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH|S_IWOTH);
+                if (chown(d->ttyName.data(), 0, st.st_gid == getgid() ? 0 : -1) < 0)
+                    qDebug() << "Cannot change pseudo teletype slave ownership";
+                if (chmod(d->ttyName.data(), S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH|S_IWOTH) < 0)
+                    qDebug() << "Cannot change pseudo teletype slave permission";
             }
         } else {
             fcntl(d->masterFd, F_SETFD, 0);
