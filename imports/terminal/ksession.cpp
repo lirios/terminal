@@ -88,7 +88,7 @@ Session *KSession::createSession(QString name)
 
     session->setDarkBackground(true);
 
-    session->setKeyBindings("");
+    session->setKeyBindings("linux");
 
     return session;
 }
