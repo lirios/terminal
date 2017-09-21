@@ -89,17 +89,6 @@ ApplicationWindow {
 
     Component.onCompleted: activeTab.focus()
 
-    Action {
-        shortcut: settings.smartCopyPaste ? StandardKey.Copy : "Ctrl+Shift+C"
-        enabled: activeTab.terminal.hasSelection || !settings.smartCopyPaste
-        onTriggered: activeTab.terminal.copyClipboard()
-    }
-
-    Action {
-        shortcut: settings.smartCopyPaste ? StandardKey.Paste : "Ctrl+Shift+V"
-        onTriggered: pasteClipboard()
-    }
-
     // TODO: Implement search
     // Action {
     //     shortcut: "Ctrl+F"
@@ -136,18 +125,31 @@ ApplicationWindow {
     //     actionBar.integratedTabBar: true
     //
         actions: [
-            // TODO: Only show when a physical keyboard is not available
-            // Action {
-            //     iconName: "content/content_paste"
-            //     text: qsTr("Paste")
-            //     shortcut: StandardKey.Paste
-            //     onTriggered: pasteClipboard()
-            // },
+            Action {
+                iconName: "content/content_copy"
+                text: qsTr("Copy")
+                shortcut: settings.smartCopyPaste ? StandardKey.Copy : "Ctrl+Shift+C"
+                enabled: activeTab.terminal.hasSelection || !settings.smartCopyPaste
+                visible: !Qt.inputMethod.visible
+                onTriggered: {
+                    activeTab.terminal.copyClipboard();
+                    activeTab.focus();
+                }
+            },
+            Action {
+                iconName: "content/content_paste"
+                text: qsTr("Paste")
+                shortcut: settings.smartCopyPaste ? StandardKey.Paste : "Ctrl+Shift+V"
+                visible: !Qt.inputMethod.visible
+                onTriggered: {
+                    pasteClipboard();
+                    activeTab.focus();
+                }
+            },
             Action {
                 iconName: "content/add"
                 text: qsTr("Open new tab")
                 shortcut: StandardKey.AddTab
-
                 onTriggered: addNewTab()
             },
             Action {
