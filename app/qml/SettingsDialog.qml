@@ -32,12 +32,15 @@ Dialog {
 
     modal: true
 
-    width: Math.min(parent.width * 0.7, 600)
-    height: Math.min(parent.height * 0.7, 400)
+    width: parent.width * 0.7
+    height: parent.height * 0.8
+
+    standardButtons: Dialog.Ok | Dialog.Cancel
 
     onAccepted: {
+        //settings.opacity = opacitySlider.value
         settings.fontSize = fontSizeSlider.value
-        settings.fontFamily = fontListItem.subText
+        settings.fontFamily = fontFamily.currentText
         settings.shellProgram = shellProgramTextField.text
         settings.smartCopyPaste = smartCopyPasteSwitch.checked
     }
@@ -45,29 +48,27 @@ Dialog {
     ColumnLayout {
         id: settingsList
 
-        width: parent.width
+        anchors.fill: parent
 
-        Item {
-            height: FluidControls.Units.largeSpacing
+        /* Opacity doesn't work
+        FluidControls.ListItem {
+            text: qsTr("Background opacity")
+            valueText: opacitySlider.value
+
+            secondaryItem: Slider {
+                id: opacitySlider
+
+                width: parent.width
+                anchors.verticalCenter: parent.verticalCenter
+
+                stepSize: 10
+                snapMode: Slider.SnapAlways
+                from: 10
+                to: 100
+                value: settings.opacity
+            }
         }
-
-        // TODO: The opacity setting doesn't work, so hide it
-        // ListItem.Subtitled {
-        //     text: "Background opacity"
-        //
-        //     content: Slider {
-        //         id: opacitySlider
-        //         width: parent.width
-        //         anchors.verticalCenter: parent.verticalCenter
-        //
-        //         stepSize: 10
-        //         minimumValue: 10
-        //         maximumValue: 100
-        //         value: settings.opacity
-        //
-        //         onValueChanged: settings.opacity = value
-        //     }
-        // }
+        */
 
         FluidControls.ListItem {
             text: qsTr("Font size")
@@ -80,8 +81,9 @@ Dialog {
                 anchors.verticalCenter: parent.verticalCenter
 
                 stepSize: 1
+                snapMode: Slider.SnapAlways
                 value: settings.fontSize
-                from: 2
+                from: 8
                 to: 32
             }
         }
@@ -90,7 +92,9 @@ Dialog {
             text: qsTr("Font family")
 
             rightItem: ComboBox {
+                id: fontFamily
                 anchors.centerIn: parent
+                width: 350
                 model: fontFamilies
                 textRole: "text"
                 currentIndex: find(settings.fontFamily)

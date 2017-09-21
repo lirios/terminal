@@ -17,9 +17,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Vibe.Settings 1.0
+import QtGSettings 1.0
 
-Settings {
+GSettings {
     id: settings
 
     schema.id: "io.liri.Terminal"
