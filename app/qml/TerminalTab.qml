@@ -131,6 +131,11 @@ Tab {
                 opacity: 0.7
             }
         }
+
+        MouseArea {
+            anchors.fill: parent
+            onPressed: tab.focus()
+        }
     }
 
     // ConfirmCloseDialog {
