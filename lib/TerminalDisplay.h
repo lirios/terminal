@@ -122,7 +122,7 @@ public:
     uint randomSeed() const;
 
     /** Sets the opacity of the terminal display. */
-    void setOpacity(qreal opacity);
+    Q_INVOKABLE void setOpacity(qreal opacity);
 
 
     /** 
