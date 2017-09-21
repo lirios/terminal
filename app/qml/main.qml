@@ -61,11 +61,6 @@ ApplicationWindow {
         tab.focus()
     }
 
-    onActiveTabChanged: {
-        if (activeTab)
-            activeTab.focus()
-    }
-
     onClosing: {
         if (__skipConfirmClose)
             return
