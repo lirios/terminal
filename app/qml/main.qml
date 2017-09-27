@@ -114,11 +114,10 @@ ApplicationWindow {
 
     initialPage: TabbedPage {
         id: tabbedPage
-        title: qsTr("Terminal")
 
-    //     actionBar.tabBar.visible: tabs.count > 1
-    //     actionBar.integratedTabBar: true
-    //
+        title: qsTr("Terminal")
+        tabBar.visible: tabs.count > 1
+
         actions: [
             Action {
                 iconName: "content/content_copy"
