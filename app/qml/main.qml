@@ -32,7 +32,7 @@ import QtGSettings 1.0
 ApplicationWindow {
     id: mainWindow
 
-    property TerminalTab activeTab: tabbedPage.selectedTab
+    property alias activeTab: tabbedPage.selectedTab
     property bool __skipConfirmClose: false
 
     title: activeTab ? activeTab.title : "Terminal"
@@ -178,8 +178,6 @@ ApplicationWindow {
         ]
 
         TerminalTab {}
-
-        onSelectedTabChanged: selectedTab.focus()
 
         onCountChanged: {
             if (count == 0)
