@@ -103,6 +103,7 @@ Tab {
 
         Component.onCompleted: {
             mainsession.startShellProgram();
+            tab.focus();
         }
 
         Keys.onEscapePressed: {

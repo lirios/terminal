@@ -82,8 +82,6 @@ ApplicationWindow {
         }
     }
 
-    Component.onCompleted: activeTab.focus()
-
     // TODO: Implement search
     // Action {
     //     shortcut: "Ctrl+F"
@@ -125,20 +123,14 @@ ApplicationWindow {
                 shortcut: settings.smartCopyPaste ? StandardKey.Copy : "Ctrl+Shift+C"
                 enabled: activeTab.terminal.hasSelection || !settings.smartCopyPaste
                 visible: !Qt.inputMethod.visible
-                onTriggered: {
-                    activeTab.terminal.copyClipboard();
-                    activeTab.focus();
-                }
+                onTriggered: activeTab.terminal.copyClipboard()
             },
             Action {
                 iconName: "content/content_paste"
                 text: qsTr("Paste")
                 shortcut: settings.smartCopyPaste ? StandardKey.Paste : "Ctrl+Shift+V"
                 visible: !Qt.inputMethod.visible
-                onTriggered: {
-                    pasteClipboard();
-                    activeTab.focus();
-                }
+                onTriggered: pasteClipboard()
             },
             Action {
                 iconName: "content/add"
@@ -172,12 +164,13 @@ ApplicationWindow {
             Action {
                 iconName: "action/settings"
                 text: qsTr("Settings")
-                onTriggered: settingsDialog.open();
+                onTriggered: settingsDialog.open()
             }
         ]
 
         TerminalTab {}
 
+        onSelectedTabChanged: selectedTab.focus()
         onCountChanged: {
             if (count == 0)
                 Qt.quit()
@@ -217,6 +210,8 @@ ApplicationWindow {
 
     SettingsDialog {
         id: settingsDialog
+
+        onClosed: activeTab.focus()
     }
 
     SudoWarningDialog {
