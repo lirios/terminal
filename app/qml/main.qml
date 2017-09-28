@@ -79,22 +79,20 @@ ApplicationWindow {
 
     onClosing: {
         if (__skipConfirmClose)
-            return
+            return;
 
-        var activeProcesses = []
+        var activeProcesses = [];
 
-        for (var i = 0; i < tabbedPage.tabs.count; i++) {
-            var tab = tabbedPage.tabs.getTab(i)
-
-            if (tab.session.hasActiveProcess) {
-                activeProcesses.push(tab.session.foregroundProcessName)
-            }
+        for (var i = 0; i < tabbedPage.count; i++) {
+            var tab = tabbedPage.getTab(i);
+            if (tab.session.hasActiveProcess)
+                activeProcesses.push(tab.session.foregroundProcessName);
         }
 
         if (activeProcesses.length > 0) {
-            close.accepted = false
-            confirmCloseDialog.processes = activeProcesses
-            confirmCloseDialog.show()
+            close.accepted = false;
+            confirmCloseDialog.processes = activeProcesses;
+            confirmCloseDialog.open();
         }
     }
 
@@ -223,8 +221,8 @@ ApplicationWindow {
         id: confirmCloseDialog
 
         onAccepted: {
-            __skipConfirmClose = true
-            mainWindow.close()
+            __skipConfirmClose = true;
+            mainWindow.close();
         }
     }
 
