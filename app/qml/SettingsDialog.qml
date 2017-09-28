@@ -32,8 +32,8 @@ Dialog {
 
     modal: true
 
-    width: parent.width * 0.7
-    height: parent.height * 0.8
+    width: 560
+    height: 450
 
     standardButtons: Dialog.Ok | Dialog.Cancel
 
@@ -49,10 +49,13 @@ Dialog {
         id: settingsList
 
         anchors.fill: parent
+        anchors.leftMargin: -leftPadding
+        anchors.rightMargin: -rightPadding
 
         /* Opacity doesn't work
         FluidControls.ListItem {
             text: qsTr("Background opacity")
+            hoverEnabled: false
             valueText: opacitySlider.value
 
             secondaryItem: Slider {
@@ -73,6 +76,7 @@ Dialog {
         FluidControls.ListItem {
             text: qsTr("Font size")
             valueText: fontSizeSlider.value
+            hoverEnabled: false
 
             secondaryItem: Slider {
                 id: fontSizeSlider
@@ -90,6 +94,7 @@ Dialog {
 
         FluidControls.ListItem {
             text: qsTr("Font family")
+            hoverEnabled: false
 
             rightItem: ComboBox {
                 id: fontFamily
@@ -103,6 +108,7 @@ Dialog {
 
         FluidControls.ListItem {
             text: qsTr("Smart copy/paste")
+            hoverEnabled: false
 
             onClicked: smartCopyPasteSwitch.checked = !smartCopyPasteSwitch.checked
 
@@ -114,6 +120,7 @@ Dialog {
         }
 
         FluidControls.ListItem {
+            hoverEnabled: false
             secondaryItem: TextField {
                 id: shellProgramTextField
 
@@ -124,6 +131,10 @@ Dialog {
                 placeholderText: qsTr("Shell program")
                 text: settings.shellProgram
             }
+        }
+
+        Item {
+            Layout.fillHeight: true
         }
     }
 }
