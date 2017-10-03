@@ -84,7 +84,6 @@ Tab {
 
         width: tab.width * Screen.devicePixelRatio + 2
         height: tab.height * Screen.devicePixelRatio + 2
-        scale: 1/Screen.devicePixelRatio
 
         font.family: settings.fontFamily
         font.pointSize: settings.fontSize * Screen.devicePixelRatio
