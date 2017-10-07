@@ -70,12 +70,10 @@ ApplicationWindow {
     function gotoLeftTab() {
         console.log("Going to left tab...")
         var newIndex
-        if(tabbedPage.currentIndex == 0) {
+        if(tabbedPage.currentIndex == 0)
             newIndex = tabbedPage.count - 1
-        }
-        else {
+        else
             newIndex = (tabbedPage.currentIndex -  1) % (tabbedPage.count)
-        }
         tabbedPage.setCurrentIndex(newIndex)
     }
 
