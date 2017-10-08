@@ -61,6 +61,22 @@ ApplicationWindow {
         tab.focus()
     }
 
+    function gotoRightTab() {
+        console.log("Going to right tab...")
+        var newIndex = (tabbedPage.currentIndex + 1) % (tabbedPage.count)
+        tabbedPage.setCurrentIndex(newIndex)
+    }
+
+    function gotoLeftTab() {
+        console.log("Going to left tab...")
+        var newIndex
+        if(tabbedPage.currentIndex == 0)
+            newIndex = tabbedPage.count - 1
+        else
+            newIndex = (tabbedPage.currentIndex -  1) % (tabbedPage.count)
+        tabbedPage.setCurrentIndex(newIndex)
+    }
+
     onClosing: {
         if (__skipConfirmClose)
             return
@@ -108,6 +124,16 @@ ApplicationWindow {
     Action {
         shortcut: StandardKey.ZoomOut
         onTriggered: settings.fontSize--
+    }
+
+    Action {
+        shortcut: "Shift+Right"
+        onTriggered: gotoRightTab()
+    }
+
+    Action {
+        shortcut: "Shift+Left"
+        onTriggered: gotoLeftTab()
     }
 
     initialPage: TabbedPage {
