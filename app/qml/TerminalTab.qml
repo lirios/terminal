@@ -80,13 +80,10 @@ Tab {
     QMLTermWidget {
         id: terminal
 
-        anchors.centerIn: parent
-
-        width: tab.width * Screen.devicePixelRatio + 2
-        height: tab.height * Screen.devicePixelRatio + 2
+        anchors.fill: parent
 
         font.family: settings.fontFamily
-        font.pointSize: settings.fontSize * Screen.devicePixelRatio
+        font.pointSize: settings.fontSize
         colorScheme: "cool-retro-term"
 
         session: QMLTermSession {
@@ -120,8 +117,8 @@ Tab {
         QMLTermScrollbar {
             id: scrollbar
             terminal: terminal
-            anchors.margins: 2 * Screen.devicePixelRatio
-            width: 5 * Screen.devicePixelRatio
+            anchors.margins: 2
+            width: 5
             Rectangle {
                 anchors.fill: parent
                 anchors.topMargin: 1
