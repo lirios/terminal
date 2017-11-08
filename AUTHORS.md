@@ -3,9 +3,7 @@ Terminal
 
 # Core Developers
 
- * Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
- * Žiga Patačko Koderman <ziga.patacko@gmail.com>
- * Michael Spencer <sonrisesoftware@gmail.com>
+ * Pier Luigi Fiorini <pierluigi.fiorini@liri.io>
 
 # Contributors
 
@@ -24,7 +22,10 @@ Remember to update this file before any release is made, also make sure
 a .mailmap file is maintained if committer names and email addresses
 change over time.
 
- * Michael Spencer <sonrisesoftware@gmail.com>
- * Žiga Patačko Koderman <ziga.patacko@gmail.com>
- * Ricardo Vieira <ricardo.vieira@tecnico.ulisboa.pt>
- * Severen Redwood <severen@shrike.me>
+ * Pier Luigi Fiorini <pierluigi.fiorini@liri.io>                                                                                                                                                                                                        
+ * Michael Spencer <sonrisesoftware@gmail.com>                                                                                                                                                                                                           
+ * Žiga Patačko Koderman <ziga.patacko@gmail.com>                                                                                                                                                                                                        
+ * Ricardo Vieira <ricardo.vieira@tecnico.ulisboa.pt>                                                                                                                                                                                                    
+ * Rafael Sá <rafa.sa.xp@gmail.com>                                                                                                                                                                                                                      
+ * Severen Redwood <severen@shrike.me>                                                                                                                                                                                                                   
+ * Tim Süberkrüb <tim.sueberkrueb@web.de>
