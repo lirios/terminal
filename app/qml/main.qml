@@ -144,22 +144,21 @@ ApplicationWindow {
             Action {
                 iconName: "content/content_copy"
                 text: qsTr("Copy")
-                shortcut: settings.smartCopyPaste ? StandardKey.Copy : "Ctrl+Shift+C"
-                enabled: activeTab.terminal.hasSelection || !settings.smartCopyPaste
-                visible: !Qt.inputMethod.visible
+                shortcut: "Ctrl+Shift+C"
+                enabled: activeTab.terminal.hasSelection
                 onTriggered: activeTab.terminal.copyClipboard()
             },
             Action {
                 iconName: "content/content_paste"
                 text: qsTr("Paste")
-                shortcut: settings.smartCopyPaste ? StandardKey.Paste : "Ctrl+Shift+V"
-                visible: !Qt.inputMethod.visible
+                shortcut: "Ctrl+Shift+V"
+                enabled: clipboard.text != ""
                 onTriggered: pasteClipboard()
             },
             Action {
                 iconName: "content/add"
                 text: qsTr("Open new tab")
-                shortcut: StandardKey.AddTab
+                shortcut: "Ctrl+Shift+T"
                 onTriggered: addNewTab()
             },
             Action {
