@@ -8,38 +8,33 @@
   <summary>Use the command line</summary>
   <description>
     <p>
-      <!-- TODO: Write a better description that isn't a copy of the summary -->
-      Use the command line
+      Terminal app.
     </p>
+    <ul>
+      <li>Basic terminal features</li>
+      <li>Warning on pasting commands with sudo</li>
+      <li>Settings dialog with the following settings:
+        <ul>
+          <li>Shell</li>
+          <li>Font family and size</li>
+        </ul>
+      </li>
+      <li>Open new terminal window</li>
+      <li>Open multiple tabs</li>
+    </ul>
   </description>
   <screenshots>
-    <!-- TODO: Add screenshots -->
+    <screenshot type="default">
+      <image>https://liri.io/images/apps/terminal/terminal1.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://liri.io/images/apps/terminal/terminal2.png</image>
+    </screenshot>
   </screenshots>
-  <!--
-   Validate with `appstream-util validate *.appdata.xml`
-  -->
-  <releases>
-    <release version="0.1" timestamp="1453168063">
-      <description>
-        First release of the app. Features include:
-
-        <ul>
-          <li>Basic terminal features</li>
-          <li>Warning on pasting commands with sudo</li>
-          <li>Settings dialog with the following settings:
-            <ul>
-              <li>Shell</li>
-              <li>Font family and size</li>
-            </ul>
-          </li>
-          <li>Open new terminal window</li>
-        </ul>
-      </description>
-​    </release>
-  </releases>
   <kudos>
-    <!-- TODO: Figure out kudos for Liri -->
+    <kudo>ModernToolkit</kudo>
   </kudos>
-  <url type="homepage">http://liri.io</url>
+  <url type="homepage">https://liri.io</url>
+  <url type="bugtracker">https://github.com/lirios/terminal/issues/new</url>
   <update_contact>info@liri.io</update_contact>
 </component>
