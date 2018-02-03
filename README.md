@@ -7,7 +7,7 @@ Terminal
 [![GitHub release](https://img.shields.io/github/release/lirios/terminal.svg)](https://github.com/lirios/terminal)
 [![Build Status](https://travis-ci.org/lirios/terminal.svg?branch=develop)](https://travis-ci.org/lirios/terminal)
 [![GitHub issues](https://img.shields.io/github/issues/lirios/terminal.svg)](https://github.com/lirios/terminal/issues)
-[![Maintained](https://img.shields.io/maintenance/yes/2017.svg)](https://github.com/lirios/terminal/commits/develop)
+[![Maintained](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/lirios/terminal/commits/develop)
 
 Terminal for Liri OS.
 
