@@ -1,6 +1,7 @@
 /*
  * This file is part of Terminal.
  *
+ * Copyright (C) 2018 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
  * Copyright (C) 2016 Ricardo Vieira <ricardo.vieira@tecnico.ulisboa.pt>
  *               2016 Žiga Patačko Koderman <ziga.patacko@gmail.com>
  *               2016 Michael Spencer <sonrisesoftware@gmail.com>
@@ -25,11 +26,11 @@ import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
 import QtQuick.Layouts 1.1
 import Fluid.Core 1.0
-import Fluid.Controls 1.0
+import Fluid.Controls 1.0 as FluidControls
 import QtGSettings 1.0
 //import Vibe.Wallet 1.0
 
-ApplicationWindow {
+FluidControls.ApplicationWindow {
     id: mainWindow
 
     property alias activeTab: tabbedPage.selectedTab
@@ -97,12 +98,12 @@ ApplicationWindow {
     }
 
     // TODO: Implement search
-    // Action {
+    // FluidControls.Action {
     //     shortcut: "Ctrl+F"
     //     onTriggered: searchButton.visible = !searchButton.visible
     // }
 
-    Action {
+    FluidControls.Action {
         shortcut: StandardKey.FullScreen
 
         onTriggered: {
@@ -114,55 +115,55 @@ ApplicationWindow {
         }
     }
 
-    Action {
+    FluidControls.Action {
         shortcut: StandardKey.ZoomIn
         onTriggered: settings.fontSize++
     }
 
-    Action {
+    FluidControls.Action {
         shortcut: StandardKey.ZoomOut
         onTriggered: settings.fontSize--
     }
 
-    Action {
+    FluidControls.Action {
         shortcut: "Shift+Right"
         onTriggered: gotoRightTab()
     }
 
-    Action {
+    FluidControls.Action {
         shortcut: "Shift+Left"
         onTriggered: gotoLeftTab()
     }
 
-    initialPage: TabbedPage {
+    initialPage: FluidControls.TabbedPage {
         id: tabbedPage
 
         title: qsTr("Terminal")
         tabBar.visible: tabs.count > 1
 
         actions: [
-            Action {
-                iconName: "content/content_copy"
+            FluidControls.Action {
+                icon.source: FluidControls.Utils.iconUrl("content/content_copy")
                 text: qsTr("Copy")
                 shortcut: "Ctrl+Shift+C"
                 enabled: activeTab.terminal.hasSelection
                 onTriggered: activeTab.terminal.copyClipboard()
             },
-            Action {
-                iconName: "content/content_paste"
+            FluidControls.Action {
+                icon.source: FluidControls.Utils.iconUrl("content/content_paste")
                 text: qsTr("Paste")
                 shortcut: "Ctrl+Shift+V"
                 enabled: clipboard.text != ""
                 onTriggered: pasteClipboard()
             },
-            Action {
-                iconName: "content/add"
+            FluidControls.Action {
+                icon.source: FluidControls.Utils.iconUrl("content/add")
                 text: qsTr("Open new tab")
                 shortcut: "Ctrl+Shift+T"
                 onTriggered: addNewTab()
             },
-            Action {
-                iconName: "action/open_in_new"
+            FluidControls.Action {
+                icon.source: FluidControls.Utils.iconUrl("action/open_in_new")
                 text: qsTr("Open new window")
                 shortcut: "Ctrl+Shift+N"
                 onTriggered: {
@@ -171,21 +172,21 @@ ApplicationWindow {
                 }
             },
             /* Wallet disabled until KWallet integration problems are resolved
-            Action {
+            FluidControls.Action {
                 visible: wallet.enabled
                 enabled: wallet.status === KQuickWallet.Open
-                iconName: "communication/vpn_key"
+                icon.source: FluidControls.Utils.iconUrl("communication/vpn_key")
                 text: qsTr("Passwords")
                 onTriggered: passwordsDialog.open()
             },
             */
             // TODO: Implement search
-            // Action {
-            //     iconName: "action/search"
+            // FluidControls.Action {
+            //     icon.source: FluidControls.Utils.iconUrl("action/search")
             //     text: qsTr("Search")
             // },
-            Action {
-                iconName: "action/settings"
+            FluidControls.Action {
+                icon.source: FluidControls.Utils.iconUrl("action/settings")
                 text: qsTr("Settings")
                 onTriggered: settingsDialog.open()
             }
