@@ -14,26 +14,13 @@ env:
     # DEPLOY_HOST
     - secure: "i7LUB6m2uuLUJol37yIH5BfrNdicj6AuUD8k66n4FjDPt8WgDZavfgg2SYKG7oQb7zBH9BcqVetiN297JrjTogLTsIBK/81qObxlV08ARePWKrSugW6AE+r1qxqZg7d4zz52KiLEX4eRB++EUamNPdvx3ZNV/m4RdCG/avl/APaQnQ4Vq9zAILLBBm7nhGzPFFP3Ly0fN/6mmnd/bUCKqrlV24holBAgMvT2l/tcTNXtNITTeqdyhOdAmCm7a4hYVVxw56ETeCqZadCOor1zEYUTPTYMQJpJ6bd+hkErER2pngfjXFZ4CSkGDNfmtSIGQb91lQ1jTuMWxGRSlku/3hi9MvdDfciMY7htLR8kDvIYaxaHxAd7DO6Y7Guxg5EnaFuATSl1O1C/k6lQ5nwqGTR49t5f+GoPXda66Vrqz9GBA6dSDPHyXqEolb1MOtEKGFI+DiL/XHu8iZxlXMsexJpDbZLXhA3k4iX2nw0Zel7+H/DIb+hr+nRb6C5w1XXO+tm7IR8lQad4nzxl8QMP0PlsfVz3A3l5w9cXWTHHbMY6a2vYlC/Lj2e/R7aR9IDk25QQAESl1TZcMg1WRVmZ0JrRjggLxNqgrSBdvJCctG9y0AByCvgGanu5HiumLc7+r4CwehjhafXa++GrZ2Amr7v5UIUn+81YIEE0BuBQCM4="
 
-arch:
-  artifacts:
-    - qbs-shared-artifacts.tar.gz
-    - fluid-artifacts.tar.gz
-    - qtgsettings-artifacts.tar.gz
-  packages:
-    - qbs
-    - qt5-quickcontrols2
-    - glib2
-    - xorg-server-xvfb
-    #- clazy-git
-  script:
-    #- export CLAZY_CHECKS="level1"
-    - qbs-setup-toolchains --detect
-    - qbs-setup-qt /usr/bin/qmake-qt5 qt5
-    - qbs config profiles.qt5.baseProfile ${CC}
-    - dbus-run-session -- xvfb-run -a -s "-screen 0 800x600x24" qbs build -d build -j $(nproc) --all-products profile:qt5
+branches:
+  except:
+    - /^(?i:continuous)$/
 
 script:
-  - "curl -s https://raw.githubusercontent.com/lirios/repotools/develop/travis/docker-travis.sh | bash"
+  - wget -c https://raw.githubusercontent.com/lirios/infra-travis/master/run
+  - bash run ./.travis/build.sh
 
 notifications:
   email: false
