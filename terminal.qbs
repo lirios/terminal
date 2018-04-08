@@ -5,7 +5,7 @@ Project {
 
     readonly property string version: "0.1.0"
 
-    minimumQbsVersion: "1.8.0"
+    minimumQbsVersion: "1.9.0"
 
     references: [
         "app/app.qbs",
