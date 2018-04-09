@@ -29,7 +29,7 @@ Product {
         condition: qbs.targetOS.contains("unix") &&
                    !qbs.targetOS.contains("android") &&
                    !qbs.targetOS.contains("macos")
-        name: "AppStream Metadata"
+        name: "GSettings"
         files: ["io.liri.Terminal.gschema.xml"]
         qbs.install: true
         qbs.installDir: lirideployment.dataDir + "/glib-2.0/schemas"
