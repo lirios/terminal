@@ -14,7 +14,16 @@ LiriQmlPlugin {
     Group {
         name: "Color Schemes"
         prefix: "../../lib/color-schemes/"
-        files: ["**"]
+        files: [
+            "BlackOnLightYellow.schema",
+            "BlackOnRandomLight.colorscheme",
+            "Linux.colorscheme",
+            "BlackOnWhite.schema",
+            "DarkPastels.colorscheme",
+            "GreenOnBlack.colorscheme",
+            "WhiteOnBlack.schema",
+            "cool-retro-term.schema",
+        ]
         excludeFiles: ["*.qrc"]
         fileTags: ["liri.terminal.color_schemes"]
         qbs.install: true
