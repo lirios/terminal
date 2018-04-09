@@ -3,7 +3,7 @@ import qbs 1.0
 Project {
     name: "Terminal"
 
-    readonly property string version: "0.1.0"
+    readonly property string version: "0.2.0"
 
     minimumQbsVersion: "1.9.0"
 
