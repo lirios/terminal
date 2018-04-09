@@ -4,7 +4,7 @@
     Copyright (C) 2016 Michael Spencer <sonrisesoftware@gmail.com>
 -->
 <component type="desktop">
-  <id>io.liri.Terminal</id>
+  <id>io.liri.Terminal.desktop</id>
   <name>Terminal</name>
   <developer_name>Liri</developer_name>
   <summary>Use the command line</summary>
