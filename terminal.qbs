@@ -9,7 +9,6 @@ Project {
 
     references: [
         "app/app.qbs",
-        "data/data.qbs",
         "imports/terminal/terminal.qbs",
         "lib/lib.qbs",
     ]
