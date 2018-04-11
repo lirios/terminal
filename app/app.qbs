@@ -30,7 +30,9 @@ QtGuiApplication {
     }
 
     Group {
-        condition: qbs.hostOS.contains("linux")
+        condition: qbs.targetOS.contains("unix") &&
+                   !qbs.targetOS.contains("android") &&
+                   !qbs.targetOS.contains("macos")
         prefix: "../data/"
         name: "Desktop File"
         files: ["io.liri.Terminal.desktop"]
@@ -39,7 +41,9 @@ QtGuiApplication {
     }
 
     Group {
-        condition: qbs.hostOS.contains("linux")
+        condition: qbs.targetOS.contains("unix") &&
+                   !qbs.targetOS.contains("android") &&
+                   !qbs.targetOS.contains("macos")
         name: "AppStream Metadata"
         prefix: "../data/"
         files: ["io.liri.Terminal.appdata.xml"]
@@ -48,7 +52,6 @@ QtGuiApplication {
     }
 
     Group {
-        condition: qbs.hostOS.contains("linux")
         name: "AppStream Metadata"
         prefix: "../data/"
         files: ["io.liri.Terminal.gschema.xml"]
