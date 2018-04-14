@@ -35,17 +35,6 @@ Dialog {
     width: 560
     height: 450
 
-    standardButtons: Dialog.Ok | Dialog.Cancel
-
-    onAccepted: {
-        //settings.opacity = opacitySlider.value
-        settings.fontSize = fontSizeSlider.value
-        settings.fontFamily = fontFamily.currentText
-        settings.colorScheme = colorScheme.model.at(colorScheme.currentIndex).name;
-        settings.shellProgram = shellProgramTextField.text
-        settings.smartCopyPaste = smartCopyPasteSwitch.checked
-    }
-
     ColumnLayout {
         id: settingsList
 
@@ -70,6 +59,7 @@ Dialog {
                 from: 10
                 to: 100
                 value: settings.opacity
+                onMoved: settings.opacity = opacitySlider.value
             }
         }
         */
@@ -90,6 +80,7 @@ Dialog {
                 value: settings.fontSize
                 from: 8
                 to: 32
+                onMoved: settings.fontSize = fontSizeSlider.value
             }
         }
 
@@ -104,6 +95,7 @@ Dialog {
                 model: fontFamilies
                 textRole: "text"
                 currentIndex: find(settings.fontFamily)
+                onCurrentTextChanged: settings.fontFamily = fontFamily.currentText
             }
         }
 
@@ -142,6 +134,7 @@ Dialog {
                 id: smartCopyPasteSwitch
                 anchors.centerIn: parent
                 checked: settings.smartCopyPaste
+                onVisualPositionChanged: settings.smartCopyPaste = smartCopyPasteSwitch.checked
             }
         }
 
@@ -156,6 +149,7 @@ Dialog {
                 //floatingLabel: true
                 placeholderText: qsTr("Shell program")
                 text: settings.shellProgram
+                onAccepted: settings.shellProgram = shellProgramTextField.text
             }
         }
 
