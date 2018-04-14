@@ -43,8 +43,10 @@ FluidControls.ApplicationWindow {
     height: 600
     visible: true
 
+    Material.theme: Material.Dark
     Material.primary: Material.color(Material.BlueGrey, Material.Shade800)
     Material.accent: Material.color(Material.LightBlue, Material.Shade800)
+
     decorationColor: Material.color(Material.BlueGrey, Material.Shade900)
 
     function pasteClipboard() {
