@@ -19,7 +19,7 @@
       </description>
     </key>
     <key name="color-scheme" type="s">
-      <default>'Linux.colorscheme'</default>
+      <default>'Material'</default>
       <summary>Color Scheme</summary>
       <description>
         Color scheme for the terminal view.
