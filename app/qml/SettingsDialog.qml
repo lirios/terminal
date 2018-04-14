@@ -112,10 +112,14 @@ Dialog {
                     ListElement { name: "BlackOnLightYellow"; description: "Black on Yellow Lights" }
                     ListElement { name: "BlackOnRandomLight"; description: "Black on Random Light" }
                     ListElement { name: "BlackOnWhite"; description: "Black on White" }
+                    ListElement { name: "Breeze"; description: "Breeze" }
                     ListElement { name: "cool-retro-term"; description: "Cool Retro Terminal" }
                     ListElement { name: "DarkPastels"; description: "Dark Pastels" }
                     ListElement { name: "GreenOnBlack"; description: "Green on Black" }
                     ListElement { name: "Linux"; description: "Linux" }
+                    ListElement { name: "Solarized"; description: "Solarized" }
+                    ListElement { name: "Solarized Light"; description: "Solarized Light" }
+                    ListElement { name: "Tango"; description: "Tango" }
                     ListElement { name: "WhiteOnBlack"; description: "White on Black" }
                 }
                 textRole: "description"

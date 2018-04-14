@@ -17,12 +17,16 @@ LiriQmlPlugin {
         files: [
             "BlackOnLightYellow.schema",
             "BlackOnRandomLight.colorscheme",
-            "Linux.colorscheme",
             "BlackOnWhite.schema",
+            "Breeze.colorscheme",
+            "cool-retro-term.schema",
             "DarkPastels.colorscheme",
             "GreenOnBlack.colorscheme",
+            "Linux.colorscheme",
+            "Solarized.colorscheme",
+            "SolarizedLight.colorscheme",
+            "Tango.colorscheme",
             "WhiteOnBlack.schema",
-            "cool-retro-term.schema",
         ]
         excludeFiles: ["*.qrc"]
         fileTags: ["liri.terminal.color_schemes"]
