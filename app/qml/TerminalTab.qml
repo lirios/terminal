@@ -84,7 +84,7 @@ Tab {
 
         font.family: settings.fontFamily
         font.pointSize: settings.fontSize
-        colorScheme: "cool-retro-term"
+        colorScheme: settings.colorScheme
 
         session: QMLTermSession {
             id: mainsession

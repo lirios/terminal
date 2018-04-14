@@ -18,6 +18,13 @@
         Shell program to run when a new window is created.
       </description>
     </key>
+    <key name="color-scheme" type="s">
+      <default>'Linux.colorscheme'</default>
+      <summary>Color Scheme</summary>
+      <description>
+        Color scheme for the terminal view.
+      </description>
+    </key>
     <key name="font-family" type="s">
       <default>'monospace'</default>
       <summary>Font Family</summary>

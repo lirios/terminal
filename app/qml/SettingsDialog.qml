@@ -41,6 +41,7 @@ Dialog {
         //settings.opacity = opacitySlider.value
         settings.fontSize = fontSizeSlider.value
         settings.fontFamily = fontFamily.currentText
+        settings.colorScheme = colorScheme.model.at(colorScheme.currentIndex).name;
         settings.shellProgram = shellProgramTextField.text
         settings.smartCopyPaste = smartCopyPasteSwitch.checked
     }
@@ -103,6 +104,31 @@ Dialog {
                 model: fontFamilies
                 textRole: "text"
                 currentIndex: find(settings.fontFamily)
+            }
+        }
+
+        FluidControls.ListItem {
+            text: qsTr("Color scheme")
+            hoverEnabled: false
+
+            rightItem: ComboBox {
+                id: colorScheme
+                anchors.centerIn: parent
+                width: 350
+                model: ListModel {
+                    id: colorSchemeModel
+                    ListElement { name: "BlackOnLightYellow"; description: "Black on Yellow Lights" }
+                    ListElement { name: "BlackOnRandomLight"; description: "Black on Random Light" }
+                    ListElement { name: "BlackOnWhite"; description: "Black on White" }
+                    ListElement { name: "cool-retro-term"; description: "Cool Retro Terminal" }
+                    ListElement { name: "DarkPastels"; description: "Dark Pastels" }
+                    ListElement { name: "GreenOnBlack"; description: "Green on Black" }
+                    ListElement { name: "Linux"; description: "Linux" }
+                    ListElement { name: "WhiteOnBlack"; description: "White on Black" }
+                }
+                textRole: "description"
+                currentIndex: find(settings.colorScheme)
+                onCurrentTextChanged: settings.colorScheme = colorSchemeModel.get(colorScheme.currentIndex).name
             }
         }
 
