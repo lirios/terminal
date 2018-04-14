@@ -26,7 +26,7 @@
       </description>
     </key>
     <key name="font-family" type="s">
-      <default>'monospace'</default>
+      <default>'Monospace'</default>
       <summary>Font Family</summary>
       <description>
         Font family for the terminal view.
