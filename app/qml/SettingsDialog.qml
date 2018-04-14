@@ -116,7 +116,7 @@ Dialog {
                     ListElement { name: "cool-retro-term"; description: "Cool Retro Terminal" }
                     ListElement { name: "DarkPastels"; description: "Dark Pastels" }
                     ListElement { name: "GreenOnBlack"; description: "Green on Black" }
-                    ListElement { name: "Linux"; description: "Linux" }
+                    ListElement { name: "Linux Colors"; description: "Linux" }
                     ListElement { name: "Solarized"; description: "Solarized" }
                     ListElement { name: "Solarized Light"; description: "Solarized Light" }
                     ListElement { name: "Tango"; description: "Tango" }
