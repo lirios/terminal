@@ -23,6 +23,7 @@ LiriQmlPlugin {
             "DarkPastels.colorscheme",
             "GreenOnBlack.colorscheme",
             "Linux.colorscheme",
+            "Material.colorscheme",
             "Solarized.colorscheme",
             "SolarizedLight.colorscheme",
             "Tango.colorscheme",

@@ -117,6 +117,7 @@ Dialog {
                     ListElement { name: "DarkPastels"; description: "Dark Pastels" }
                     ListElement { name: "GreenOnBlack"; description: "Green on Black" }
                     ListElement { name: "Linux Colors"; description: "Linux" }
+                    ListElement { name: "Material"; description: "Material" }
                     ListElement { name: "Solarized"; description: "Solarized" }
                     ListElement { name: "Solarized Light"; description: "Solarized Light" }
                     ListElement { name: "Tango"; description: "Tango" }
