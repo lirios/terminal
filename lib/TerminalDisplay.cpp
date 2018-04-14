@@ -100,7 +100,7 @@ const ColorEntry Konsole::base_color_table[TABLE_COLORS] =
 
 // static
 bool TerminalDisplay::_antialiasText = true;
-bool TerminalDisplay::HAVE_TRANSPARENCY = false;
+bool TerminalDisplay::HAVE_TRANSPARENCY = true;
 
 // we use this to force QPainter to display text in LTR mode
 // more information can be found in: http://unicode.org/reports/tr9/ 
