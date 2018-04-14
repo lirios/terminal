@@ -100,6 +100,7 @@ Tab {
         Component.onCompleted: {
             mainsession.startShellProgram();
             tab.focus();
+            terminal.setOpacity(settings.opacity/100)
         }
 
         Keys.onEscapePressed: {
