@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     app.setApplicationName(QLatin1String("Terminal"));
     app.setDesktopFileName(QLatin1String("io.liri.Terminal.desktop"));
 
-    // Set the X11 WML_CLASS so X11 desktops can find the desktop file
+    // Set the X11 WM_CLASS so X11 desktops can find the desktop file
     qputenv("RESOURCE_NAME", "io.liri.Terminal");
 
     if (QQuickStyle::name().isEmpty())
