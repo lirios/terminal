@@ -104,7 +104,7 @@ Tab {
         }
 
         Keys.onEscapePressed: {
-            if (hasSelection)
+            if (terminal.hasSelection)
                 terminal.clearSelection()
             else
                 event.accepted = false
