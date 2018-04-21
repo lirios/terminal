@@ -39,7 +39,7 @@ Tab {
 
         var titleParts = title.split(/\s+/)
 
-        if (titleParts.length == 2 && titleParts[1].indexOf('/home/') == 0) {
+        if (titleParts.length === 2 && titleParts[1].indexOf('/home/') === 0) {
             var command = titleParts[0]
             var path = titleParts[1]
             var lastIndex = path.lastIndexOf('/')
