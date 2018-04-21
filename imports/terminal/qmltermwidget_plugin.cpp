@@ -1,3 +1,5 @@
+#include <QStandardPaths>
+
 #include "qmltermwidget_plugin.h"
 
 #include "TerminalDisplay.h"
@@ -5,7 +7,6 @@
 
 #include <qqml.h>
 #include <QQmlEngine>
-#include <QDir>
 
 using namespace Konsole;
 
@@ -21,19 +22,17 @@ void QmltermwidgetPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
 {
     QQmlExtensionPlugin::initializeEngine(engine, uri);
 
-    QStringList pwds = engine->importPathList();
+    QString colorSchemesPath = QStandardPaths::locate(
+                QStandardPaths::GenericDataLocation,
+                QLatin1String("liri-terminal/color-schemes"),
+                QStandardPaths::LocateDirectory);
+    if (!colorSchemesPath.isEmpty())
+        qputenv("COLORSCHEMES_DIR", colorSchemesPath.toUtf8());
 
-    if (!pwds.empty()){
-
-        QString cs, kbl;
-
-        foreach (QString pwd, pwds) {
-            cs  = pwd + "/Liri/Terminal/color-schemes";
-            kbl = pwd + "/Liri/Terminal/kb-layouts";
-            if (QDir(cs).exists()) break;
-        }
-
-        setenv("KB_LAYOUT_DIR",kbl.toUtf8().constData(),1);
-        setenv("COLORSCHEMES_DIR",cs.toUtf8().constData(),1);
-    }
+    QString kbLayoutsPath = QStandardPaths::locate(
+                QStandardPaths::GenericDataLocation,
+                QLatin1String("liri-terminal/kb-layouts"),
+                QStandardPaths::LocateDirectory);
+    if (!kbLayoutsPath.isEmpty())
+        qputenv("KB_LAYOUT_DIR", kbLayoutsPath.toUtf8());
 }

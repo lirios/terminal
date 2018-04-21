@@ -60,6 +60,38 @@ QtGuiApplication {
     }
 
     Group {
+        name: "Color Schemes"
+        prefix: "../data/color-schemes/"
+        files: [
+            "BlackOnLightYellow.schema",
+            "BlackOnRandomLight.colorscheme",
+            "BlackOnWhite.schema",
+            "Breeze.colorscheme",
+            "cool-retro-term.schema",
+            "DarkPastels.colorscheme",
+            "GreenOnBlack.colorscheme",
+            "Linux.colorscheme",
+            "Material.colorscheme",
+            "Solarized.colorscheme",
+            "SolarizedLight.colorscheme",
+            "Tango.colorscheme",
+            "WhiteOnBlack.schema",
+        ]
+        fileTags: ["liri.terminal.color_schemes"]
+        qbs.install: true
+        qbs.installDir: lirideployment.dataDir + "/liri-terminal/color-schemes"
+    }
+
+    Group {
+        name: "Keyboard Layouts"
+        prefix: "../data/kb-layouts/"
+        files: ["**"]
+        fileTags: ["liri.terminal.kb_layouts"]
+        qbs.install: true
+        qbs.installDir: lirideployment.dataDir + "/liri-terminal/kb-layouts"
+    }
+
+    Group {
         qbs.install: true
         qbs.installDir: lirideployment.binDir
         fileTagsFilter: product.type
