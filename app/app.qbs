@@ -9,7 +9,10 @@ QtGuiApplication {
 
     cpp.defines: base.concat(['LIRITERMINAL_VERSION="' + project.version + '"'])
 
-    files: ["*.cpp", "*.h"]
+    files: [
+        "*.cpp",
+        "*.h",
+    ]
 
     Qt.core.resourcePrefix: "/"
     Qt.core.resourceSourceBase: sourceDirectory
@@ -24,6 +27,7 @@ QtGuiApplication {
             "Settings.qml",
             "SettingsDialog.qml",
             "SudoWarningDialog.qml",
+            "TabSelector.qml",
             "TerminalTab.qml",
         ]
         fileTags: ["qt.core.resource_data"]

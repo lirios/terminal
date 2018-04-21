@@ -3,8 +3,8 @@
  *
  * Copyright (C) 2018 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
  * Copyright (C) 2016 Ricardo Vieira <ricardo.vieira@tecnico.ulisboa.pt>
- *               2016 Žiga Patačko Koderman <ziga.patacko@gmail.com>
- *               2016 Michael Spencer <sonrisesoftware@gmail.com>
+ * Copyright (C) 2016 Žiga Patačko Koderman <ziga.patacko@gmail.com>
+ * Copyright (C) 2016 Michael Spencer <sonrisesoftware@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,7 +33,9 @@ import QtGSettings 1.0
 FluidControls.ApplicationWindow {
     id: mainWindow
 
-    property alias activeTab: tabbedPage.selectedTab
+    readonly property alias activeTab: tabsView.currentItem
+    property var tabsArray: []
+
     property bool __skipConfirmClose: false
 
     title: activeTab ? activeTab.title : "Terminal"
@@ -49,45 +51,18 @@ FluidControls.ApplicationWindow {
 
     decorationColor: Material.color(Material.BlueGrey, Material.Shade900)
 
-    function pasteClipboard() {
-        if (clipboard.text.indexOf("sudo") === 0 && !settings.hideSudoWarning) {
-            sudoWarningDialog.open()
-        } else {
-            activeTab.terminal.pasteClipboard()
-        }
+    onActiveTabChanged: {
+        if (activeTab)
+            activeTab.focus();
     }
-
-    function addNewTab() {
-        console.log("Adding tab...")
-        var tab = terminalTabComponent.createObject(tabbedPage)
-        tabbedPage.addTab(tab)
-        tab.focus()
-    }
-
-    function gotoRightTab() {
-        console.log("Going to right tab...")
-        var newIndex = (tabbedPage.currentIndex + 1) % (tabbedPage.count)
-        tabbedPage.setCurrentIndex(newIndex)
-    }
-
-    function gotoLeftTab() {
-        console.log("Going to left tab...")
-        var newIndex
-        if(tabbedPage.currentIndex == 0)
-            newIndex = tabbedPage.count - 1
-        else
-            newIndex = (tabbedPage.currentIndex -  1) % (tabbedPage.count)
-        tabbedPage.setCurrentIndex(newIndex)
-    }
-
     onClosing: {
         if (__skipConfirmClose)
             return;
 
         var activeProcesses = [];
 
-        for (var i = 0; i < tabbedPage.count; i++) {
-            var tab = tabbedPage.getTab(i);
+        for (var i = 0; i < tabsView.count; i++) {
+            var tab = tabsView.itemAt(i);
             if (tab.session.hasActiveProcess)
                 activeProcesses.push(tab.session.foregroundProcessName);
         }
@@ -99,11 +74,43 @@ FluidControls.ApplicationWindow {
         }
     }
 
+    function addNewTab() {
+        console.log("Adding tab...");
+        var tabIndex = tabsModel.count;
+        var tab = terminalTabComponent.createObject(tabsView);
+        tabsModel.append({tab: tab});
+        tabsView.addItem(tab);
+        tabsView.currentIndex = tabIndex;
+        tabsView.currentItem.focus();
+    }
+
+    function gotoRightTab() {
+        console.log("Going to right tab...");
+        tabsView.incrementCurrentIndex();
+        tabsView.currentItem.focus();
+    }
+
+    function gotoLeftTab() {
+        console.log("Going to left tab...");
+        tabsView.decrementCurrentIndex();
+        tabsView.currentItem.focus();
+    }
+
+    function pasteClipboard() {
+        if (clipboard.text.indexOf("sudo") === 0 && !settings.hideSudoWarning) {
+            sudoWarningDialog.open();
+        } else {
+            activeTab.terminal.pasteClipboard()
+        }
+    }
+
     // TODO: Implement search
     // FluidControls.Action {
     //     shortcut: "Ctrl+F"
     //     onTriggered: searchButton.visible = !searchButton.visible
     // }
+
+    Component.onCompleted: addNewTab()
 
     FluidControls.Action {
         shortcut: StandardKey.FullScreen
@@ -137,18 +144,21 @@ FluidControls.ApplicationWindow {
         onTriggered: gotoLeftTab()
     }
 
-    initialPage: FluidControls.TabbedPage {
-        id: tabbedPage
-
-        title: qsTr("Terminal")
-        tabBar.visible: tabs.count > 1
+    initialPage: FluidControls.Page {
+        customContent: TabSelector {
+            id: tabsSelector
+            model: ListModel {
+                id: tabsModel
+            }
+            currentIndex: tabsView.currentIndex
+        }
 
         actions: [
             FluidControls.Action {
                 icon.source: FluidControls.Utils.iconUrl("content/content_copy")
                 text: qsTr("Copy")
                 shortcut: "Ctrl+Shift+C"
-                enabled: activeTab.terminal.hasSelection
+                enabled: activeTab && activeTab.terminal.hasSelection
                 onTriggered: activeTab.terminal.copyClipboard()
             },
             FluidControls.Action {
@@ -194,12 +204,15 @@ FluidControls.ApplicationWindow {
             }
         ]
 
-        TerminalTab {}
-
-        onSelectedTabChanged: selectedTab.focus()
-        onCountChanged: {
-            if (count == 0)
-                Qt.quit()
+        SwipeView {
+            id: tabsView
+            anchors.fill: parent
+            interactive: false
+            currentIndex: tabsSelector.currentIndex
+            onCountChanged: {
+                if (count == 0)
+                    Qt.quit();
+            }
         }
     }
 

@@ -1,9 +1,10 @@
 /*
  * This file is part of Terminal.
  *
+ * Copyright (C) 2018 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
  * Copyright (C) 2016 Ricardo Vieira <ricardo.vieira@tecnico.ulisboa.pt>
- *               2016 Žiga Patačko Koderman <ziga.patacko@gmail.com>
- *               2016 Michael Spencer <sonrisesoftware@gmail.com>
+ * Copyright (C) 2016 Žiga Patačko Koderman <ziga.patacko@gmail.com>
+ * Copyright (C) 2016 Michael Spencer <sonrisesoftware@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,57 +21,43 @@
  */
 
 import QtQuick 2.4
-import QtQuick.Window 2.2
 import QtQuick.Controls 2.0
-import Fluid.Controls 1.0
-import QtQuick.Layouts 1.1
 import Liri.Terminal 1.0
 
-Tab {
+Item {
     id: tab
 
-    property bool __skipConfirmClose: false
+    readonly property int index: SwipeView.index
 
     property alias terminal: terminal
     property alias session: terminal.session
 
-    title: {
-        var title = session.title ? session.title : "..."
+    property string title: {
+        var title = terminal.session.title ? terminal.session.title : qsTr("Terminal %1").arg(SwipeView.index + 1);
 
-        var titleParts = title.split(/\s+/)
+        var titleParts = title.split(/\s+/);
 
         if (titleParts.length === 2 && titleParts[1].indexOf('/home/') === 0) {
-            var command = titleParts[0]
-            var path = titleParts[1]
-            var lastIndex = path.lastIndexOf('/')
-            var dirName = path.substring(lastIndex + 1)
+            var command = titleParts[0];
+            var path = titleParts[1];
+            var lastIndex = path.lastIndexOf('/');
+            var dirName = path.substring(lastIndex + 1);
 
-            return dirName + " : " + command
+            return dirName + " : " + command;
         } else {
-            return title
+            return title;
         }
     }
 
-    canRemove: true
-
-    /*
-    onClosing: {
-        if (__skipConfirmClose)
-            return
-
-        confirmClose(close)
-    }
-    */
-
     function focus() {
-        terminal.forceActiveFocus()
+        terminal.forceActiveFocus();
     }
 
     function confirmClose(close) {
-        if (session.hasActiveProcess) {
-            close.accepted = false
-            confirmCloseDialog.processes = [session.foregroundProcessName]
-            confirmCloseDialog.show()
+        if (terminal.session.hasActiveProcess) {
+            close.accepted = false;
+            confirmCloseDialog.processes = [terminal.session.foregroundProcessName];
+            confirmCloseDialog.show();
         }
     }
 
@@ -84,27 +71,25 @@ Tab {
         colorScheme: settings.colorScheme
 
         session: QMLTermSession {
-            id: mainsession
             initialWorkingDirectory: "$HOME"
             shellProgram: settings.shellProgram
-            onFinished: tabbedPage.removeTab(tab.SwipeView.index)
-        }
-
-        function insertText(text) {
-            simulateKeyPress(0, Qt.NoModifier, true, 0, text);
-        }
-
-        Component.onCompleted: {
-            mainsession.startShellProgram();
-            tab.focus();
-            terminal.setOpacity(settings.opacity/100)
+            onFinished: {
+                tabsModel.remove(tab.index);
+                tabsView.takeItem(tab.index);
+            }
         }
 
         Keys.onEscapePressed: {
             if (terminal.hasSelection)
-                terminal.clearSelection()
+                terminal.clearSelection();
             else
-                event.accepted = false
+                event.accepted = false;
+        }
+
+        Component.onCompleted: {
+            terminal.session.startShellProgram();
+            tab.focus();
+            terminal.setOpacity(settings.opacity/100);
         }
 
         Connections {
@@ -131,16 +116,9 @@ Tab {
             anchors.fill: parent
             onPressed: tab.focus()
         }
-    }
 
-    // ConfirmCloseDialog {
-    //     id: confirmCloseDialog
-    //
-    //     singleTab: true
-    //
-    //     onAccepted: {
-    //         tab.__skipConfirmClose = true
-    //         tab.close()
-    //     }
-    // }
+        function insertText(text) {
+            simulateKeyPress(0, Qt.NoModifier, true, 0, text);
+        }
+    }
 }
