@@ -34,9 +34,6 @@ Tab {
     property alias terminal: terminal
     property alias session: terminal.session
 
-    width: parent.width
-    height: parent.height
-
     title: {
         var title = session.title ? session.title : "..."
 
