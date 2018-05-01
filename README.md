@@ -24,7 +24,7 @@ The following modules and their dependencies are required:
 
  * [qbs](http://code.qt.io/cgit/qbs/qbs.git) >= 1.9.0
  * [qbs-shared](https://github.com/lirios/qbs-shared.git) >= 1.2.0
- * [fluid](https://github.com/lirios/fluid) >= 1.0.0
+ * [fluid](https://github.com/lirios/fluid.git) >= 1.1.0
  * [qtgsettings](https://github.com/lirios/qtgsettings) >= 1.1.0
 
 ## Installation

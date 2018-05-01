@@ -21,7 +21,7 @@
 import QtQuick 2.4
 import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
-import Fluid.Controls 1.0 as FluidControls
+import Fluid.Controls 1.1 as FluidControls
 
 FluidControls.AlertDialog {
     id: sudoWarningDialog
