@@ -5,7 +5,7 @@
 -->
 <component type="desktop">
   <id>io.liri.Terminal.desktop</id>
-  <name>Terminal</name>
+  <name>Liri Terminal</name>
   <developer_name>Liri</developer_name>
   <summary>Use the command line</summary>
   <metadata_license>CC0-1.0</metadata_license>
