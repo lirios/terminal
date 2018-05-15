@@ -145,7 +145,7 @@ FluidControls.ApplicationWindow {
     }
 
     initialPage: FluidControls.Page {
-        customContent: TabSelector {
+        appBar.customContent: TabSelector {
             id: tabsSelector
             model: ListModel {
                 id: tabsModel
