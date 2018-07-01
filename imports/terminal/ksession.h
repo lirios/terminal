@@ -37,7 +37,7 @@ class KSession : public QObject
     Q_PROPERTY(QString  kbScheme  READ  getKeyBindings WRITE setKeyBindings NOTIFY changedKeyBindings)
     Q_PROPERTY(QString  initialWorkingDirectory READ getInitialWorkingDirectory WRITE setInitialWorkingDirectory NOTIFY initialWorkingDirectoryChanged)
     Q_PROPERTY(QString  title READ getTitle WRITE setTitle NOTIFY titleChanged)
-    Q_PROPERTY(QString  shellProgram WRITE setShellProgram)
+    Q_PROPERTY(QString  shellProgram READ getShellProgram WRITE setShellProgram NOTIFY shellProgramChanged)
     Q_PROPERTY(QStringList  shellProgramArgs WRITE setArgs)
     Q_PROPERTY(QString  history READ getHistory)
     Q_PROPERTY(bool hasActiveProcess READ hasActiveProcess)
@@ -94,6 +94,8 @@ public:
 
     QString getTitle();
 
+    QString getShellProgram() const;
+
     /**
      * Returns \c true if the session has an active subprocess running in it
      * spawned from the initial shell.
@@ -125,6 +127,8 @@ signals:
 
     void matchFound(int startColumn, int startLine, int endColumn, int endLine);
     void noMatchFound();
+
+    void shellProgramChanged();
 
 public slots:
     /*! Set named key binding for given widget

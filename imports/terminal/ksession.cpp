@@ -69,9 +69,9 @@ Session *KSession::createSession(QString name)
 
     //cool-old-term: There is another check in the code. Not sure if useful.
 
-    QString envshell = getenv("SHELL");
-    QString shellProg = envshell != NULL ? envshell : "/bin/bash";
-    session->setProgram(shellProg);
+    const QString envShell = QString::fromLocal8Bit(qgetenv("SHELL"));
+    const QString defaultShell = QLatin1String("/bin/bash");
+    session->setProgram(envShell.isEmpty() ? defaultShell : envShell);
 
     setenv("TERM", "xterm", 1);
 
@@ -172,7 +172,15 @@ void KSession::setEnvironment(const QStringList &environment)
 
 void KSession::setShellProgram(const QString &progname)
 {
-    m_session->setProgram(progname);
+    const QString envShell = QString::fromLocal8Bit(qgetenv("SHELL"));
+    const QString defaultShell = QLatin1String("/bin/bash");
+    const QString shell = envShell.isEmpty() ? defaultShell : envShell;
+    const QString shellToUse = progname.isEmpty() ? shell : progname;
+
+    if (shellToUse != m_session->program()) {
+        m_session->setProgram(shellToUse);
+        emit shellProgramChanged();
+    }
 }
 
 void KSession::setInitialWorkingDirectory(const QString &dir)
@@ -299,6 +307,11 @@ QString KSession::keyBindings()
 QString KSession::getTitle()
 {
     return m_session->userTitle();
+}
+
+QString KSession::getShellProgram() const
+{
+    return m_session->program();
 }
 
 bool KSession::hasActiveProcess() const
