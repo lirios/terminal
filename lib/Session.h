@@ -187,7 +187,7 @@ public:
     /** Sets the program to be executed when run() is called. */
     void setProgram(const QString & program);
 
-    /** Returns the session's current working directory. */
+    /** Returns the session's initial working directory. */
     QString initialWorkingDirectory() {
         return _initialWorkingDir;
     }
@@ -197,6 +197,9 @@ public:
      * This has no effect once the session has been started.
      */
     void setInitialWorkingDirectory( const QString & dir );
+
+    /** Returns the session's current working directory. */
+    QString workingDirectory();
 
     /**
      * Sets the type of history store used by this session.
@@ -479,7 +482,7 @@ private slots:
     void monitorTimerDone();
 
     void onViewSizeChange(int height, int width);
-    void onEmulationSizeChange(int lines , int columns);
+    void onEmulationSizeChange(QSize);
 
     void activityStateSet(int);
 

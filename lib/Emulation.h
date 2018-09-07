@@ -120,7 +120,7 @@ enum
  * how long the emulation has been active/idle for and also respond to
  * a 'bell' event in different ways.
  */
-class Q_DECL_EXPORT Emulation : public QObject
+class KONSOLEPRIVATE_EXPORT Emulation : public QObject
 { 
 Q_OBJECT
 
@@ -388,6 +388,18 @@ signals:
    * screen size.
    */
   void imageSizeChanged(int lineCount , int columnCount);
+
+  /**
+   * Emitted when the setImageSize() is called on this emulation for
+   * the first time.
+   */
+  void imageSizeInitialized();
+
+  /**
+   * Emitted after receiving the escape sequence which asks to change
+   * the terminal emulator's size
+   */
+  void imageResizeRequest(const QSize& sizz);
 
   /** 
    * Emitted when the terminal program requests to change various properties

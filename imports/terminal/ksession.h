@@ -42,6 +42,8 @@ class KSession : public QObject
     Q_PROPERTY(QString  history READ getHistory)
     Q_PROPERTY(bool hasActiveProcess READ hasActiveProcess)
     Q_PROPERTY(QString foregroundProcessName READ foregroundProcessName)
+    Q_PROPERTY(QString workingDirectory READ workingDirectory)
+    Q_PROPERTY(int sessionId READ sessionId CONSTANT)
 
 public:
     KSession(QObject *parent = 0);
@@ -63,6 +65,9 @@ public:
     //Initial working directory
     void setInitialWorkingDirectory(const QString & dir);
     QString getInitialWorkingDirectory();
+
+    // Current working directory
+    QString workingDirectory();
 
     //Text codec, default is UTF-8
     void setTextCodec(QTextCodec * codec);
@@ -106,6 +111,11 @@ public:
      * Returns the name of the terminal's foreground process.
      */
     QString foregroundProcessName();
+
+    /**
+     * Returns the terminal's session id.
+     */
+    int sessionId();
 
 signals:
     void started();

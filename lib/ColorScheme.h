@@ -45,14 +45,16 @@ namespace Konsole
  * The color scheme includes the palette of colors used to draw the text and character backgrounds
  * in the display and the opacity level of the display background. 
  */
-class ColorScheme
+class ColorScheme : public QObject
 {
+    Q_OBJECT
+
 public:
     /** 
      * Constructs a new color scheme which is initialised to the default color set 
      * for Konsole.
      */
-    ColorScheme();
+    ColorScheme(QObject *parent = 0);
     ColorScheme(const ColorScheme& other);
     ~ColorScheme();
 
@@ -74,6 +76,7 @@ public:
     void write(KConfig& config) const;
 #endif
     void read(const QString & filename);
+    Q_INVOKABLE void write(const QString & filename) const;
 
     /** Sets a single entry within the color palette. */
     void setColorTableEntry(int index , const ColorEntry& entry);
@@ -95,6 +98,10 @@ public:
      * See getColorTable()
      */
     ColorEntry colorEntry(int index , uint randomSeed = 0) const;
+
+    Q_INVOKABLE QColor getColor(int index) const;
+    Q_INVOKABLE void setColor(int index, QColor color);
+    Q_SIGNAL void colorChanged(int index);
 
     /** 
      * Convenience method.  Returns the 
@@ -126,12 +133,13 @@ public:
      *
      * TODO: More documentation
      */
-    void setOpacity(qreal opacity);
+    Q_INVOKABLE void setOpacity(qreal opacity);
     /** 
      * Returns the opacity level for this color scheme, see setOpacity()
      * TODO: More documentation
      */
-    qreal opacity() const;
+    Q_INVOKABLE qreal opacity() const;
+    Q_SIGNAL void opacityChanged();
 
     /** 
      * Enables randomization of the background color.  This will cause
@@ -177,6 +185,7 @@ private:
     void writeColorEntry(KConfig& config , const QString& colorName, const ColorEntry& entry,const RandomizationRange& range) const;
 #endif
     void readColorEntry(QSettings *s, int index);
+    void writeColorEntry(QSettings *s, int index, const ColorEntry& entry) const;
 
     // sets the amount of randomization allowed for a particular color 
     // in the palette.  creates the randomization table if 
@@ -256,8 +265,10 @@ private:
  * Manages the color schemes available for use by terminal displays.
  * See ColorScheme
  */
-class ColorSchemeManager
+class ColorSchemeManager : public QObject
 {
+    Q_OBJECT
+
 public:
 
     /**
@@ -276,7 +287,7 @@ public:
     /**
      * Returns the default color scheme for Konsole
      */
-    const ColorScheme* defaultColorScheme() const;
+    ColorScheme* defaultColorScheme() const;
  
     /**
      * Returns the color scheme with the given name or 0 if no
@@ -286,7 +297,7 @@ public:
      * The first time that a color scheme with a particular name is
      * requested, the configuration information is loaded from disk.
      */
-    const ColorScheme* findColorScheme(const QString& name);
+    Q_INVOKABLE Konsole::ColorScheme* findColorScheme(const QString& name);
 
 #if 0
     /**
@@ -309,7 +320,7 @@ public:
      *
      * Subsequent calls will be inexpensive. 
      */
-    QList<const ColorScheme*> allColorSchemes();    
+    QList<ColorScheme*> allColorSchemes();
 
     /** Returns the global color scheme manager instance. */
     static ColorSchemeManager* instance();
@@ -326,7 +337,7 @@ public:
      * @param[in] path The path to KDE 4 .colorscheme or KDE 3 .schema.
      * @return Whether the color scheme is loaded successfully.
      */
-    bool loadCustomColorScheme(const QString& path);
+    Q_INVOKABLE bool loadCustomColorScheme(const QString& path);
 private:
     // loads a color scheme from a KDE 4+ .colorscheme file
     bool loadColorScheme(const QString& path);
@@ -342,12 +353,12 @@ private:
     // finds the path of a color scheme
     QString findColorSchemePath(const QString& name) const;
 
-    QHash<QString,const ColorScheme*> _colorSchemes;
+    QHash<QString,ColorScheme*> _colorSchemes;
     QSet<ColorScheme*> _modifiedSchemes;
 
     bool _haveLoadedAll;
 
-    static const ColorScheme _defaultColorScheme;
+    static ColorScheme _defaultColorScheme;
 
     static ColorSchemeManager * theColorSchemeManager;
 };

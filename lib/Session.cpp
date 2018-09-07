@@ -98,9 +98,11 @@ Session::Session(QObject* parent) :
              this, SIGNAL( changeTabTextColorRequest( int ) ) );
     connect( _emulation, SIGNAL(profileChangeCommandReceived(const QString &)),
              this, SIGNAL( profileChangeCommandReceived(const QString &)) );
-    // TODO
-    // connect( _emulation,SIGNAL(imageSizeChanged(int,int)) , this ,
-    //        SLOT(onEmulationSizeChange(int,int)) );
+
+    connect(_emulation, SIGNAL(imageResizeRequest(QSize)),
+            this, SLOT(onEmulationSizeChange(QSize)));
+    connect(_emulation, SIGNAL(imageSizeChanged(int, int)),
+            this, SLOT(onViewSizeChange(int, int)));
 
     //connect teletype to emulation backend
     _shellProcess->setUtf8Mode(_emulation->utf8());
@@ -169,6 +171,18 @@ void Session::setInitialWorkingDirectory(const QString & dir)
 {
     _initialWorkingDir = ShellCommand::expand(dir);
 }
+
+QString workingDirectoryForPid(qint64 pid)
+{
+    QString symlink = QString("/proc/%1/cwd").arg(pid);
+    return QFile::symLinkTarget(symlink);
+}
+
+QString Session::workingDirectory()
+{
+    return workingDirectoryForPid(_shellProcess->processId());
+}
+
 void Session::setArguments(const QStringList & arguments)
 {
     _arguments = ShellCommand::expand(arguments);
@@ -210,7 +224,6 @@ void Session::addView(TerminalDisplay * widget)
 
     QObject::connect( widget ,SIGNAL(destroyed(QObject *)) , this ,
                       SLOT(viewDestroyed(QObject *)) );
-
 }
 
 void Session::viewDestroyed(QObject * view)
@@ -333,7 +346,6 @@ void Session::run()
     }
 
     _shellProcess->setWriteable(false);  // We are reachable via kwrited.
-    qDebug() << "started!";
     emit started();
 }
 
@@ -485,9 +497,9 @@ void Session::onViewSizeChange(int /*height*/, int /*width*/)
 {
     updateTerminalSize();
 }
-void Session::onEmulationSizeChange(int lines , int columns)
+void Session::onEmulationSizeChange(QSize size)
 {
-    setSize( QSize(lines,columns) );
+    setSize(size);
 }
 
 void Session::updateTerminalSize()

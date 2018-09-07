@@ -100,7 +100,7 @@ const ColorEntry Konsole::base_color_table[TABLE_COLORS] =
 
 // static
 bool TerminalDisplay::_antialiasText = true;
-bool TerminalDisplay::HAVE_TRANSPARENCY = true;
+bool TerminalDisplay::HAVE_TRANSPARENCY = false;
 
 // we use this to force QPainter to display text in LTR mode
 // more information can be found in: http://unicode.org/reports/tr9/ 
@@ -162,13 +162,22 @@ void TerminalDisplay::setBackgroundColor(const QColor& color)
       // Avoid propagating the palette change to the scroll bar 
       _scrollBar->setPalette( QApplication::palette() );  
 
+    emit backgroundColorChanged();
     update();
 }
 void TerminalDisplay::setForegroundColor(const QColor& color)
 {
     _colorTable[DEFAULT_FORE_COLOR].color = color;
-
+    emit foregroundColorChanged();
     update();
+}
+QColor TerminalDisplay::backgroundColor() const
+{
+    return _colorTable[DEFAULT_BACK_COLOR].color;
+}
+QColor TerminalDisplay::foregroundColor() const
+{
+    return _colorTable[DEFAULT_FORE_COLOR].color;
 }
 void TerminalDisplay::setColorTable(const ColorEntry table[])
 {
@@ -176,6 +185,7 @@ void TerminalDisplay::setColorTable(const ColorEntry table[])
       _colorTable[i] = table[i];
 
   setBackgroundColor(_colorTable[DEFAULT_BACK_COLOR].color);
+  setForegroundColor(_colorTable[DEFAULT_FORE_COLOR].color);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -346,6 +356,7 @@ TerminalDisplay::TerminalDisplay(QQuickItem *parent)
 ,_resizeTimer(0)
 ,_flowControlWarningEnabled(false)
 ,_outputSuspendedLabel(0)
+,_colorSchemeRef(0)
 ,_lineSpacing(0)
 ,_colorsInverted(false)
 ,_blendColor(qRgba(0,0,0,0xff))
@@ -402,9 +413,7 @@ TerminalDisplay::TerminalDisplay(QQuickItem *parent)
   _scrollBar->setVisible(false);
   connect(_scrollBar, SIGNAL(valueChanged(int)), this, SIGNAL(scrollbarParamsChanged(int)));
 
-  // TODO Forcing rendering to Framebuffer. We need to determine if this is ok
-  // always or if we need to make this customizable.
-  setRenderTarget(QQuickPaintedItem::FramebufferObject);
+  setRenderTarget(QQuickPaintedItem::Image);
 
   // Enable drag and drop 
 //  setAcceptDrops(true); // attempt
@@ -677,20 +686,7 @@ void TerminalDisplay::drawCursor(QPainter& painter,
 
        if ( _cursorShape == BlockCursor )
        {
-            // draw the cursor outline, adjusting the area so that
-            // it is draw entirely inside 'rect'
-            int penWidth = qMax(1,painter.pen().width());
-
-            // QMLTermWidget: we need to add penWidth%2 to have a perfectly squared cursor
-//            painter.drawRect(cursorRect.adjusted(penWidth/2 + penWidth%2,
-//                                                 penWidth/2 + penWidth%2,
-
-            painter.drawRect(cursorRect.adjusted(+ penWidth/2 + penWidth%2,
-                                                 + penWidth/2 + penWidth%2,
-                                                 - penWidth/2 - penWidth%2,
-                                                 - penWidth/2 - penWidth%2));
-            //if ( hasFocus() )
-            if ( true ) //QMLTermWidget: Always fill the cursor. Even when not in focus.
+            if ( hasActiveFocus() )
             {
                 painter.fillRect(cursorRect, _cursorColor.isValid() ? _cursorColor : foregroundColor);
             
@@ -700,6 +696,8 @@ void TerminalDisplay::drawCursor(QPainter& painter,
                     // the cursor position is readable
                     invertCharacterColor = true;
                 }
+            } else {
+                painter.drawRect(cursorRect);
             }
        }
        else if ( _cursorShape == UnderlineCursor )
@@ -1663,7 +1661,7 @@ void TerminalDisplay::updateImageSize()
   int oldcol = _columns;
 
   makeImage();
-  
+
   // copy the old image to reduce flicker
   int lines = qMin(oldlin,_lines);
   int columns = qMin(oldcol,_columns);
@@ -2578,6 +2576,18 @@ void TerminalDisplay::pasteSelection()
   emitSelection(true,false);
 }
 
+// TODO: These 2 functions are not in the upstream LxQt version
+// See https://code.launchpad.net/~mcintire-evan/ubuntu-terminal-app/disable-paste/+merge/283244/comments/725331
+bool TerminalDisplay::isClipboardEmpty()
+{
+    return QApplication::clipboard()->text().isEmpty();
+}
+
+bool TerminalDisplay::isSelectionEmpty()
+{
+    return _screenWindow->selectedText(_preserveLineBreaks).isEmpty();
+}
+
 /* ------------------------------------------------------------------------- */
 /*                                                                           */
 /*                                Keyboard                                   */
@@ -2809,7 +2819,6 @@ bool TerminalDisplay::event(QEvent* event)
     case QEvent::PaletteChange:
     case QEvent::ApplicationPaletteChange:
         _scrollBar->setPalette( QApplication::palette() );
-      break;
     case QEvent::InputMethodQuery:
         inputMethodQuery(static_cast<QInputMethodQueryEvent *>(event));
         eventHandled = true;
@@ -3242,24 +3251,24 @@ QStringList TerminalDisplay::availableColorSchemes()
 void TerminalDisplay::setColorScheme(const QString &name)
 {
     if ( name != _colorScheme ) {
-        const ColorScheme *cs;
+        if (_colorSchemeRef) {
+            disconnect(_colorSchemeRef, 0, this, 0);
+        }
         // avoid legacy (int) solution
         if (!availableColorSchemes().contains(name))
-            cs = ColorSchemeManager::instance()->defaultColorScheme();
+            _colorSchemeRef = ColorSchemeManager::instance()->defaultColorScheme();
         else
-            cs = ColorSchemeManager::instance()->findColorScheme(name);
+            _colorSchemeRef = ColorSchemeManager::instance()->findColorScheme(name);
 
-        if (! cs)
+        if (! _colorSchemeRef)
         {
             qDebug() << "Cannot load color scheme: " << name;
             return;
         }
 
-        ColorEntry table[TABLE_COLORS];
-        cs->getColorTable(table);
-        setColorTable(table);
-
-        setFillColor(cs->backgroundColor());
+        connect(_colorSchemeRef, SIGNAL(colorChanged(int)), this, SLOT(applyColorScheme()));
+        connect(_colorSchemeRef, SIGNAL(opacityChanged()), this, SLOT(applyColorScheme()));
+        applyColorScheme();
         _colorScheme = name;
         emit colorSchemeChanged();
     }
@@ -3268,6 +3277,17 @@ void TerminalDisplay::setColorScheme(const QString &name)
 QString TerminalDisplay::colorScheme() const
 {
     return _colorScheme;
+}
+
+void TerminalDisplay::applyColorScheme()
+{
+    ColorEntry table[TABLE_COLORS];
+    _colorSchemeRef->getColorTable(table);
+    setColorTable(table);
+    QColor backgroundColor = _colorTable[DEFAULT_BACK_COLOR].color;
+    backgroundColor.setAlphaF(_colorSchemeRef->opacity());
+    setBackgroundColor(backgroundColor);
+    setFillColor(backgroundColor);
 }
 
 void TerminalDisplay::simulateKeyPress(int key, int modifiers, bool pressed, quint32 nativeScanCode, const QString &text)
@@ -3316,6 +3336,13 @@ bool TerminalDisplay::getUsesMouse()
 int TerminalDisplay::getScrollbarValue()
 {
     return _scrollBar->value();
+}
+
+void TerminalDisplay::setScrollbarValue(int value)
+{
+    if (value != _scrollBar->value()) {
+        _scrollBar->setValue(value);
+    }
 }
 
 int TerminalDisplay::getScrollbarMaximum()

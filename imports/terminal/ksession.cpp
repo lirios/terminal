@@ -84,7 +84,7 @@ Session *KSession::createSession(QString name)
     session->setCodec(QTextCodec::codecForName("UTF-8"));
 
     session->setFlowControlEnabled(true);
-    session->setHistoryType(HistoryTypeBuffer(1000));
+    session->setHistoryType(HistoryTypeBuffer(10000));
 
     session->setDarkBackground(true);
 
@@ -194,6 +194,11 @@ void KSession::setInitialWorkingDirectory(const QString &dir)
 QString KSession::getInitialWorkingDirectory()
 {
     return _initialWorkingDirectory;
+}
+
+QString KSession::workingDirectory()
+{
+    return m_session->workingDirectory();
 }
 
 void KSession::setArgs(const QStringList &args)
@@ -322,4 +327,9 @@ bool KSession::hasActiveProcess() const
 QString KSession::foregroundProcessName()
 {
     return m_session->foregroundProcessName();
+}
+
+int KSession::sessionId()
+{
+    return m_session->sessionId();
 }
