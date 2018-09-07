@@ -42,7 +42,8 @@ FluidControls.ApplicationWindow {
     minimumWidth: 250
     minimumHeight: 250
     width: 800
-    height: 600
+    height: 650
+    color: "transparent"
     visible: true
 
     Material.theme: Material.Dark
@@ -145,6 +146,8 @@ FluidControls.ApplicationWindow {
     }
 
     initialPage: FluidControls.Page {
+        background: Item {}
+
         appBar.customContent: TabSelector {
             id: tabsSelector
             model: ListModel {

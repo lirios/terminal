@@ -32,8 +32,8 @@ Dialog {
 
     modal: true
 
-    width: 560
-    height: 450
+    width: 500
+    height: 550
 
     ColumnLayout {
         id: settingsList
@@ -42,7 +42,6 @@ Dialog {
         anchors.leftMargin: -leftPadding
         anchors.rightMargin: -rightPadding
 
-        /* Opacity doesn't work
         FluidControls.ListItem {
             text: qsTr("Background opacity")
             hoverEnabled: false
@@ -62,7 +61,6 @@ Dialog {
                 onMoved: settings.opacity = opacitySlider.value
             }
         }
-        */
 
         FluidControls.ListItem {
             text: qsTr("Font size")

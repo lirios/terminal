@@ -31,6 +31,7 @@ Item {
 
     property alias terminal: terminal
     property alias session: terminal.session
+    property ColorScheme colorScheme: ColorSchemeManager.findColorScheme(settings.colorScheme)
 
     property string title: {
         var title = terminal.session.title ? terminal.session.title : qsTr("Terminal %1").arg(SwipeView.index + 1);
@@ -88,13 +89,13 @@ Item {
 
         Component.onCompleted: {
             terminal.session.startShellProgram();
+            tab.colorScheme.setOpacity(settings.opacity/100);
             tab.focus();
-            terminal.setOpacity(settings.opacity/100);
         }
 
         Connections {
             target: settings
-            onOpacityChanged: terminal.setOpacity(settings.opacity/100)
+            onOpacityChanged: tab.colorScheme.setOpacity(settings.opacity/100)
         }
 
         QMLTermScrollbar {
