@@ -121,6 +121,7 @@ Dialog {
                     ListElement { name: "Solarized"; description: "Solarized" }
                     ListElement { name: "Solarized Light"; description: "Solarized Light" }
                     ListElement { name: "Tango"; description: "Tango" }
+                    ListElement { name: "Ubuntu"; description: "Ubuntu" }
                     ListElement { name: "WhiteOnBlack"; description: "White on Black" }
                 }
                 textRole: "description"

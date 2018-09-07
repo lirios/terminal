@@ -79,6 +79,7 @@ QtGuiApplication {
             "Solarized.colorscheme",
             "SolarizedLight.colorscheme",
             "Tango.colorscheme",
+            "Ubuntu.colorscheme",
             "WhiteOnBlack.schema",
         ]
         fileTags: ["liri.terminal.color_schemes"]
