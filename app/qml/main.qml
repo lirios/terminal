@@ -86,18 +86,21 @@ FluidControls.ApplicationWindow {
         tabsModel.append({tab: tab});
         tabsView.addItem(tab);
         tabsView.currentIndex = tabIndex;
+        tabsSelector.currentIndex = tabsView.currentIndex;
         tabsView.currentItem.focus();
     }
 
     function gotoRightTab() {
         console.log("Going to right tab...");
         tabsView.incrementCurrentIndex();
+        tabsSelector.incrementCurrentIndex();
         tabsView.currentItem.focus();
     }
 
     function gotoLeftTab() {
         console.log("Going to left tab...");
         tabsView.decrementCurrentIndex();
+        tabsSelector.decrementCurrentIndex();
         tabsView.currentItem.focus();
     }
 
@@ -157,7 +160,7 @@ FluidControls.ApplicationWindow {
             model: ListModel {
                 id: tabsModel
             }
-            currentIndex: tabsView.currentIndex
+            onCurrentIndexChanged: tabsView.currentIndex = tabsSelector.currentIndex
         }
 
         actions: [
