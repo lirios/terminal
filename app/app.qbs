@@ -10,8 +10,11 @@ QtGuiApplication {
     cpp.defines: base.concat(['LIRITERMINAL_VERSION="' + project.version + '"'])
 
     files: [
-        "*.cpp",
-        "*.h",
+        "ActionHandler.cpp",
+        "ActionHandler.h",
+        "fontfamiliesmodel.cpp",
+        "fontfamiliesmodel.h",
+        "main.cpp",
     ]
 
     Qt.core.resourcePrefix: "/"
@@ -21,9 +24,9 @@ QtGuiApplication {
         name: "Resource Data"
         prefix: "qml/"
         files: [
-            "main.qml",
             "CommandItem.qml",
             "ConfirmCloseDialog.qml",
+            "main.qml",
             "Settings.qml",
             "SettingsDialog.qml",
             "SudoWarningDialog.qml",
