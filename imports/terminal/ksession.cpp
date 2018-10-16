@@ -73,7 +73,7 @@ Session *KSession::createSession(QString name)
     const QString defaultShell = QLatin1String("/bin/bash");
     session->setProgram(envShell.isEmpty() ? defaultShell : envShell);
 
-    setenv("TERM", "xterm", 1);
+    setenv("TERM", "xterm-256color", 1);
 
     //session->setProgram();
 
