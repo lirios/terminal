@@ -56,7 +56,7 @@ QtGuiApplication {
     }
 
     Group {
-        name: "AppStream Metadata"
+        name: "GSettings Schema"
         prefix: "../data/"
         files: ["io.liri.Terminal.gschema.xml"]
         qbs.install: true
