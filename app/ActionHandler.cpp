@@ -1,7 +1,9 @@
-/*
- * This file is part of Terminal.
+/****************************************************************************
+ * This file is part of Liri.
  *
  * Copyright (C) 2016 Žiga Patačko Koderman <ziga.patacko@gmail.com>
+ *
+ * $BEGIN_LICENSE:GPL3+$
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -10,20 +12,23 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
-
-#include "ActionHandler.h"
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * $END_LICENSE$
+ ***************************************************************************/
 
 #include <QProcess>
 
-ActionHandler::ActionHandler(QString action, QObject *parent) : QObject(parent), m_action(action)
+#include "ActionHandler.h"
+
+ActionHandler::ActionHandler(QString action, QObject *parent)
+    : QObject(parent)
+    , m_action(action)
 {
-    // Nothing needed here
 }
 
 bool ActionHandler::newWindow()
