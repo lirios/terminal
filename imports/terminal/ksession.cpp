@@ -314,6 +314,20 @@ QString KSession::getTitle()
     return m_session->userTitle();
 }
 
+QString KSession::displayedTitle() const
+{
+    return m_session->title(Session::DisplayedTitleRole);
+}
+
+void KSession::setDisplayedTitle(const QString &title)
+{
+    if (title == displayedTitle())
+        return;
+
+    m_session->setTitle(Session::DisplayedTitleRole, title);
+    Q_EMIT displayedTitleChanged();
+}
+
 QString KSession::getShellProgram() const
 {
     return m_session->program();

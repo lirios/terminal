@@ -34,7 +34,7 @@ Item {
     property ColorScheme colorScheme: ColorSchemeManager.findColorScheme(settings.colorScheme)
 
     property string title: {
-        var title = terminal.session.title ? terminal.session.title : qsTr("Terminal %1").arg(SwipeView.index + 1);
+        var title = terminal.session.displayedTitle ? terminal.session.displayedTitle : qsTr("Terminal %1").arg(SwipeView.index + 1);
 
         var titleParts = title.split(/\s+/);
 

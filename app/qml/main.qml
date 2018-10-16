@@ -20,10 +20,10 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.4
+import QtQuick 2.10
 import QtQuick.Window 2.2
-import QtQuick.Controls 2.0
-import QtQuick.Controls.Material 2.0
+import QtQuick.Controls 2.3
+import QtQuick.Controls.Material 2.3
 import QtQuick.Layouts 1.1
 import Fluid.Core 1.0
 import Fluid.Controls 1.1 as FluidControls
@@ -201,6 +201,11 @@ FluidControls.ApplicationWindow {
             //     text: qsTr("Search")
             // },
             FluidControls.Action {
+                text: qsTr("Rename...")
+                enabled: activeTab
+                onTriggered: renameDialog.open()
+            },
+            FluidControls.Action {
                 icon.source: FluidControls.Utils.iconUrl("action/settings")
                 text: qsTr("Settings")
                 onTriggered: settingsDialog.open()
@@ -258,6 +263,22 @@ FluidControls.ApplicationWindow {
 
     SudoWarningDialog {
         id: sudoWarningDialog
+    }
+
+    FluidControls.InputDialog {
+        id: renameDialog
+
+        x: (parent.width - width) / 2
+        y: (parent.height - height) / 2
+
+        title: qsTr("Rename")
+        text: qsTr("Type the new title for the current tab.")
+        standardButtons: Dialog.Ok | Dialog.Cancel
+
+        onAccepted: {
+            if (activeTab)
+                activeTab.session.displayedTitle = renameDialog.textField.text;
+        }
     }
 
     Component {

@@ -2,6 +2,7 @@
     This file is part of Konsole QML plugin,
     which is a terminal emulator from KDE.
 
+    Copyright (C) 2018 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
     Copyright 2013      by Dmitry Zagnoyko <hiroshidi@gmail.com>
 
     This program is free software; you can redistribute it and/or modify
@@ -37,6 +38,7 @@ class KSession : public QObject
     Q_PROPERTY(QString  kbScheme  READ  getKeyBindings WRITE setKeyBindings NOTIFY changedKeyBindings)
     Q_PROPERTY(QString  initialWorkingDirectory READ getInitialWorkingDirectory WRITE setInitialWorkingDirectory NOTIFY initialWorkingDirectoryChanged)
     Q_PROPERTY(QString  title READ getTitle WRITE setTitle NOTIFY titleChanged)
+    Q_PROPERTY(QString displayedTitle READ displayedTitle WRITE setDisplayedTitle NOTIFY displayedTitleChanged)
     Q_PROPERTY(QString  shellProgram READ getShellProgram WRITE setShellProgram NOTIFY shellProgramChanged)
     Q_PROPERTY(QStringList  shellProgramArgs WRITE setArgs)
     Q_PROPERTY(QString  history READ getHistory)
@@ -99,6 +101,9 @@ public:
 
     QString getTitle();
 
+    QString displayedTitle() const;
+    void setDisplayedTitle(const QString &title);
+
     QString getShellProgram() const;
 
     /**
@@ -130,6 +135,7 @@ signals:
     void changedKeyBindings(QString kb);
 
     void titleChanged();
+    void displayedTitleChanged();
 
     void historySizeChanged();
 
