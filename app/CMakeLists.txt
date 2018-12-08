@@ -12,7 +12,7 @@ liri_add_executable(LiriTerminal
     DEFINES
         #QT_NO_CAST_FROM_ASCII
         QT_NO_FOREACH
-        -DTERMINAL_VERSION="${PROJECT_VERSION}"
+        TERMINAL_VERSION="${PROJECT_VERSION}"
     APPDATA
         "${CMAKE_CURRENT_SOURCE_DIR}/../data/io.liri.Terminal.appdata.xml"
     DESKTOP
