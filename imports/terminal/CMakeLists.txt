@@ -1,0 +1,17 @@
+liri_add_qml_plugin(liriterminal
+    MODULE_PATH
+        "Liri/Terminal"
+    SOURCES
+        ksession.cpp
+        ksession.h
+        qmltermwidget_plugin.cpp
+        qmltermwidget_plugin.h
+    QML_FILES
+        qmldir
+        QMLTermScrollbar.qml
+    DEFINES
+        #QT_NO_CAST_FROM_ASCII
+        QT_NO_FOREACH
+    LIBRARIES
+        qmltermwidget
+)

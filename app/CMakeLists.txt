@@ -1,0 +1,28 @@
+liri_add_executable(LiriTerminal
+    OUTPUT_NAME
+        "liri-terminal"
+    SOURCES
+        ActionHandler.cpp
+        ActionHandler.h
+        fontfamiliesmodel.cpp
+        fontfamiliesmodel.h
+        main.cpp
+    RESOURCES
+        terminal.qrc
+    DEFINES
+        #QT_NO_CAST_FROM_ASCII
+        QT_NO_FOREACH
+        -DTERMINAL_VERSION="${PROJECT_VERSION}"
+    APPDATA
+        "${CMAKE_CURRENT_SOURCE_DIR}/../data/io.liri.Terminal.appdata.xml"
+    DESKTOP
+        "${CMAKE_CURRENT_SOURCE_DIR}/../data/io.liri.Terminal.desktop"
+    LIBRARIES
+        Qt5::Core
+        Qt5::Gui
+        Qt5::Widgets
+        Qt5::Qml
+        Qt5::Quick
+        Qt5::QuickControls2
+    GUI
+)
