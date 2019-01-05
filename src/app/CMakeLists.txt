@@ -14,9 +14,9 @@ liri_add_executable(LiriTerminal
         QT_NO_FOREACH
         TERMINAL_VERSION="${PROJECT_VERSION}"
     APPDATA
-        "${CMAKE_CURRENT_SOURCE_DIR}/../data/io.liri.Terminal.appdata.xml"
+        "${CMAKE_CURRENT_SOURCE_DIR}/io.liri.Terminal.appdata.xml"
     DESKTOP
-        "${CMAKE_CURRENT_SOURCE_DIR}/../data/io.liri.Terminal.desktop"
+        "${CMAKE_CURRENT_SOURCE_DIR}/io.liri.Terminal.desktop"
     LIBRARIES
         Qt5::Core
         Qt5::Gui

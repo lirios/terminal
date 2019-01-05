@@ -32,6 +32,6 @@ find_package(Qt5 "${QT_MIN_VERSION}"
 
 ## Add subdirectories:
 add_subdirectory(data)
-add_subdirectory(lib)
-add_subdirectory(imports/terminal)
-add_subdirectory(app)
+add_subdirectory(src/lib)
+add_subdirectory(src/imports/terminal)
+add_subdirectory(src/app)
