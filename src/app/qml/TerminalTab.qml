@@ -119,7 +119,11 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onPressed: tab.focus()
+            cursorShape: Qt.IBeamCursor
+            onPressed: {
+                tab.focus();
+                mouse.accepted = false;
+            }
         }
 
         function insertText(text) {
