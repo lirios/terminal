@@ -43,6 +43,8 @@ add_library(qmltermwidget STATIC
     kptydevice.h
     kptyprocess.cpp
     kptyprocess.h
+    utils.cpp
+    utils.h
 )
 target_include_directories(qmltermwidget
     PUBLIC

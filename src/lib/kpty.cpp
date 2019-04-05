@@ -145,6 +145,8 @@ extern "C" {
 //#include <kdebug.h>
 //#include <kstandarddirs.h>  // findExe
 
+#include "utils.h"
+
 // not defined on HP-UX for example
 #ifndef CTRL
 # define CTRL(x) ((x) & 037)
@@ -474,13 +476,15 @@ void KPty::setCTty()
     // and get rid of the old controlling terminal.
     setsid();
 
-    // make our slave pty the new controlling terminal.
+    if (!isRunningOnFlatpak()) {
+        // make our slave pty the new controlling terminal.
 #ifdef TIOCSCTTY
-    ioctl(d->slaveFd, TIOCSCTTY, 0);
+        ioctl(d->slaveFd, TIOCSCTTY, 0);
 #else
-    // __svr4__ hack: the first tty opened after setsid() becomes controlling tty
-    ::close(::open(d->ttyName, O_WRONLY, 0));
+        // __svr4__ hack: the first tty opened after setsid() becomes controlling tty
+        ::close(::open(d->ttyName, O_WRONLY, 0));
 #endif
+    }
 
     // make our new process group the foreground group on the pty
     int pgrp = getpid();

@@ -44,6 +44,7 @@
 #include "TerminalDisplay.h"
 #include "ShellCommand.h"
 #include "Vt102Emulation.h"
+#include "utils.h"
 
 // QMLTermWidget
 #include <QQuickWindow>
@@ -330,13 +331,39 @@ void Session::run()
     // the background color is deemed dark or not
     QString backgroundColorHint = _hasDarkBackground ? "COLORFGBG=15;0" : "COLORFGBG=0;15";
 
+    QStringList environmentVars = _environment;
+    environmentVars.append(backgroundColorHint);
+
+    // If we are running on Flatpak, we should have access to the host
+    if (isRunningOnFlatpak()) {
+        QStringList flatpakArgs;
+        flatpakArgs << QLatin1String("--host") << QLatin1String("--watch-bus");
+
+        for (const QString &envLine : environmentVars)
+            flatpakArgs << QStringLiteral("--env=%1").arg(envLine);
+
+        QStringList whitelist = QStringList()
+                << QLatin1String("TERM") << QLatin1String("PATH")
+                << QLatin1String("EDITOR") << QLatin1String("PS1")
+                << QLatin1String("DISPLAY") << QLatin1String("WAYLAND_DISPLAY");
+        for (const QString &envName : whitelist) {
+            const QString value = qEnvironmentVariable(qPrintable(envName));
+            if (!value.isEmpty())
+                flatpakArgs << QStringLiteral("--env=%1=%2").arg(envName).arg(value);
+        }
+
+        flatpakArgs << exec;
+        exec = QLatin1String("/usr/bin/flatpak-spawn");
+        arguments = flatpakArgs;
+    }
+
     /* if we do all the checking if this shell exists then we use it ;)
      * Dont know about the arguments though.. maybe youll need some more checking im not sure
      * However this works on Arch and FreeBSD now.
      */
     int result = _shellProcess->start(exec,
                                       arguments,
-                                      _environment << backgroundColorHint,
+                                      environmentVars,
                                       windowId(),
                                       _addToUtmp);
 
