@@ -1,0 +1,16 @@
+[Desktop Entry]
+Name=Liri Terminal
+Comment=Use the command line
+Keywords=shell;prompt;command;commandline;cmd;terminal;
+Exec=liri-terminal
+Icon=utilities-terminal
+Terminal=false
+StartupNotify=true
+Type=Application
+Categories=X-Liri;Qt;System;TerminalEmulator;
+
+
+# Translations
+Icon[lt]=utilities-terminal
+Name[lt]=Liri terminalas
+Comment[lt]=Naudoti komandų eilutę
