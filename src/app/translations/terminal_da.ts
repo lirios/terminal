@@ -166,7 +166,7 @@ Sørg for at du forstår hvad kommandoen gør, inden den bruges:</translation>
     <message>
         <location filename="../qml/main.qml" line="211"/>
         <source>Rename...</source>
-        <translation>Omdøb...</translation>
+        <translation>Omdøb ...</translation>
     </message>
     <message>
         <location filename="../qml/main.qml" line="217"/>
