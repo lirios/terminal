@@ -3,8 +3,8 @@ Terminal
 
 [![License](https://img.shields.io/badge/license-GPLv3.0-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
 [![GitHub release](https://img.shields.io/github/release/lirios/terminal.svg)](https://github.com/lirios/terminal)
-[![CI](https://github.com/lirios/terminal/workflows/CI/badge.svg?branch=develop)](https://github.com/lirios/terminal/actions?query=workflow%3ACI)
 [![GitHub issues](https://img.shields.io/github/issues/lirios/terminal.svg)](https://github.com/lirios/terminal/issues)
+[![CI](https://github.com/lirios/terminal/workflows/CI/badge.svg?branch=develop)](https://github.com/lirios/terminal/actions?query=workflow%3ACI)
 
 A Material Design terminal.
 
