@@ -9,7 +9,7 @@ source_file = translations/terminal.ts
 file_filter = translations/terminal_<lang>.ts
 
 [liri-terminal.desktop-file]
-type = DESKTOP
+type = PO
 source_lang = en
-source_file = src/app/io.liri.Terminal.desktop.in
-file_filter = translations/io.liri.Terminal_<lang>.desktop
+source_file = translations/data/desktop/desktop.pot
+file_filter = translations/data/desktop/<lang>.po

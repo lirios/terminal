@@ -1,7 +1,7 @@
 [Desktop Entry]
-Name=Liri Terminal
-Comment=Use the command line
-Keywords=shell;prompt;command;commandline;cmd;terminal;
+_Name=Liri Terminal
+_Comment=Use the command line
+_Keywords=shell;prompt;command;commandline;cmd;terminal;
 Exec=liri-terminal
 Icon=utilities-terminal
 Terminal=false
