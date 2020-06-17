@@ -4,17 +4,17 @@
     <message>
         <location filename="../src/app/qml/AddPasswordDialog.qml" line="28"/>
         <source>Add Password</source>
-        <translation type="unfinished"/>
+        <translation>Добавить пароль</translation>
     </message>
     <message>
         <location filename="../src/app/qml/AddPasswordDialog.qml" line="54"/>
         <source>Title</source>
-        <translation type="unfinished"/>
+        <translation>Заголовок</translation>
     </message>
     <message>
         <location filename="../src/app/qml/AddPasswordDialog.qml" line="63"/>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>Пароль</translation>
     </message>
 </context>
 <context>
@@ -37,7 +37,7 @@
     <message>
         <location filename="../src/app/qml/ConfirmCloseDialog.qml" line="39"/>
         <source>There are %1 processes running in this window. If you quit Terminal, the processes will end.</source>
-        <translation>В этом окне запущено несколько процессов (%1). Если закрыть «Терминал», то процессы будут прерваны.</translation>
+        <translation>В этом окне запущено несколько процессов %1. Если закрыть «Терминал», то процессы будут прерваны.</translation>
     </message>
     <message>
         <location filename="../src/app/qml/ConfirmCloseDialog.qml" line="40"/>
@@ -50,7 +50,7 @@
     <message>
         <location filename="../src/app/qml/PasswordsDialog.qml" line="28"/>
         <source>Passwords</source>
-        <translation type="unfinished"/>
+        <translation>Пароли</translation>
     </message>
     <message>
         <location filename="../src/app/qml/PasswordsDialog.qml" line="45"/>
@@ -60,7 +60,7 @@
     <message>
         <location filename="../src/app/qml/PasswordsDialog.qml" line="52"/>
         <source>Add Password</source>
-        <translation type="unfinished"/>
+        <translation>Добавить пароль</translation>
     </message>
     <message>
         <location filename="../src/app/qml/PasswordsDialog.qml" line="64"/>
@@ -73,32 +73,32 @@
     <message>
         <location filename="../src/app/qml/SettingsDialog.qml" line="32"/>
         <source>Settings</source>
-        <translation type="unfinished"/>
+        <translation>Настройки</translation>
     </message>
     <message>
         <location filename="../src/app/qml/SettingsDialog.qml" line="50"/>
         <source>Background opacity</source>
-        <translation type="unfinished"/>
+        <translation>Прозрачность фона</translation>
     </message>
     <message>
         <location filename="../src/app/qml/SettingsDialog.qml" line="70"/>
         <source>Font size</source>
-        <translation type="unfinished"/>
+        <translation>Кегль</translation>
     </message>
     <message>
         <location filename="../src/app/qml/SettingsDialog.qml" line="90"/>
         <source>Font family</source>
-        <translation type="unfinished"/>
+        <translation>Шрифт</translation>
     </message>
     <message>
         <location filename="../src/app/qml/SettingsDialog.qml" line="105"/>
         <source>Color scheme</source>
-        <translation type="unfinished"/>
+        <translation>Цветовая схема</translation>
     </message>
     <message>
         <location filename="../src/app/qml/SettingsDialog.qml" line="136"/>
         <source>Smart copy/paste</source>
-        <translation type="unfinished"/>
+        <translation>Умное копирование/вставка</translation>
     </message>
     <message>
         <location filename="../src/app/qml/SettingsDialog.qml" line="158"/>
@@ -111,24 +111,26 @@
     <message>
         <location filename="../src/app/qml/SudoWarningDialog.qml" line="33"/>
         <source>Paste this command?</source>
-        <translation type="unfinished"/>
+        <translation>Вставить эту команду?</translation>
     </message>
     <message>
         <location filename="../src/app/qml/SudoWarningDialog.qml" line="34"/>
         <source>This command is asking for administrative access to your computer.
 Copying commands from the internet can be dangerous.
 Be sure you understand what this command does before running it:</source>
-        <translation type="unfinished"/>
+        <translation>Эта команда запрашивает доступ от администратора к вашему компьютеру.
+Копирование команд из интернета может быть опасно.
+Убедитесь в том, что вы понимаете, что выполняет эта команда перед запуском:</translation>
     </message>
     <message>
         <location filename="../src/app/qml/SudoWarningDialog.qml" line="39"/>
         <source>Paste Anyway</source>
-        <translation type="unfinished"/>
+        <translation>Вставить все равно</translation>
     </message>
     <message>
         <location filename="../src/app/qml/SudoWarningDialog.qml" line="47"/>
         <source>Don&apos;t Paste</source>
-        <translation type="unfinished"/>
+        <translation>Не вставлять</translation>
     </message>
 </context>
 <context>
@@ -144,27 +146,27 @@ Be sure you understand what this command does before running it:</source>
     <message>
         <location filename="../src/app/qml/main.qml" line="169"/>
         <source>Copy</source>
-        <translation type="unfinished"/>
+        <translation>Копировать</translation>
     </message>
     <message>
         <location filename="../src/app/qml/main.qml" line="176"/>
         <source>Paste</source>
-        <translation type="unfinished"/>
+        <translation>Вставить</translation>
     </message>
     <message>
         <location filename="../src/app/qml/main.qml" line="183"/>
         <source>Open new tab</source>
-        <translation type="unfinished"/>
+        <translation>Открыть новую вкладку</translation>
     </message>
     <message>
         <location filename="../src/app/qml/main.qml" line="189"/>
         <source>Open new window</source>
-        <translation type="unfinished"/>
+        <translation>Открыть новое окно</translation>
     </message>
     <message>
         <location filename="../src/app/qml/main.qml" line="211"/>
         <source>Rename...</source>
-        <translation type="unfinished"/>
+        <translation>Переименовать...</translation>
     </message>
     <message>
         <location filename="../src/app/qml/main.qml" line="217"/>
@@ -174,12 +176,12 @@ Be sure you understand what this command does before running it:</source>
     <message>
         <location filename="../src/app/qml/main.qml" line="281"/>
         <source>Rename</source>
-        <translation type="unfinished"/>
+        <translation>Переименовать</translation>
     </message>
     <message>
         <location filename="../src/app/qml/main.qml" line="282"/>
         <source>Type the new title for the current tab.</source>
-        <translation type="unfinished"/>
+        <translation>Введите новое название текущей таблицы</translation>
     </message>
 </context>
 </TS>
