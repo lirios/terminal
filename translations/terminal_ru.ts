@@ -103,7 +103,7 @@
     <message>
         <location filename="../src/app/qml/SettingsDialog.qml" line="158"/>
         <source>Shell program</source>
-        <translation type="unfinished"/>
+        <translation>программа Shell</translation>
     </message>
 </context>
 <context>
@@ -120,7 +120,7 @@ Copying commands from the internet can be dangerous.
 Be sure you understand what this command does before running it:</source>
         <translation>Эта команда запрашивает доступ от администратора к вашему компьютеру.
 Копирование команд из интернета может быть опасно.
-Убедитесь в том, что вы понимаете, что выполняет эта команда перед запуском:</translation>
+Убедитесь в том, что вы понимаете, что выполняет эта команда перед ее запуском:</translation>
     </message>
     <message>
         <location filename="../src/app/qml/SudoWarningDialog.qml" line="39"/>
