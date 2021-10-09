@@ -33,3 +33,5 @@ liri_add_executable(LiriTerminal
         Qt5::QuickControls2
     GUI
 )
+
+liri_finalize_executable(LiriTerminal)

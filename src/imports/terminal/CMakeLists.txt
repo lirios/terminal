@@ -15,3 +15,5 @@ liri_add_qml_plugin(liriterminal
     LIBRARIES
         qmltermwidget
 )
+
+liri_finalize_qml_plugin(liriterminal)
