@@ -1,6 +1,8 @@
-liri_add_qml_plugin(liriterminal
+liri_add_qml_plugin(TerminalQmlPlugin
     MODULE_PATH
         "Liri/Terminal"
+    OUTPUT_NAME
+        liriterminalplugin
     SOURCES
         ksession.cpp
         ksession.h
@@ -16,4 +18,4 @@ liri_add_qml_plugin(liriterminal
         qmltermwidget
 )
 
-liri_finalize_qml_plugin(liriterminal)
+liri_finalize_qml_plugin(TerminalQmlPlugin)
