@@ -1,15 +1,15 @@
 [main]
 host = https://www.transifex.com
 
-[liri-terminal.app]
-type = QT
-source_lang = en
-liri_source_directory = src/app
-source_file = translations/terminal.ts
+[o:lirios:p:liri-terminal:r:app]
 file_filter = translations/terminal_<lang>.ts
-
-[liri-terminal.desktop-file]
-type = PO
+source_file = translations/terminal.ts
 source_lang = en
-source_file = translations/data/desktop/desktop.pot
+type        = QT
+
+[o:lirios:p:liri-terminal:r:desktop-file]
 file_filter = translations/data/desktop/<lang>.po
+source_file = translations/data/desktop/desktop.pot
+source_lang = en
+type        = PO
+
